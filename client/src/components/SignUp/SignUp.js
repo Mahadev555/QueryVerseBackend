@@ -141,7 +141,7 @@ export default function SignUp() {
             window.alert("Submitted");
         } catch (error) {
             // Handle errors
-            window.alert("Form not submitted");
+            window.alert(error.response.data.message );
             console.error('Error submitting form:', error);
         }
     };
@@ -218,6 +218,7 @@ export default function SignUp() {
                                     onChange={handleConfirmPass}
                                 />
                             </Grid>
+                            
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     required
