@@ -12,10 +12,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
 //Importing internal files
-import user_1 from '../../../../data/images/Mountain1.jpg'
-import user_2 from '../../../../data/images/Mountain2.jpeg'
-import user_3 from '../../../../data/images/Mountain3.jpg'
-import user_4 from '../../../../data/images/Mountain4.jpg'
+import user_1 from '../../../../data/images/Mahadev.jpg'
+import user_2 from '../../../../data/images/Kishor.jpg'
+import user_3 from '../../../../data/images/Yash.jpeg'
+import user_4 from '../../../../data/images/Omkar.jpeg'
 
 //Defining Styles
 const customStyle = makeStyles({
@@ -76,30 +76,30 @@ export default function UpperCard () {
             <Box>
                 <div>
                     
-                <List sx={{ width: '100%', maxWidth: 350, bgcolor: 'background.paper', borderRadius: 5 }}>
+                <List sx={{ width: '100%', maxWidth: 350, bgcolor: '', borderRadius: 5 }}>
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar alt="Kaiwalya Koparkar" src={user_1} />
+                            <Avatar alt="Mahadev Manerikar" src={user_1} />
                         </ListItemAvatar>
-                        <ListItemText primary="Kaiwalya Koparkar"/>
+                        <ListItemText primary="Mahadev Manerikar"/>
                     </ListItem>
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar alt="Vadanya Wabale" src={user_2} />
+                            <Avatar alt="Kishor Maski" src={user_2} />
                         </ListItemAvatar>
-                        <ListItemText primary="Vadanya Wabale" />
+                        <ListItemText primary="Kishor Maski" />
                     </ListItem>
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar alt="Pragati More" src={user_3} />
+                            <Avatar alt="Yash Sasane" src={user_3} />
                         </ListItemAvatar>
-                        <ListItemText primary="Pragati More" />
+                        <ListItemText primary="Yash Sasane" />
                     </ListItem>
                     <ListItem>
                         <ListItemAvatar>
-                            <Avatar alt="Mrunaal Chincholikar" src={user_4} />
+                            <Avatar alt="Omkar Pawar" src={user_4} />
                         </ListItemAvatar>
-                        <ListItemText primary="Mrunaal Chincholikar"/>
+                        <ListItemText primary="Omkar Pawar"/>
                     </ListItem>
                 </List>
 
@@ -109,3 +109,5 @@ export default function UpperCard () {
         </Box>
     )
 }
+
+//  npm install material-ui-search-bar --force

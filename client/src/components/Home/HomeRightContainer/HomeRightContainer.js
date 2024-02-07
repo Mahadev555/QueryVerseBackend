@@ -98,7 +98,7 @@ export default function HomeRightContainer () {
                 <List sx={{ width: '93%', maxWidth: 350, bgcolor: 'background.paper', borderRadius: 5, color: "secondary.main", pl:2,fontWeight: 600 }}>
                     <ListItem>
                         <MenuBookOutlinedIcon sx={{mr: 2}} />
-                        <ListItemText primary="Courses"/>
+                        <ListItemText primary="E-Books"/>
                     </ListItem>
                     <ListItem>
                         <BusinessCenterOutlinedIcon sx={{mr: 2}} />
@@ -114,7 +114,7 @@ export default function HomeRightContainer () {
                     </ListItem>
                     <ListItem>
                         <ArchiveOutlinedIcon sx={{mr: 2}} />
-                        <ListItemText primary="Other"/>
+                        <ListItemText primary="Documentation Guidance"/>
                     </ListItem>
                     
                 </List>

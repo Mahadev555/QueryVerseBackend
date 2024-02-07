@@ -67,7 +67,7 @@ export default function MerchCard () {
                     }}
                     style={{ fontWeight: 600 }}
                 >
-                    New Merch Available
+                    New Upcoming Events
                 </Typography>
 
                 <Box
@@ -86,7 +86,7 @@ export default function MerchCard () {
                         }}
                         style={{color:"#ffffff"}}
                     >
-                        Go to store
+                        Buy Tickets
                     </Button>
                 </Box>
             </Box>

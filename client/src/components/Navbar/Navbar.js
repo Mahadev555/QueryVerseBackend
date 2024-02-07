@@ -8,8 +8,7 @@ import Grid from '@mui/material/Grid';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'; 
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
@@ -78,9 +77,9 @@ export default function Navbar() {
                                             mr:5,
                                             ml:3
                                         }}
-                                        color="#ffff"
+                                        color="#ffffff"
                                         >
-                                        QuFoCo
+                                        QVerse
                                     </Typography>
                                 </Box>
 
@@ -97,19 +96,7 @@ export default function Navbar() {
                                 >
                                     <HomeOutlinedIcon />
                                 </IconButton>
-                                <IconButton 
-                                    color="secondary" 
-                                    size="large" 
-                                    edge="start" 
-                                    aria-label="explore" 
-                                    component="span"
-                                    sx={{
-                                        mr:2
-                                    }}
-                                    className={classes.icons}
-                                >
-                                    <ExploreOutlinedIcon />
-                                </IconButton>
+                                 
                                 <IconButton 
                                     color="secondary" 
                                     size="large" 

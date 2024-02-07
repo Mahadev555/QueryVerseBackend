@@ -16,10 +16,10 @@ const customTheme = createTheme({
         main: '#fffff'
       },
       secondary: {
-        main: '#6563ff'
+        main: '#9900cc'
       },
       success: {
-        main: '#29AF7C'
+        main: '#9900cc'
       }
     },
     typography: {
