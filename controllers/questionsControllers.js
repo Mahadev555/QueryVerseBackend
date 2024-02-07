@@ -52,6 +52,7 @@ exports.postNewQuestion = catchAsync ( async (req, res, next) => {
 	//User Part
 	//Finding the user info of the logged in user
 	const user = await Users.findById(req.user.id);
+	console.log("🚀 ~ exports.postNewQuestion=catchAsync ~ user:", user)
 
 	const updatedUserObj = {questionsAsked: question.id};
 

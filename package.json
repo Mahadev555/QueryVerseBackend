@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "npm i && node server.js",
-    "start:dev": " nodemon server.js",
+    "dev": " nodemon server.js",
     "tests": "concurrently -s first -k \"node ./server.js\" \"sleep 1 && npm test\"",
     "test": "cucumber-js -p default",
     "importQuestionsData": "cd data/dev-data && node import-and-delete-data-script.js --import --questions",

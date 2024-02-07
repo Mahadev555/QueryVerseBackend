@@ -5,6 +5,8 @@ import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 
 //Importing Internal 
+
+import Navbar from "../Navbar/Navbar";
 import LeftHome from './HomeLeftContainer/HomeLeftContainer';
 import CenterHome from './HomeCenterContainer/HomeCenterContainer';
 import RightHome from './HomeRightContainer/HomeRightContainer';
@@ -23,10 +25,11 @@ export default function Body () {
 
     return (
         <div>
+            <Navbar />
             <Box 
                 sx={{ 
                     flexGrow: 1,
-                    mt:4
+                    mt:2
                 }}
             >
                 <Grid container spacing={5}>

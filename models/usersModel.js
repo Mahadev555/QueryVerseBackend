@@ -17,7 +17,7 @@ const usersSchema = new mongoose.Schema({
 		lowercase: true,
 		validate: [validator.isEmail, 'Please provide a valid email']
 	},
-	about: String,
+	about:{type:String},
 	yearOfAdmission: {
 		type: Number,
 		required: [true, 'Please provide your year of Admission']
@@ -25,7 +25,7 @@ const usersSchema = new mongoose.Schema({
 	courseYear: {
 		type: String,
 		required: [true, 'Please provide your course year. Any one of these -> FY/ SY/ TY. If a professor please enter -> Prof'],
-		enum: ['FY', 'SY', 'TY', 'Prof']
+		enum: ['FE', 'SE', 'TE', 'Prof']
 	},
 	currentStatus: {
 		type: String,
@@ -50,12 +50,12 @@ const usersSchema = new mongoose.Schema({
 	passwordConfirm: {
 		type: String,
 		required: [true, 'Please confirm the password'],
-		validate: {
-			validator: function(passwordForConfirmation) {
-				return passwordForConfirmation === this.password;
-			},
-			message: 'The password does not match please try again'
-		}
+		// validate: {
+		// 	validator: function(passwordForConfirmation) {
+		// 		return passwordForConfirmation === this.password;
+		// 	},
+		// 	message: 'The password does not match please try again'
+		// }
 	},
 	passwordChangedAt: Date,
 	passwordResetToken: String,

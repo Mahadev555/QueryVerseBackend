@@ -1,50 +1,50 @@
-//External module imports
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from '../Home/Home';
+import SignUp from '../SignUp/SignUp';
 
-//File Imports
-import Navbar from "../Navbar/Navbar";
-import Home from "../Home/Home";
-
-
-//Creating custom theme for the project
-//Creating override object
 const customTheme = createTheme({
-    palette: {
-      //Commented to use other components smoothly
-      primary: {
-        main: '#fffff'
-      },
-      secondary: {
-        main: '#9900cc'
-      },
-      success: {
-        main: '#9900cc'
-      }
+  palette: {
+    primary: {
+      main: '#fffff',
     },
-    typography: {
-      button: {
-        textTransform: 'none'
-      }
-    }
-})
+    secondary: {
+      main: '#9900cc',
+    },
+    success: {
+      main: '#9900cc',
+    },
+  },
+  typography: {
+    button: {
+      textTransform: 'none',
+    },
+  },
+});
 
-//Function handling the App renders
-export default function App() {
-    return (
-        <ThemeProvider theme={customTheme}>
-          <Box
-            sx={{ 
-              display: 'flex',
-              flexDirection: 'column' 
-            }}
-          >
-            {/*Rendering the Navbar function*/}
-            <Navbar />
-
-            {/*The application home will fall under this */}
-            <Home />
-          </Box>
-        </ThemeProvider>
-    )
+function App() {
+  return (
+    <ThemeProvider theme={customTheme}>
+      <Router>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {/* Define your routes using Switch and Route */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<SignUp />} />
+            {/* Add more routes as needed */}
+            {/* <Route path="/about" element={<About />} /> */}
+          </Routes>
+        </Box>
+      </Router>
+    </ThemeProvider>
+  );
 }
+
+export default App;
