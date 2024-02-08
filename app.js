@@ -16,6 +16,7 @@ const cors = require('cors');
 const questionsRoutes = require('./routes/questionsRoutes.js');
 const answersRoutes = require('./routes/answersRoutes.js');
 const usersRoutes = require('./routes/usersRoutes.js');
+const otpRoutes = require('./routes/otproute.js');
 const globalErrorHandler = require('./controllers/errorControllers.js');
 const appError = require('./utils/appError.js');
 
@@ -67,6 +68,7 @@ app.use(compression());
 app.use('/api/v1/questions', questionsRoutes);
 app.use('/api/v1/answers', answersRoutes);
 app.use('/api/v1/users', usersRoutes);
+app.use('/api/otp',otpRoutes)
 
 //Global error handlers added
 app.use(globalErrorHandler);
@@ -77,4 +79,4 @@ app.all('*', (req, res, next) => {
 });
 
 //--------- Post function Assignment ---------------
-module.exports = app;
+module.exports = app; 

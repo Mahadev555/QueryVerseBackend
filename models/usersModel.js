@@ -50,12 +50,12 @@ const usersSchema = new mongoose.Schema({
 	passwordConfirm: {
 		type: String,
 		required: [true, 'Please confirm the password'],
-		// validate: {
-		// 	validator: function(passwordForConfirmation) {
-		// 		return passwordForConfirmation === this.password;
-		// 	},
-		// 	message: 'The password does not match please try again'
-		// }
+		validate: {
+			validator: function(passwordForConfirmation) {
+				return passwordForConfirmation === this.password;
+			},
+			message: 'The password does not match please try again'
+		}
 	},
 	passwordChangedAt: Date,
 	passwordResetToken: String,
@@ -63,6 +63,9 @@ const usersSchema = new mongoose.Schema({
 	active: {
 		type: String,
 		default: true
+	},
+	otpVerifly:{
+		default: false
 	}
 });
 

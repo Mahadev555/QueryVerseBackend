@@ -29,24 +29,6 @@ function renderCourseYears() {
     ));
 }
 
-function renderRoles() {
-    const roles = ['Student', 'Professor', 'Admin'];
-    return roles.map((role) => (
-        <MenuItem key={role} value={role}>
-            {role}
-        </MenuItem>
-    ));
-}
-
-function renderStatuses() {
-    const statuses = ['Student', 'Passout', 'Dropout', 'Professor'];
-    return statuses.map((status) => (
-        <MenuItem key={status} value={status}>
-            {status}
-        </MenuItem>
-    ));
-}
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
@@ -56,8 +38,8 @@ export default function SignUp() {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [yearOfAdmission, setYearOfAdmission] = useState('');
     const [courseYear, setCourseYear] = useState('');
-    const [currentStatus, setCurrentStatus] = useState('');
-    const [role, setRole] = useState('');
+    const [isTap, setIsTap] = useState(false);
+    const [otp, setOTP] = useState('');
 
     const handleConfirmPass = (e) => {
         let inputValue = e.target.value;
@@ -89,64 +71,106 @@ export default function SignUp() {
         setCourseYear(inputValue);
     };
 
-    const handleCurrentStatusChange = (e) => {
-        let inputValue = e.target.value;
-        setCurrentStatus(inputValue);
+    const handleVerify = async () => {
+        // Add your OTP verification logic here
     };
 
-    const handleRoleChange = (e) => {
-        let inputValue = e.target.value;
-        setRole(inputValue);
-    };
 
-    const handleSubmit = async (event) => {
+    const handleOtp = async (event) => {
         event.preventDefault();
-        console.log("🚀 ~ SignUp ~ currentStatus:", currentStatus);
-        console.log("🚀 ~ SignUp ~ name:", name);
-        console.log("🚀 ~ SignUp ~ courseYear:", courseYear);
-        console.log("🚀 ~ SignUp ~ yearOfAdmission:", yearOfAdmission);
-        console.log("🚀 ~ SignUp ~ password:", password);
-        console.log("🚀 ~ SignUp ~ email:", email);
 
         try {
-            // Make an Axios POST request to your backend API
-            const response = await axios.post('api/v1/users/signup', {
-                
-                name:name,
-                email:email,
-                password:password,
-                passwordConfirm:passwordConfirm,
-                yearOfAdmission:yearOfAdmission,
-                courseYear:courseYear,
-                currentStatus:currentStatus,
-                role:role, 
+            const response = await axios.post('api/otp/sendOtp', {
+
+                email: email,
+
             });
-            console.log("🚀 ~ handleSubmit ~ response:", response)
-         
-          
+            console.log("🚀 ~ handleOtp ~ response:", response)
+            if (response.data.userExist === true) {
 
-            // Handle the response as needed
-            console.log(response.data);
+                window.alert("user already exists");
 
-            // Reset the form data after successful submission
-            setName('');
-            setEmail('');
-            setPassword('');
-            setPasswordConfirm('');
-            setYearOfAdmission('');
-            setCourseYear('');
-            setCurrentStatus('');
-            setRole('');
-            
-            window.alert("Submitted");
+            } else if (response.data.error === true) {
+
+                window.alert("OTP already sent");
+              
+            } else if (response.data.send === true) {
+
+                window.alert("OTP snet to email : " + email);
+                setIsTap(true)
+            } else {
+                window.alert("OTP not sent");
+            }
         } catch (error) {
-            // Handle errors
-            window.alert(error.response.data.message );
+            window.alert("enter all details carefully || internal server error");
             console.error('Error submitting form:', error);
         }
     };
 
-    return (
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
+        try {
+            await axios.post('api/otp/verifyOtp', {
+                email: email,
+                EnteredOtp:otp
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(response => {
+                if (response.data.otpMatch === true) {
+                    submit()
+                           
+                }
+                else {
+                    window.alert("Incorrect OTP , Please go back")
+                }
+                 
+                   
+                   
+                
+            })
+                console.log("🚀 ~ verifyOtp ~ EnteredOtp:", otp) 
+
+            // Additional actions after the API call if needed
+        } catch (error) {
+            console.error("Error adding name and email:", error);
+        }
+
+
+        
+    };
+
+    const submit =  async()=>{
+        try {
+            const response = await axios.post('api/v1/users/signup', {
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirm: passwordConfirm,
+                yearOfAdmission: yearOfAdmission,
+                courseYear: courseYear,
+            });
+
+            if (response.status === 201) {
+                setName('');
+                setEmail('');
+                setPassword('');
+                setPasswordConfirm('');
+                setYearOfAdmission('');
+                setCourseYear('');
+                window.alert("Submitted");
+            } else {
+                window.alert("exists");
+            }
+        } catch (error) {
+            window.alert(error.response.data.message);
+            console.error('Error submitting form:', error);
+        }
+    }
+
+    const signUpForm = (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -218,7 +242,7 @@ export default function SignUp() {
                                     onChange={handleConfirmPass}
                                 />
                             </Grid>
-                            
+
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     required
@@ -246,49 +270,13 @@ export default function SignUp() {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="statusLabel">Current Status</InputLabel>
-                                    <Select
-                                        labelId="statusLabel"
-                                        id="currentStatus"
-                                        name="currentStatus"
-                                        label="Current Status"
-                                        value={currentStatus}
-                                        onChange={handleCurrentStatusChange}
-                                    >
-                                        {renderStatuses()}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="roleLabel">Role</InputLabel>
-                                    <Select
-                                        labelId="roleLabel"
-                                        id="role"
-                                        name="role"
-                                        label="Role"
-                                        value={role}
-                                        onChange={handleRoleChange}
-                                    >
-                                        {renderRoles()}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
-                                />
-                            </Grid>
                         </Grid>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            onClick={handleSubmit}
+                            onClick={handleOtp}
                         >
                             Sign Up
                         </Button>
@@ -304,4 +292,51 @@ export default function SignUp() {
             </Container>
         </ThemeProvider>
     );
+
+    const verificationForm = (
+        <ThemeProvider theme={defaultTheme}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Verification
+                    </Typography>
+                    <Box component="form" noValidate sx={{ mt: 3 }}>
+                        {/* Add your verification form elements here */}
+                        <TextField
+                            required
+                            fullWidth
+                            name="otp"
+                            label="Enter OTP"
+                            type="text"
+                            id="otp"
+                            autoComplete="off"
+                            value={otp}
+                            onChange={(e) => setOTP(e.target.value)}
+                        />
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={handleSubmit}
+                        >
+                            Verify OTP
+                        </Button>
+                    </Box>
+                </Box>
+            </Container>
+        </ThemeProvider>
+    );
+
+    return isTap ? verificationForm : signUpForm;
 }

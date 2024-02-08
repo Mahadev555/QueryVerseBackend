@@ -10,7 +10,7 @@ const Question = require('../../models/questionsModel.js');
 const Answer = require('../../models/answersModel.js');
 
 //--------- Variable assignment ------------------
-const DB = process.env.DB_STRING.replace('<PASSWORD>', process.env.DB_PASSWORD);
+const DB = 'mongodb://localhost:27017/QueryVerse';
 const log = console.log;
 
 //--------- Functional code for this file ---------
