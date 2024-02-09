@@ -132,7 +132,7 @@ export default function Navbar() {
                                     component="span"
                                     sx={{
                                         mr: 1,
-                                        ml: -6,
+                                        ml: -18,
                                     }}
                                     className={classes.icons}
                                 >
@@ -147,7 +147,31 @@ export default function Navbar() {
                                         mt: 1,
                                         ml: 1.5,
                                     }}
-                                /> */}
+                                /> */}<Box
+                                    sx={{
+                                        width: 100,
+                                        height: 50,
+                                        mr: 1.5,
+                                        mt: 0.3,
+                                        backgroundColor: 'secondary.main',
+                                        borderRadius: 10,
+                                    }}
+                                >
+                                    <Typography
+                                        variant="h6"
+                                        component="h6"
+                                        sx={{
+                                            mt: 1.17,
+                                            mr: 5,
+                                            ml: 3,
+                                            cursor: 'pointer',
+                                        }}
+                                        color="#ffffff"
+                                        onClick={() => navigate('/login')}
+                                    >
+                                        Login
+                                    </Typography>
+                                </Box>
                                  <Box
                                     sx={{
                                         width: 120,

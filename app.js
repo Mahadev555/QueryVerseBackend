@@ -78,5 +78,5 @@ app.all('*', (req, res, next) => {
 	next(new appError(`${req.originalUrl} was not found on the server. Please check the Url :D`));
 });
 
-//--------- Post function Assignment ---------------
+//--------- Post function Assignment -------------
 module.exports = app; 

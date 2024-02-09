@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from '../Home/Home';
 import SignUp from '../SignUp/SignUp';
+import Login from '../SignUp/Login';
 
 const customTheme = createTheme({
   palette: {
@@ -38,8 +39,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
-            {/* Add more routes as needed */}
-            {/* <Route path="/about" element={<About />} /> */}
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Box>
       </Router>

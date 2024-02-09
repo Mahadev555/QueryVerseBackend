@@ -71,49 +71,61 @@ export default function SignUp() {
         setCourseYear(inputValue);
     };
 
-    const handleVerify = async () => {
-        // Add your OTP verification logic here
+    const handleForm = async () => {
+        if (!name || !email || !password || !passwordConfirm || !courseYear || !yearOfAdmission) {
+            window.alert("fill all details")
+        }
     };
 
 
     const handleOtp = async (event) => {
         event.preventDefault();
+        if (!name || !email || !password || !passwordConfirm || !courseYear || !yearOfAdmission) {
+            window.alert("fill all details")
+        } else if (password.length <= 8) {
+            window.alert("password length should be more than 8 ")
+        } else if (password != passwordConfirm) {
 
-        try {
-            const response = await axios.post('api/otp/sendOtp', {
+            window.alert("Password & Confirm password not matching");
 
-                email: email,
+        }
+        else {
+            try {
+                const response = await axios.post('api/otp/sendOtp', {
 
-            });
-            console.log("🚀 ~ handleOtp ~ response:", response)
-            if (response.data.userExist === true) {
+                    email: email,
 
-                window.alert("user already exists");
+                });
+                console.log("🚀 ~ handleOtp ~ response:", response)
+                if (response.data.userExist === true) {
 
-            } else if (response.data.error === true) {
+                    window.alert("user already exists");
 
-                window.alert("OTP already sent");
-              
-            } else if (response.data.send === true) {
+                } else if (response.data.error === true) {
 
-                window.alert("OTP snet to email : " + email);
-                setIsTap(true)
-            } else {
-                window.alert("OTP not sent");
+                    window.alert("OTP already sent");
+
+                } else if (response.data.send === true) {
+
+                    window.alert("OTP snet to email : " + email);
+                    setIsTap(true)
+                } else {
+                    window.alert("OTP not sent");
+                }
+            } catch (error) {
+                window.alert("enter all details carefully || internal server error");
+                console.error('Error submitting form:', error);
             }
-        } catch (error) {
-            window.alert("enter all details carefully || internal server error");
-            console.error('Error submitting form:', error);
         }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         try {
             await axios.post('api/otp/verifyOtp', {
                 email: email,
-                EnteredOtp:otp
+                EnteredOtp: otp
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,17 +133,17 @@ export default function SignUp() {
             }).then(response => {
                 if (response.data.otpMatch === true) {
                     submit()
-                           
+
                 }
                 else {
                     window.alert("Incorrect OTP , Please go back")
                 }
-                 
-                   
-                   
-                
+
+
+
+
             })
-                console.log("🚀 ~ verifyOtp ~ EnteredOtp:", otp) 
+            console.log("🚀 ~ verifyOtp ~ EnteredOtp:", otp)
 
             // Additional actions after the API call if needed
         } catch (error) {
@@ -139,10 +151,10 @@ export default function SignUp() {
         }
 
 
-        
+
     };
 
-    const submit =  async()=>{
+    const submit = async () => {
         try {
             const response = await axios.post('api/v1/users/signup', {
                 name: name,
@@ -282,7 +294,7 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="/login" variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>
