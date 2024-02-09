@@ -22,33 +22,36 @@ import { jwtDecode } from "jwt-decode";
 const defaultTheme = createTheme();
 
 
-
 function Login() {
+
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        
-        axios.post('/api/login', { email, password })
+    
+        axios.post('/api/v1/users/login', { email, password })
+            
             .then(response => {
+                console.log("🚀 ~ handleSubmit ~ email:", email)
+                console.log("🚀 ~ handleSubmit ~ password:", password)
+
+                console.log("🚀 ~ handleSubmit ~ response:", response)
                 if (response.data.userNotFound === true) {
                     window.alert("User not exists");
                 } else {
-                    if (response.data.passMatch === true) {
+                    if (response.data.status === "success"
+                    ) {
                         const token = response.data.token;
-
+     
                         const decoded = jwtDecode(token);
-
-                         
-
-                        console.log( "decoded" + decoded.id);
+                        console.log("decoded", decoded.id);
+     
                         navigate('/page4', {
                             state: {
+                                // You can pass additional data if needed
                             }
-                                 
                         });
                     } else {
                         window.alert("Entered wrong Password");
@@ -56,10 +59,13 @@ function Login() {
                 }
             })
             .catch(error => {
+                console.log("🚀 ~ handleSubmit ~ error:", error.response.data.message)
                 console.error('Login failed:', error);
-                window.alert("Login failed");
+                window.alert(error.response.data.message);
             });
+          
     };
+    
 
     const handlePass = (e) => {
         let inputValue = e.target.value;

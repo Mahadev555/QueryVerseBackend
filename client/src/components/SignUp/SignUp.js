@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -40,6 +41,7 @@ export default function SignUp() {
     const [courseYear, setCourseYear] = useState('');
     const [isTap, setIsTap] = useState(false);
     const [otp, setOTP] = useState('');
+    const navigate = useNavigate();
 
     const handleConfirmPass = (e) => {
         let inputValue = e.target.value;
@@ -173,6 +175,8 @@ export default function SignUp() {
                 setYearOfAdmission('');
                 setCourseYear('');
                 window.alert("Submitted");
+                navigate('/')
+
             } else {
                 window.alert("exists");
             }

@@ -82,43 +82,37 @@ exports.signup = catchAsync(async (req, res, next) => {
 	//========== JWT signing & sending response (Iteration 3)
 	createAndSendToken(newUser, 201, res);
 });
-
-//Logging in the new user and sending the cookie to the client side
 exports.login = catchAsync(async (req, res, next) => {
-	const email = req.body.email;
-	const password = req.body.password;
+    const email = req.body.email;
+    const password = req.body.password;
 
-	//Check if email and passwords are provided as they both are required for auth
-	if (!email || !password) {
-		return next(new AppError('Email and password both are required in order to login', 400));
-	}
+    const userExist = await User.findOne({ email });
 
-	//Check if the email exits && the password is correct
-	const user = await User.findOne({ email }).select('+password');
-	console.log("🚀 ~ exports.login=catchAsync ~ user:", user)
+    if (!userExist) {
+        return res.json({ userNotFound: true });
+    }
 
-	if (!user || !(await user.correctPassword(password, user.password))) {
-		res.status(201).json({
-			status: 'success',
-			data: {
-				passmatch: false
-			}
-		});
+    // Check if email and passwords are provided
+    if (!email || !password) {
+        return next(new AppError('Email and password both are required in order to login', 400));
+    }
 
-		return next(new AppError(`Incorrect email or password`, 401));
+    // Check if the email exists && the password is correct
+    const user = await User.findOne({ email }).select('+password');
 
-	}
+    if (!user || !(await user.correctPassword(password, user.password))) {
+        return res.status(401).json({
+            status: 'fail',
+            message: 'Incorrect email or password',
+            passMatch: false,
+        });
+    }
 
-	// res.status(201).json({
-	// 	status: 'success',
-	// 	data: {
-	// 	  passmatch: true
-	// 	}
-	//   });
-
-	//If everything is okay then create a new token and send it to the client side
-	createAndSendToken(user, 200, res);
+    // If everything is okay, then create a new token and send it to the client side
+    const token = createAndSendToken(user, 200, res);
+     
 });
+
 
 //Setting the JWT token as null which also signifies the user is logged out
 exports.logout = (req, res) => {
