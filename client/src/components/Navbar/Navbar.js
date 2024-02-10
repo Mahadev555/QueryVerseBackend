@@ -1,5 +1,5 @@
 // Importing necessary modules
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -31,12 +31,20 @@ const customStyle = makeStyles({
     },
 });
 
-export default function Navbar() {
+export default function Navbar( ) {
     const classes = customStyle();
     const navigate = useNavigate();
-
+  
 
     const [isLoggedin, setIsLoggedIn] = useState(false)
+    if(localStorage.getItem(token))
+    {
+        setIsLoggedIn(true);
+    }
+    else{
+        setIsLoggedIn(true);
+    }
+ 
     return (
         <div>
             <AppBar position="fixed" style={{ marginTop: "10px" }} color="primary" className={classes.navbar}>

@@ -31,6 +31,7 @@ function Login() {
 
     const navigate = useNavigate();
     const handleSubmit = (event) => {
+         
         event.preventDefault();
     
         axios.post('/api/v1/users/login', { email, password })
@@ -38,7 +39,7 @@ function Login() {
             .then(response => {
                 console.log("🚀 ~ handleSubmit ~ email:", email)
                 console.log("🚀 ~ handleSubmit ~ password:", password)
-
+                
                 console.log("🚀 ~ handleSubmit ~ response:", response)
                 if (response.data.userNotFound === true) {
                     window.alert("User not exists");
@@ -46,13 +47,16 @@ function Login() {
                     if (response.data.status === "success"
                     ) {
                         const token = response.data.token;
+                        localStorage.setItem(token);
+                        // localStorage.getItem(token);
      
                         const decoded = jwtDecode(token);
                         console.log("decoded", decoded.id);
-                        setlogged(true)
+                         
+
                         navigate('/', {
                             state: {
-                                logged:logged
+                                decoded:decoded
                             }
                                 
                         });
