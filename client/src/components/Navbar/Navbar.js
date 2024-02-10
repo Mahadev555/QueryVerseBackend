@@ -1,5 +1,5 @@
 // Importing necessary modules
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -34,9 +34,12 @@ const customStyle = makeStyles({
 export default function Navbar() {
     const classes = customStyle();
     const navigate = useNavigate();
+
+
+    const [isLoggedin, setIsLoggedIn] = useState(false)
     return (
         <div>
-            <AppBar position="fixed" style={{ marginTop:"10px"}} color="primary" className={classes.navbar}>
+            <AppBar position="fixed" style={{ marginTop: "10px" }} color="primary" className={classes.navbar}>
                 <Toolbar>
                     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
                         {/* Left side of navbar */}
@@ -140,63 +143,98 @@ export default function Navbar() {
                                         <NotificationsNoneOutlinedIcon />
                                     </Badge>
                                 </IconButton>
-                                {/* <Avatar
-                                    alt="Default User"
-                                    src={user_image}
-                                    sx={{
-                                        mt: 1,
-                                        ml: 1.5,
-                                    }}
-                                /> */}<Box
-                                    sx={{
-                                        width: 100,
-                                        height: 50,
-                                        mr: 1.5,
-                                        mt: 0.3,
-                                        backgroundColor: 'secondary.main',
-                                        borderRadius: 10,
-                                    }}
-                                >
-                                    <Typography
-                                        variant="h6"
-                                        component="h6"
-                                        sx={{
-                                            mt: 1.17,
-                                            mr: 5,
-                                            ml: 3,
-                                            cursor: 'pointer',
-                                        }}
-                                        color="#ffffff"
-                                        onClick={() => navigate('/login')}
-                                    >
-                                        Login
-                                    </Typography>
-                                </Box>
-                                 <Box
-                                    sx={{
-                                        width: 120,
-                                        height: 50,
-                                        mr: 1.5,
-                                        mt: 0.3,
-                                        backgroundColor: 'secondary.main',
-                                        borderRadius: 10,
-                                    }}
-                                >
-                                    <Typography
-                                        variant="h6"
-                                        component="h6"
-                                        sx={{
-                                            mt: 1.17,
-                                            mr: 5,
-                                            ml: 3,
-                                            cursor: 'pointer',
-                                        }}
-                                        color="#ffffff"
-                                        onClick={() => navigate('/signup')}
-                                    >
-                                        Register
-                                    </Typography>
-                                </Box>
+                                {isLoggedin ? (
+                                    <>
+                                        <Avatar
+                                            alt="Default User"
+                                            src={user_image}
+                                            sx={{
+                                                mt: 1,
+                                                ml: 1.5,
+                                            }}
+                                        />
+                                        <Box
+                                            sx={{
+                                                width: 120,
+                                                height: 50,
+                                                mr: 1.5,
+                                                ml: 3.5,
+                                                mt: 0.3,
+                                                backgroundColor: 'secondary.main',
+                                                borderRadius: 10,
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="h6"
+                                                component="h6"
+                                                sx={{
+                                                    mt: 1.17,
+                                                    mr: 5,
+                                                    ml: 3,
+                                                    cursor: 'pointer',
+                                                }}
+                                                color="#ffffff"
+                                                onClick={() => navigate('/')}
+                                            >
+                                                Logout
+                                            </Typography>
+                                        </Box>
+                                    </>
+                                ) : (
+                                    <>
+                                        {/* Your login and register components */}
+                                        <Box
+                                            sx={{
+                                                width: 100,
+                                                height: 50,
+                                                mr: 1.5,
+                                                mt: 0.3,
+                                                backgroundColor: 'secondary.main',
+                                                borderRadius: 10,
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="h6"
+                                                component="h6"
+                                                sx={{
+                                                    mt: 1.17,
+                                                    mr: 5,
+                                                    ml: 3,
+                                                    cursor: 'pointer',
+                                                }}
+                                                color="#ffffff"
+                                                onClick={() => navigate('/login')}
+                                            >
+                                                Login
+                                            </Typography>
+                                        </Box>
+                                        <Box
+                                            sx={{
+                                                width: 120,
+                                                height: 50,
+                                                mr: 1.5,
+                                                mt: 0.3,
+                                                backgroundColor: 'secondary.main',
+                                                borderRadius: 10,
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="h6"
+                                                component="h6"
+                                                sx={{
+                                                    mt: 1.17,
+                                                    mr: 5,
+                                                    ml: 3,
+                                                    cursor: 'pointer',
+                                                }}
+                                                color="#ffffff"
+                                                onClick={() => navigate('/signup')}
+                                            >
+                                                Register
+                                            </Typography>
+                                        </Box>
+                                    </>
+                                )}
                             </Box>
                         </Grid>
                     </Grid>

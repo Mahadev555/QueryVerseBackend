@@ -27,6 +27,8 @@ function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
+    const [logged, setlogged] = useState(false);
+
     const navigate = useNavigate();
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -47,11 +49,12 @@ function Login() {
      
                         const decoded = jwtDecode(token);
                         console.log("decoded", decoded.id);
-     
-                        navigate('/page4', {
+                        setlogged(true)
+                        navigate('/', {
                             state: {
-                                // You can pass additional data if needed
+                                logged:logged
                             }
+                                
                         });
                     } else {
                         window.alert("Entered wrong Password");
