@@ -47,16 +47,13 @@ function Login() {
                     if (response.data.status === "success"
                     ) {
                         const token = response.data.token;
-                        localStorage.setItem(token);
-                        // localStorage.getItem(token);
-     
-                        const decoded = jwtDecode(token);
-                        console.log("decoded", decoded.id);
-                         
+                        console.log("🚀 ~ handleSubmit ~ token:", token)
+                        localStorage.setItem("token",token);
+                        localStorage.setItem("name",response.data.data.user.name)
 
                         navigate('/', {
                             state: {
-                                decoded:decoded
+                                
                             }
                                 
                         });
@@ -64,6 +61,7 @@ function Login() {
                         window.alert("Entered wrong Password");
                     }
                 }
+             
             })
             .catch(error => {
                 console.log("🚀 ~ handleSubmit ~ error:", error.response.data.message)

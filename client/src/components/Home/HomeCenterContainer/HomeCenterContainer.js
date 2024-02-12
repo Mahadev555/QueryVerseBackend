@@ -14,7 +14,7 @@ export default function HomeCenterContainer() {
         const fetchData = async () => {
             try {
                 const response = await axios.get('api/v1/questions/');
-                setQuestions(response.data.data.questions); // Assuming your API response structure has a "data" field with a "questions" array
+                setQuestions(response.data.data.questions.reverse()); // Assuming your API response structure has a "data" field with a "questions" array
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

@@ -37,20 +37,52 @@ export default function Navbar( ) {
   
 
     const [isLoggedin, setIsLoggedIn] = useState(false)
-    if(localStorage.getItem(token))
-    {
-        setIsLoggedIn(true);
-    }
-    else{
-        setIsLoggedIn(true);
-    }
- 
+    
+    useEffect(() => {
+        // // Check if the token is present in localStorage or cookies
+        const getCookie = (name) => {
+            const cookies = document.cookie.split('; ');
+
+            for (const cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+
+                if (cookieName === name) {
+                    return decodeURIComponent(cookieValue);
+                }
+            }
+
+            return null; // Return null if the cookie is not found
+        };
+
+        // Example usage
+        // const jwtToken = getCookie('jwt_cookie');
+        const jwtToken = localStorage.getItem('token')
+        console.log("🚀 ~ useEffect ~ jwtToken:", jwtToken)
+
+        if (jwtToken) {
+            // Token is present, you can use it in your application
+            console.log(`JWT Token: ${jwtToken}`);
+            setIsLoggedIn(true);  // Set the state to true if the token is present
+        } else {
+            // Token is not present
+            console.log('JWT Token not found');
+        }
+    }, []);
+
+
+    const logout = () => {
+        // Remove the token from localStorage
+        localStorage.removeItem('token');
+     
+        navigate('/');
+        window.location.reload();
+    };
     return (
         <div>
-            <AppBar position="fixed" style={{ marginTop: "10px" }} color="primary" className={classes.navbar}>
+            <AppBar position="fixed" style={{ marginTop: "0px",borderRadius:'0px' }} color="primary" className={classes.navbar}>
                 <Toolbar>
                     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-                        {/* Left side of navbar */}
+                        
                         <Grid item xs={9}>
                             <Box
                                 sx={{
@@ -182,7 +214,7 @@ export default function Navbar( ) {
                                                     cursor: 'pointer',
                                                 }}
                                                 color="#ffffff"
-                                                onClick={() => navigate('/')}
+                                                onClick={logout}
                                             >
                                                 Logout
                                             </Typography>

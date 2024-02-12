@@ -20,6 +20,8 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 
+import { useNavigate } from 'react-router-dom';
+
 //Defining Styles
 const customStyle = makeStyles({
     root: {
@@ -39,9 +41,13 @@ const customStyle = makeStyles({
 })
 
 export default function HomeRightContainer () {
+    const navigate = useNavigate();
 
     const classes = customStyle();
-
+    const handleAdd = () => {
+        // Use the 'navigate' function to navigate to '/addTopic'
+        navigate('/addTopic');
+    };
     return (
         <div>
             <Button 
@@ -55,10 +61,12 @@ export default function HomeRightContainer () {
                     fontWeight: 600
                 }}
                 style={{color:"#ffffff"}}
+                onClick={handleAdd}
             >
                 <Typography
                     variant="h6" 
                     component="h6"
+                    
                 >
                     Ask New Topic
                 </Typography>

@@ -11,47 +11,49 @@ import LeftHome from './HomeLeftContainer/HomeLeftContainer';
 import CenterHome from './HomeCenterContainer/HomeCenterContainer';
 import RightHome from './HomeRightContainer/HomeRightContainer';
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom'; // Import Outlet
 
-//Creating styles
+import React from 'react';;
+
 const customStyle = makeStyles({
-    section: {
-        mr: 2,
-        textAlign: 'center'
-    }
-})
+  section: {
+    textAlign: 'center',
+  },
+  fixedLeft: {
+    position: 'fixed',
+    left: 0,
+    zIndex: 1,  // Set a higher z-index for the fixed element
+  },
+  fixedRight: {
+    position: 'fixed',
+    right: 0,
+    zIndex: 1,  // Set a higher z-index for the fixed element
+  },
+  moveableCenter: {
+    marginLeft: '330px',  // Adjust the width of the left column
+    marginRight: '170px', // Adjust the width of the right column
+  },
+});
 
-export default function Body () {
+export default function Body() {
+  const classes = customStyle();
 
-    // const [ss,setSs] = useState(false)
-    const classes = customStyle();
-    // const  location = useLocation(); 
-
-
-    // // // const prop = location.state.logged
-    // console.log("🚀 ~ Body ~ location:", location.state.decoded.id)
-   
-
-    return (
-        <div>
-            <Navbar   />
-            <Box 
-                sx={{ 
-                    flexGrow: 1,
-                    mt:2
-                }}
-            >
-                <Grid container spacing={5}>
-                    <Grid item xs={2.5} className={classes.section}>
-                        <LeftHome />
-                    </Grid>
-                    <Grid item xs={7} className={classes.section}>
-                        <CenterHome />
-                    </Grid>
-                    <Grid item xs={2.5} className={classes.section}>
-                        <RightHome />
-                    </Grid>
-                </Grid>
-            </Box>
-        </div>
-    )
+  return (
+    <div>
+      <Grid container spacing={5}>
+        {/* Fixed Left Column */}
+        <Grid item className={`${classes.section} ${classes.fixedLeft}`}>
+          <LeftHome />
+        </Grid>
+        {/* Moveable Center Column */}
+        <Grid item xs={7}  className={`${classes.section} ${classes.moveableCenter}`}>
+          <CenterHome  />
+        </Grid>
+        {/* Fixed Right Column */}
+        <Grid item xs={2.5} className={`${classes.section} ${classes.fixedRight}`}>
+          <RightHome />
+        </Grid>
+      </Grid>
+    </div>
+  );
 }
