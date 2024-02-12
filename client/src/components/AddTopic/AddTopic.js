@@ -129,7 +129,7 @@ export default function AddTopic() {
 
                     navigate('/');
                     window.alert("Successfully posted question");
-                    window.location.reload();
+                
 
                 } else {
                     window.alert("Question not posted");

@@ -50,13 +50,13 @@ function Login() {
                         console.log("🚀 ~ handleSubmit ~ token:", token)
                         localStorage.setItem("token",token);
                         localStorage.setItem("name",response.data.data.user.name)
-
+                        window.location.reload()
                         navigate('/', {
                             state: {
                                 
                             }
                                 
-                        });
+                        });window.location.reload()
                     } else {
                         window.alert("Entered wrong Password");
                     }

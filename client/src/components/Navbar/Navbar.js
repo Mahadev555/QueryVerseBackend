@@ -63,11 +63,12 @@ export default function Navbar( ) {
             // Token is present, you can use it in your application
             console.log(`JWT Token: ${jwtToken}`);
             setIsLoggedIn(true);  // Set the state to true if the token is present
+         ;
         } else {
             // Token is not present
             console.log('JWT Token not found');
         }
-    }, []);
+    }, [ ]);
 
 
     const logout = () => {
