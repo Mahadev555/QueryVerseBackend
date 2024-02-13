@@ -25,7 +25,7 @@ const usersSchema = new mongoose.Schema({
 	courseYear: {
 		type: String,
 		required: [true, 'Please provide your course year. Any one of these -> FY/ SY/ TY. If a professor please enter -> Prof'],
-		enum: ['FE', 'SE', 'TE', 'Prof']
+		enum: ['FE', 'SE', 'TE', 'BE']
 	},
 	currentStatus: {
 		type: String,
