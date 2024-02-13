@@ -52,12 +52,11 @@ export default function HomeRightContainer () {
     useEffect(() => {
          
         // const jwtToken = getCookie('jwt_cookie');
-        const jwtToken = localStorage.getItem('token')
-        console.log("🚀 ~ useEffect ~ jwtToken:", jwtToken)
+        const jwtToken = localStorage.getItem('token') 
 
         if (jwtToken) {
             // Token is present, you can use it in your application
-            console.log(`JWT Token: ${jwtToken}`);
+         
             setIsLoggedIn(true);  // Set the state to true if the token is present
          ;
         } else {
@@ -66,10 +65,16 @@ export default function HomeRightContainer () {
         }
     }, [ ]);
 
+
+    const alert = () => {
+        window.alert(" Please Login")
+    }
+
     const handleAdd = () => {
         // Use the 'navigate' function to navigate to '/addTopic'
         navigate('/addTopic');
     };
+
     return (
         <div>
             {isLoggedin ? (
@@ -105,13 +110,13 @@ export default function HomeRightContainer () {
       fontWeight: 600
     }}
     style={{color:"#ffffff"}}
-     
+     onClick={alert}
   >
     <Typography
       variant="h6" 
       component="h6"
     >
-     Please Login
+     Add New Topic
     </Typography>
   </Button>
 )}

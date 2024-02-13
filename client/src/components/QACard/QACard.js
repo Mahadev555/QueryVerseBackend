@@ -9,10 +9,12 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AnswerCard from './AnswerCard';
 import AnsContainer from './AnsContainer';
 import AddIcon from '@mui/icons-material/Add';
+import AddAnswer from './AddAnswer';
+import LockOutlined from '@mui/icons-material/LockOutlined';
 
 
 //Creating custom styles
@@ -39,15 +41,43 @@ export default function QACard(props) {
     const classes = customStyle();
     const upv = props.upv
     const downv = props.downv
-    const id = props.id
-    console.log("🚀 ~ QACard ~ id:", id)
-    const [isClick, setIsClick] = useState(false)
-    console.log("🚀 ~ QACard ~ isClick:", isClick)
+    const id = props.id 
 
+    const [isClick, setIsClick] = useState(false) 
+    const [isAnsClick, setIsAnsClick] = useState(false)
+    const [isLoggedin, setIsLoggedIn] = useState(false)
+    
+    useEffect(() => {
+         
+        // const jwtToken = getCookie('jwt_cookie');
+        const jwtToken = localStorage.getItem('token')
+         
+
+        if (jwtToken) {
+            // Token is present, you can use it in your application
+           
+            setIsLoggedIn(true);  // Set the state to true if the token is present
+         ;
+        } else {
+            // Token is not present
+            console.log('JWT Token not found');
+        }
+    }, [ ]);
 
     const handleClick = () => {
         setIsClick(!isClick);
     }
+
+    const handleAnsClick = () => {
+        setIsAnsClick(!isAnsClick);
+    }
+
+
+
+    const alert = () => {
+        window.alert(" Please Login")
+    }
+
     return (
         <div>
 
@@ -179,31 +209,57 @@ export default function QACard(props) {
                                         </Typography>
                                     </Stack>
                                 </Grid>
-                                <Button
-                                    startIcon={<AddIcon size="mediam" style={{ fontSize: 30, color: 'white' }} />}
+                                {isLoggedin ? ( <Button
+                                    startIcon={<AddIcon size="mediam" style={{ fontSize: 30, marginLeft: '5px', color: 'white' }} />}
                                     sx={{
-                                        width: 220,
-                                        height: 50,
+                                        width: 170,
+                                        height: 40,
                                         mr: 1.5,
-                                         
+
                                         backgroundColor: 'secondary.main',
-                                        borderRadius: 5
+                                        borderRadius: 2
                                     }}
+                                    onClick={handleAnsClick}
                                 >
                                     <Typography
                                         variant="h6"
                                         component="h6"
                                         sx={{
-                                            
-                                            mr: 5,
-                                            ml: 3,
+                                            mt: 0.5,
+                                            mr: 2,
+                                            ml: 1,
                                             fontSize: '15px'
                                         }}
                                         color="#ffffff"
                                     >
                                         Add Answer
                                     </Typography>
-                                </Button>
+                                </Button>):(<Button
+                                    startIcon={<LockOutlined size="mediam" style={{ fontSize: 20, marginLeft: '5px', color: 'white' }} />}
+                                    sx={{
+                                        width: 170,
+                                        height: 40,
+                                        mr: 1.5,
+
+                                        backgroundColor: 'secondary.main',
+                                        borderRadius: 2
+                                    }}
+                                    onClick={alert}
+                                >
+                                    <Typography
+                                        variant="h6"
+                                        component="h6"
+                                        sx={{
+                                            mt: 0.5,
+                                            mr: 2,
+                                            ml: 1,
+                                            fontSize: '15px'
+                                        }}
+                                        color="#ffffff"
+                                    >
+                                        Add Answer
+                                    </Typography>
+                                </Button>)}
                                 <Grid
                                     item
                                     xs={2}
@@ -235,6 +291,7 @@ export default function QACard(props) {
                 </Grid>
 
             </Box>
+            {isAnsClick && <AddAnswer id={id} />}
             {isClick && <AnsContainer id={id} />}
         </div>
     )

@@ -94,7 +94,7 @@ export default function AnswerCard(props) {
                                                 color: "#6563ff"
                                             }}
                                         >
-{props.upv}
+                                            {props.upv}
                                         </Typography>
                                         <ArrowDownwardIcon size="large" />
                                     </Stack>
@@ -112,7 +112,7 @@ export default function AnswerCard(props) {
                                             variant="h7"
                                             component="h7"
                                         >
-                                                {props.ans}
+                                            {props.ans}
                                         </Typography>
                                     </Stack>
                                 </Grid>
@@ -154,7 +154,7 @@ export default function AnswerCard(props) {
                                         <Typography sx={{
                                             color: "#6563ff"
                                         }}>
-                                           {props.usr}
+                                            {props.usr}
                                         </Typography>
                                     </Stack>
                                 </Grid>

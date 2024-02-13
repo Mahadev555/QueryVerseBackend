@@ -31,31 +31,18 @@ const customStyle = makeStyles({
     },
 });
 
-export default function Navbar( ) {
+export default function Navbar() {
     const classes = customStyle();
     const navigate = useNavigate();
-  
 
+    var name = localStorage.getItem("name").split(' ')
+    var Fname = name[0]
+    console.log("🚀 ~ Navbar ~ Fname:", Fname)
+    console.log("🚀 ~ Navbar ~ name:", name)
     const [isLoggedin, setIsLoggedIn] = useState(false)
-    
+
     useEffect(() => {
-        // // Check if the token is present in localStorage or cookies
-        // const getCookie = (name) => {
-        //     const cookies = document.cookie.split('; ');
 
-        //     for (const cookie of cookies) {
-        //         const [cookieName, cookieValue] = cookie.split('=');
-
-        //         if (cookieName === name) {
-        //             return decodeURIComponent(cookieValue);
-        //         }
-        //     }
-
-        //     return null; // Return null if the cookie is not found
-        // };
-
-        // Example usage
-        // const jwtToken = getCookie('jwt_cookie');
         const jwtToken = localStorage.getItem('token')
         console.log("🚀 ~ useEffect ~ jwtToken:", jwtToken)
 
@@ -63,12 +50,12 @@ export default function Navbar( ) {
             // Token is present, you can use it in your application
             console.log(`JWT Token: ${jwtToken}`);
             setIsLoggedIn(true);  // Set the state to true if the token is present
-         ;
+            ;
         } else {
             // Token is not present
             console.log('JWT Token not found');
         }
-    }, [ ]);
+    }, []);
 
 
     const logout = () => {
@@ -80,10 +67,10 @@ export default function Navbar( ) {
     };
     return (
         <div>
-            <AppBar position="fixed" style={{ marginTop: "0px",borderRadius:'0px' }} color="primary" className={classes.navbar}>
+            <AppBar position="fixed" style={{ marginTop: "0px", borderRadius: '0px' }} color="primary" className={classes.navbar}>
                 <Toolbar>
                     <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-                        
+
                         <Grid item xs={9}>
                             <Box
                                 sx={{
@@ -169,39 +156,65 @@ export default function Navbar( ) {
                                     mr: 2,
                                 }}
                             >
-                                <IconButton
-                                    color="secondary"
-                                    size="large"
-                                    edge="start"
-                                    aria-label="notification"
-                                    component="span"
-                                    sx={{
-                                        mr: 1,
-                                        ml: -18,
-                                    }}
-                                    className={classes.icons}
-                                >
-                                    <Badge color="error" variant="dot">
-                                        <NotificationsNoneOutlinedIcon />
-                                    </Badge>
-                                </IconButton>
+
                                 {isLoggedin ? (
-                                    <>
+                                    <><IconButton
+                                        color="secondary"
+                                        size="large"
+                                        edge="start"
+                                        aria-label="notification"
+                                        component="span"
+                                        sx={{
+                                            mr: 1,
+                                            ml: -28,
+                                        }}
+                                        className={classes.icons}
+                                    >
+                                        <Badge color="error" variant="dot">
+                                            <NotificationsNoneOutlinedIcon />
+                                        </Badge>
+                                    </IconButton>
                                         <Avatar
                                             alt="Default User"
                                             src={user_image}
                                             sx={{
                                                 mt: 1,
-                                                ml: 1.5,
+                                                ml: 0.5,
                                             }}
-                                        />
+                                        /> <Box
+                                        sx={{
+                                            width: 150,
+                                            height: 40,
+                                            mr: 0,
+                                            ml: 5.5,
+                                            mt: 2.1,
+
+                                            borderRadius: 10,
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="h7"
+                                            component="h7"
+                                            sx={{
+                                                mt: 1.6,
+                                                mr: 2,
+                                                ml: -3,
+                                                cursor: 'pointer',
+                                                fontWeight:'400'
+                                            }}
+                                            color="black "
+
+                                        >
+                                            {`Hi, ${Fname} `}
+                                        </Typography>
+                                    </Box> 
                                         <Box
                                             sx={{
                                                 width: 120,
-                                                height: 50,
+                                                height: 40,
                                                 mr: 1.5,
                                                 ml: 3.5,
-                                                mt: 0.3,
+                                                mt: 1.1,
                                                 backgroundColor: 'secondary.main',
                                                 borderRadius: 10,
                                             }}
@@ -210,7 +223,7 @@ export default function Navbar( ) {
                                                 variant="h6"
                                                 component="h6"
                                                 sx={{
-                                                    mt: 1.17,
+                                                    mt: 0.6,
                                                     mr: 5,
                                                     ml: 3,
                                                     cursor: 'pointer',
@@ -223,7 +236,22 @@ export default function Navbar( ) {
                                         </Box>
                                     </>
                                 ) : (
-                                    <>
+                                    <><IconButton
+                                        color="secondary"
+                                        size="large"
+                                        edge="start"
+                                        aria-label="notification"
+                                        component="span"
+                                        sx={{
+                                            mr: 1,
+                                            ml: -18,
+                                        }}
+                                        className={classes.icons}
+                                    >
+                                        <Badge color="error" variant="dot">
+                                            <NotificationsNoneOutlinedIcon />
+                                        </Badge>
+                                    </IconButton>
                                         {/* Your login and register components */}
                                         <Box
                                             sx={{

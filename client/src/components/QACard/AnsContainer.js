@@ -27,7 +27,7 @@ export default function AnsContainer(id) {
 
     return (
         <div >
-            <Stack sx={{mb: 1}}>
+            <Stack >
             {Answers.map((ele) => (
                 <AnswerCard key={ele._id} // Make sure to use a unique key for each item in the list
                         upv={ele.upvotes}

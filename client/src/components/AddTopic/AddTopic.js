@@ -42,15 +42,14 @@ export default function AddTopic() {
 
     // Convert the JSON string back to a JavaScript object
     var storedUserObject = JSON.parse(storedUserObjectString);
-
+ 
     // Now, storedUserObject contains your user object
 
     useEffect(() => {
         // Check if the token is present in localStorage
         const jwtToken = localStorage.getItem('token');
         setToken(jwtToken)
-        const name = localStorage.getItem('name');
-        setName(name)
+       
         if (jwtToken) {
             // Token is present, decode it
             // const decoded = jwtDecode(jwtToken);
@@ -172,18 +171,7 @@ export default function AddTopic() {
                         Add new Question
                     </Typography>
                     <Box component="form" noValidate sx={{ mt: 3 }}>
-                        <TextField
-                            autoComplete="name"
-                            name="name"
-                            required
-                            fullWidth
-                            id="name"
-                            label="Name"
-                            autoFocus
-                            value={storedUserObject.name}
-
-                            sx={{ margin: 2 }}
-                        />
+                        
                         <TextField
                             required
                             fullWidth
@@ -229,7 +217,7 @@ export default function AddTopic() {
                             sx={{ mt: 3, mb: 2, ml: 2 }}
                             onClick={handleSubmit}
                         >
-                            Post
+                            Post as a {storedUserObject.name}
                         </Button>
                     </Box>
                 </Box>
