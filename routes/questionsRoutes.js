@@ -21,5 +21,9 @@ routes.route('/:id')
 	.delete(authControllers.protect, questionsControllers.deleteQuestion)
 	.patch(authControllers.protect, questionsControllers.updateQuestion);
 
+routes.route('/ans/:id')
+	.get(questionsControllers.getAllAnswersForQuestion)
+	
+
 //--------- Post function Assignment ---------------
 module.exports = routes;

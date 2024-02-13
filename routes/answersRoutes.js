@@ -11,16 +11,20 @@ routes.use(express.json());
 
 //--------- Functional code for this file ---------
 
-//Route for '/'
-routes.route('/')
-	.get(answersControllers.getAllAnswers);
+// //Route for '/'
+// routes.route('/')
+// 	.get(answersControllers.getAllAnswers);
 
 //Route for '/id'
 routes.route('/:id')
-	.get(answersControllers.getSingleAnswer)
+	.get(answersControllers.getAllAnswersForQuestion)
 	.patch(authControllers.protect, answersControllers.updateAnswer)
 	.delete(authControllers.protect, answersControllers.deleteAnswer)
 	.post(authControllers.protect, answersControllers.postNewAnswer);
+
+
+	
+
 
 //--------- Post function Assignment ---------------
 module.exports = routes;

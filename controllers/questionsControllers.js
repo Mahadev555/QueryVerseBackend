@@ -4,6 +4,8 @@ const Users = require('../models/usersModel.js');
 const catchAsync = require('../utils/catchAsync.js');
 const AppError = require('../utils/appError.js');
 const ApiFeatures = require('../utils/apiFeatures.js');
+const Answers = require('../models/answersModel.js');
+
 
 //--------- Functional code for this file ---------
 
@@ -156,3 +158,44 @@ exports.updateQuestion = catchAsync ( async (req, res, next) => {
 		});
 	}
 });
+
+
+
+//get all answer for given question 
+exports.getAllAnswersForQuestion = catchAsync(async (req, res, next) => {
+	const questionId = req.params.id;
+  
+	try {
+	  // Find the question with the given ID
+	  const question = await Questions.findById(questionId);
+  
+	  if (!question) {
+		return res.status(404).json({
+		  status: 'Fail',
+		  message: 'Question not found',
+		});
+	  }
+  
+
+	 // Extract the answer IDs array from the question
+	 const answerIds = question.answers;
+
+	 // Fetch all answers for the given answer IDs
+	 const answersPromises = answerIds.map(answerId => Answers.findById(answerId));
+	 const answers = await Promise.all(answersPromises);
+	  res.status(200).json({
+		status: 'Success',
+		result: answers.length,
+		data: {
+		  answers,
+		},
+	  });
+	} catch (error) {
+	  console.error('Error fetching answers:', error);
+	  res.status(500).json({
+		status: 'Error',
+		message: 'Internal Server Error',
+	  });
+	}
+  });
+  

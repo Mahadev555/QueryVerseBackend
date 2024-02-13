@@ -170,3 +170,27 @@ exports.postNewAnswer = catchAsync ( async (req, res, next) => {
 		}
 	})
 });
+
+
+//get all answer for given question 
+exports.getAllAnswersForQuestion = catchAsync(async (req, res, next) => {
+	const questionId = req.params.questionId;
+  
+	// Check if the question ID is valid (you may want to add more validation)
+	// if (!questionId.match(/^[0-9a-fA-F]{24}$/)) {
+	//   return next(new AppError('Invalid question ID format', 400));
+	// }
+  
+	// Fetch answers for the specific question ID
+	const feature = Answers.find({ questionId })
+  
+	const answers = await feature.query;
+  
+	res.status(200).json({
+	  status: "Success",
+	  result: answers.length,
+	  data: {
+		answers
+	  }
+	});
+  });

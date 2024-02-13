@@ -7,6 +7,7 @@ require('dotenv').config();
 //--------- Importing internal modules and files ----------
 const app = require('./app.js');
 
+
 //--------- Variable assignment ------------------
 const PORT = process.env.PORT || 8080;
 const DOMAIN = process.env.DOMAIN || 'http://localhost';

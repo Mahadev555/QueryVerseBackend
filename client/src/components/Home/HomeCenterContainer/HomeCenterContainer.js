@@ -27,8 +27,10 @@ export default function HomeCenterContainer() {
         <div>
             <Stack>
                 {questions.map((ele) => (
+                    
                     <QACard
                         key={ele._id} // Make sure to use a unique key for each item in the list
+                        id={ele._id}
                         title={ele.questionTitle}
                         desc={ele.questionDescription}
                         upv={ele.upvotes}

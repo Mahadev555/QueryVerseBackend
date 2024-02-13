@@ -1,4 +1,3 @@
-//Importing external files/modules
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -10,12 +9,8 @@ import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import AnswerCard from './AnswerCard';
-import AnsContainer from './AnsContainer';
-import AddIcon from '@mui/icons-material/Add';
 
-
-//Creating custom styles
+// Creating custom styles
 const customStyle = makeStyles({
     root: {
         width: "fillParent",
@@ -34,29 +29,28 @@ const customStyle = makeStyles({
     }
 })
 
-//Main QACard function
-export default function QACard(props) {
+// Main QACard function
+export default function AnswerCard(props) {
     const classes = customStyle();
-    const upv = props.upv
-    const downv = props.downv
-    const id = props.id
-    console.log("🚀 ~ QACard ~ id:", id)
-    const [isClick, setIsClick] = useState(false)
-    console.log("🚀 ~ QACard ~ isClick:", isClick)
-
+    const [isClick, setIsClick] = useState(false);
 
     const handleClick = () => {
         setIsClick(!isClick);
-    }
+    };
+
     return (
         <div>
-
             <Box
                 sx={{
+                    mt: -2,
                     p: 2.5,
+                    pb: 0,
+                    ml: 28,
+                    mb: 3,
                     borderRadius: 5,
-                    boxShadow: 5,
-                    mb: 3
+                    width: '600px',
+                    height: 'auto',
+                    boxShadow: 5
                 }}
                 className={classes.root}
             >
@@ -67,19 +61,15 @@ export default function QACard(props) {
                     alignItems="stretch"
                     spacing={2}
                 >
-                    {/*The upvotes, downvotes, question, description*/}
-                    <Grid
-                        item
-                    >
+                    {/* The upvotes, downvotes, answer */}
+                    <Grid item>
                         <Box
                             sx={{
                                 borderRadius: 5
                             }}
                             className={classes.internalCardLayout}
                         >
-                            <Grid
-                                container
-                            >
+                            <Grid container>
                                 <Grid
                                     item
                                     xs={1.5}
@@ -104,7 +94,7 @@ export default function QACard(props) {
                                                 color: "#6563ff"
                                             }}
                                         >
-                                            {props.upv}
+{props.upv}
                                         </Typography>
                                         <ArrowDownwardIcon size="large" />
                                     </Stack>
@@ -114,23 +104,15 @@ export default function QACard(props) {
                                     item
                                     xs
                                     textAlign="left"
-                                    pt={4}
+                                    pt={2}
+
                                 >
-                                    <Stack
-                                        spacing={3}
-                                    >
+                                    <Stack spacing={3}>
                                         <Typography
-                                            variant="h5"
-                                            component="h5"
+                                            variant="h7"
+                                            component="h7"
                                         >
-                                            {props.title}
-                                        </Typography>
-                                        <Typography
-                                            sx={{
-                                                color: "#9e9e9e"
-                                            }}
-                                        >
-                                            {props.desc}
+                                                {props.ans}
                                         </Typography>
                                     </Stack>
                                 </Grid>
@@ -138,24 +120,21 @@ export default function QACard(props) {
                         </Box>
                     </Grid>
 
-                    {/*The Avatar, name, chat icon, number of comments*/}
-                    <Grid
-                        item
-                    >
+                    {/* The Avatar, name, chat icon, number of comments */}
+                    <Grid item>
                         <Box
                             sx={{
-                                pl: 4.5
+                                pl: 4.5,
+                                mt: -5
                             }}
                             className={classes.bottomCardLayout}
                         >
-                            <Grid
-                                container
-                            >
+                            <Grid container>
                                 <Grid
                                     item
                                     xs
                                     sx={{
-                                        mr: 2
+                                        ml: -2
                                     }}
                                 >
                                     <Stack
@@ -170,72 +149,21 @@ export default function QACard(props) {
                                                 color: "#9e9e9e"
                                             }}
                                         >
-                                            Published by
+                                            Answered by
                                         </Typography>
                                         <Typography sx={{
                                             color: "#6563ff"
                                         }}>
-                                            {props.usr}
+                                           {props.usr}
                                         </Typography>
                                     </Stack>
                                 </Grid>
-                                <Button
-                                    startIcon={<AddIcon size="mediam" style={{ fontSize: 30, color: 'white' }} />}
-                                    sx={{
-                                        width: 220,
-                                        height: 50,
-                                        mr: 1.5,
-                                         
-                                        backgroundColor: 'secondary.main',
-                                        borderRadius: 5
-                                    }}
-                                >
-                                    <Typography
-                                        variant="h6"
-                                        component="h6"
-                                        sx={{
-                                            
-                                            mr: 5,
-                                            ml: 3,
-                                            fontSize: '15px'
-                                        }}
-                                        color="#ffffff"
-                                    >
-                                        Add Answer
-                                    </Typography>
-                                </Button>
-                                <Grid
-                                    item
-                                    xs={2}
-                                >
-                                    <Button
-                                        direction="row"
-                                        alignItems="center"
-                                        spacing={2}
-                                        p={1}
-                                        onClick={handleClick}
-
-                                    >
-                                        <ChatBubbleOutlineIcon sx={{ color: "#9e9e9e", marginRight: "5px" }} />
-                                        <Typography
-                                            sx={{
-                                                color: "#9e9e9e"
-                                            }}
-                                        >
-                                            {props.ans.length}
-                                        </Typography>
-                                    </Button>
-                                </Grid>
 
                             </Grid>
-
                         </Box>
                     </Grid>
-
                 </Grid>
-
             </Box>
-            {isClick && <AnsContainer id={id} />}
         </div>
-    )
+    );
 }
