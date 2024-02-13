@@ -8,6 +8,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
+import { Button } from '@mui/material';
 
 //Creating custom styles
 const customStyle = makeStyles({
@@ -168,13 +169,14 @@ export default function QACard (props) {
                                     item
                                     xs={2}
                                 >
-                                    <Stack
+                                    <Button
                                         direction="row"
                                         alignItems="center"
                                         spacing={2}
                                         p={1}
+                                         
                                     >
-                                        <ChatBubbleOutlineIcon sx={{color: "#9e9e9e"}}/>
+                                        <ChatBubbleOutlineIcon sx={{color: "#9e9e9e",marginRight:"5px"}}/>
                                         <Typography
                                             sx={{
                                                 color: "#9e9e9e"
@@ -182,7 +184,7 @@ export default function QACard (props) {
                                         >
                                             {props.ans.length}
                                         </Typography>
-                                    </Stack> 
+                                    </Button> 
                                 </Grid>
                             </Grid>
                         </Box>

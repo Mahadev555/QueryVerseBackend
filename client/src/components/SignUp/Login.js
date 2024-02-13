@@ -31,15 +31,15 @@ function Login() {
 
     const navigate = useNavigate();
     const handleSubmit = (event) => {
-         
+
         event.preventDefault();
-    
+
         axios.post('/api/v1/users/login', { email, password })
-            
+
             .then(response => {
                 console.log("🚀 ~ handleSubmit ~ email:", email)
                 console.log("🚀 ~ handleSubmit ~ password:", password)
-                
+
                 console.log("🚀 ~ handleSubmit ~ response:", response)
                 if (response.data.userNotFound === true) {
                     window.alert("User not exists");
@@ -48,29 +48,40 @@ function Login() {
                     ) {
                         const token = response.data.token;
                         console.log("🚀 ~ handleSubmit ~ token:", token)
-                        localStorage.setItem("token",token);
-                        localStorage.setItem("name",response.data.data.user.name)
-                        window.location.reload()
+                        localStorage.setItem("token", token);
+                        // Assuming response.data.data.user is your user object
+                        var userObject = response.data.data.user;
+                        console.log("🚀 ~ handleSubmit ~ userObject:", userObject)
+
+                        // Convert the user object to a JSON string
+                        var userObjectString = JSON.stringify(userObject);
+                        console.log("🚀 ~ handleSubmit ~ userObjectString:", userObjectString)
+
+                        // Save the JSON string in local storage with a specific key (e.g., "user")
+                        localStorage.setItem("user", userObjectString);
+
+                        // window.location.reload()
                         navigate('/', {
                             state: {
-                                
+
                             }
-                                
-                        });window.location.reload()
+
+                        });
+                        window.location.reload()
                     } else {
                         window.alert("Entered wrong Password");
                     }
                 }
-             
+
             })
             .catch(error => {
                 console.log("🚀 ~ handleSubmit ~ error:", error.response.data.message)
                 console.error('Login failed:', error);
                 window.alert(error.response.data.message);
             });
-          
+
     };
-    
+
 
     const handlePass = (e) => {
         let inputValue = e.target.value;

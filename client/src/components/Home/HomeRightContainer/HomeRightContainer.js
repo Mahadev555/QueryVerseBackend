@@ -19,8 +19,10 @@ import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlin
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import SportsBasketballOutlinedIcon from '@mui/icons-material/SportsBasketballOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 //Defining Styles
 const customStyle = makeStyles({
@@ -44,33 +46,76 @@ export default function HomeRightContainer () {
     const navigate = useNavigate();
 
     const classes = customStyle();
+
+    const [isLoggedin, setIsLoggedIn] = useState(false)
+    
+    useEffect(() => {
+         
+        // const jwtToken = getCookie('jwt_cookie');
+        const jwtToken = localStorage.getItem('token')
+        console.log("🚀 ~ useEffect ~ jwtToken:", jwtToken)
+
+        if (jwtToken) {
+            // Token is present, you can use it in your application
+            console.log(`JWT Token: ${jwtToken}`);
+            setIsLoggedIn(true);  // Set the state to true if the token is present
+         ;
+        } else {
+            // Token is not present
+            console.log('JWT Token not found');
+        }
+    }, [ ]);
+
     const handleAdd = () => {
         // Use the 'navigate' function to navigate to '/addTopic'
         navigate('/addTopic');
     };
     return (
         <div>
-            <Button 
-                variant="contained" 
-                startIcon={<AddIcon size="large"  style={{ fontSize: 40 }} />}
-                sx={{
-                    backgroundColor: 'secondary.main',
-                    width: "17.4vw",
-                    height: 50,
-                    borderRadius: 3,
-                    fontWeight: 600
-                }}
-                style={{color:"#ffffff"}}
-                onClick={handleAdd}
-            >
-                <Typography
-                    variant="h6" 
-                    component="h6"
-                    
-                >
-                    Ask New Topic
-                </Typography>
-            </Button>
+            {isLoggedin ? (
+  <Button 
+    variant="contained" 
+    startIcon={<AddIcon size="large" style={{ fontSize: 40 }} />}
+    sx={{
+      backgroundColor: 'secondary.main',
+      width: "17.4vw",
+      height: 50,
+      borderRadius: 3,
+      fontWeight: 600
+    }}
+    style={{color:"#ffffff"}}
+    onClick={handleAdd}
+  >
+    <Typography
+      variant="h6" 
+      component="h6"
+    >
+      Ask New Topic
+    </Typography>
+  </Button>
+) : (
+    <Button 
+    variant="contained" 
+    startIcon={<LockOutlinedIcon />}
+    sx={{
+      backgroundColor: 'secondary.main',
+      width: "17.4vw",
+      height: 50,
+      borderRadius: 3,
+      fontWeight: 600
+    }}
+    style={{color:"#ffffff"}}
+     
+  >
+    <Typography
+      variant="h6" 
+      component="h6"
+    >
+     Please Login
+    </Typography>
+  </Button>
+)}
+
 
             <Box
                 sx={{

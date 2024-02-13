@@ -40,19 +40,19 @@ export default function Navbar( ) {
     
     useEffect(() => {
         // // Check if the token is present in localStorage or cookies
-        const getCookie = (name) => {
-            const cookies = document.cookie.split('; ');
+        // const getCookie = (name) => {
+        //     const cookies = document.cookie.split('; ');
 
-            for (const cookie of cookies) {
-                const [cookieName, cookieValue] = cookie.split('=');
+        //     for (const cookie of cookies) {
+        //         const [cookieName, cookieValue] = cookie.split('=');
 
-                if (cookieName === name) {
-                    return decodeURIComponent(cookieValue);
-                }
-            }
+        //         if (cookieName === name) {
+        //             return decodeURIComponent(cookieValue);
+        //         }
+        //     }
 
-            return null; // Return null if the cookie is not found
-        };
+        //     return null; // Return null if the cookie is not found
+        // };
 
         // Example usage
         // const jwtToken = getCookie('jwt_cookie');
@@ -74,7 +74,7 @@ export default function Navbar( ) {
     const logout = () => {
         // Remove the token from localStorage
         localStorage.removeItem('token');
-     
+        localStorage.removeItem('user');
         navigate('/');
         window.location.reload();
     };
@@ -121,6 +121,7 @@ export default function Navbar( ) {
                                     edge="start"
                                     aria-label="home"
                                     component="span"
+                                    onClick={() => navigate('/')}
                                     sx={{
                                         mr: 2,
                                     }}

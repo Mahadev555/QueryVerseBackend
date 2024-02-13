@@ -37,6 +37,13 @@ export default function AddTopic() {
     const navigate = useNavigate();
 
     const [token, setToken] = useState(null);
+    // Retrieve the JSON string from local storage
+    var storedUserObjectString = localStorage.getItem("user");
+
+    // Convert the JSON string back to a JavaScript object
+    var storedUserObject = JSON.parse(storedUserObjectString);
+
+    // Now, storedUserObject contains your user object
 
     useEffect(() => {
         // Check if the token is present in localStorage
@@ -108,7 +115,7 @@ export default function AddTopic() {
         event.preventDefault();
 
         axios.post('/api/v1/questions/', {
-            userQuestioner: name,
+            userQuestioner: storedUserObject.name,
             questionTitle: userQuestioner.questionTitle,
             questionDescription: userQuestioner.questionDescription,
             questionTag: userQuestioner.questionTag
@@ -129,7 +136,7 @@ export default function AddTopic() {
 
                     navigate('/');
                     window.alert("Successfully posted question");
-                
+
 
                 } else {
                     window.alert("Question not posted");
@@ -173,7 +180,7 @@ export default function AddTopic() {
                             id="name"
                             label="Name"
                             autoFocus
-                            value={name}
+                            value={storedUserObject.name}
 
                             sx={{ margin: 2 }}
                         />
