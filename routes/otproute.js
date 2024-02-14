@@ -9,4 +9,5 @@ router.post('/sendOtp', otpControllers.sendEmail);
 router.post('/verifyOtp', otpControllers.verifyotp);
 
 
+
 module.exports = router;
