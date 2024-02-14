@@ -6,7 +6,7 @@ import axios from 'axios';  // Import axios
 
 import QACard from '../../QACard/QACard';
 
-export default function HomeCenterContainer() {
+export default function HomeCenterContainer(isDialogOpen) {
     const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function HomeCenterContainer() {
         };
 
         fetchData();
-    }, []); // Empty dependency array means this effect runs once when the component mounts
+    }, [isDialogOpen]); // Empty dependency array means this effect runs once when the component mounts
 
     return (
         <div>

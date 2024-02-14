@@ -14,6 +14,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -21,10 +23,9 @@ import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import { atom, useRecoilValue } from 'jotai';
 
-
 const defaultTheme = createTheme();
 
-export default function AddTopic() {
+export default function AddTopic({ isDialogOpen, setDialogOpen }) {
     const [userQuestioner, setUserQuestioner] = useState({
         name: '',
         questionTitle: '',
@@ -33,66 +34,20 @@ export default function AddTopic() {
     });
     const [name, setName] = useState('');
 
-
     const navigate = useNavigate();
-
     const [token, setToken] = useState(null);
-    // Retrieve the JSON string from local storage
     var storedUserObjectString = localStorage.getItem("user");
-
-    // Convert the JSON string back to a JavaScript object
     var storedUserObject = JSON.parse(storedUserObjectString);
- 
-    // Now, storedUserObject contains your user object
 
     useEffect(() => {
-        // Check if the token is present in localStorage
         const jwtToken = localStorage.getItem('token');
-        setToken(jwtToken)
-       
+        setToken(jwtToken);
         if (jwtToken) {
-            // Token is present, decode it
-            // const decoded = jwtDecode(jwtToken);
-            // console.log("🚀 ~ useEffect ~ decoded:", decoded)
             console.log(`JWT Token: ${jwtToken}`);
-            // Set the decoded token in state
-            // setDecodedToken(decoded);
         } else {
-            // Token is not present
             console.log('JWT Token not found');
         }
     }, []);
-
-    // useEffect(() => {
-    //     // // Check if the token is present in localStorage or cookies
-    //     const getCookie = (name) => {
-    //         const cookies = document.cookie.split('; ');
-
-    //         for (const cookie of cookies) {
-    //             const [cookieName, cookieValue] = cookie.split('=');
-
-    //             if (cookieName === name) {
-    //                 return decodeURIComponent(cookieValue);
-    //             }
-    //         }
-
-    //         return null; // Return null if the cookie is not found
-    //     };
-
-    //     // Example usage
-    //     const jwtToken = getCookie('jwt_cookie');
-    //     console.log("🚀 ~ useEffect ~ jwtToken:", jwtToken)
-
-    //     if (jwtToken) {
-    //         // Token is present, you can use it in your application
-    //         console.log(`JWT Token: ${jwtToken}`);
-    //         setToken(jwtToken);  // Set the state to true if the token is present
-    //     } else {
-    //         // Token is not present
-    //         console.log('JWT Token not found');
-    //     }
-    // }, []);
-
 
     const handleTitleChange = (e) => {
         let inputValue = e.target.value;
@@ -110,7 +65,6 @@ export default function AddTopic() {
     };
 
     const handleSubmit = (event) => {
-
         event.preventDefault();
 
         axios.post('/api/v1/questions/', {
@@ -122,42 +76,30 @@ export default function AddTopic() {
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        })
-
-            .then(response => {
-
-
-                console.log("🚀 ~ handleSubmit ~ response:", response.data.status)
-
-                if (response.data.status === "Success"
-                ) {
-
-
-                    navigate('/');
-                    window.alert("Successfully posted question");
-
-
-                } else {
-                    window.alert("Question not posted");
-                }
-
-
-            })
-            .catch(error => {
-                console.log("🚀 ~ handleSubmit ~ error:", error.response.data.message)
-                console.error('failed:', error);
-                window.alert(error.response.data.message);
-            });
-
+        }).then(response => {
+            console.log("🚀 ~ handleSubmit ~ response:", response.data.status)
+            if (response.data.status === "Success") {
+                setDialogOpen(!isDialogOpen)
+                window.alert("Successfully posted question");
+            } else {
+                window.alert("Question not posted");
+            }
+        }).catch(error => {
+            console.log("🚀 ~ handleSubmit ~ error:", error.response.data.message)
+            console.error('failed:', error);
+            window.alert(error.response.data.message);
+        });
     };
 
-
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <Container component="main" maxWidth="xs">
+        <ThemeProvider  theme={defaultTheme}>
+            <Container sx={{
+                marginTop:'-40px'
+            }} component="main" maxWidth="sm">
                 <CssBaseline />
                 <Box
                     sx={{
+                        position: 'relative',
                         marginTop: 8,
                         display: 'flex',
                         flexDirection: 'column',
@@ -171,7 +113,6 @@ export default function AddTopic() {
                         Add new Question
                     </Typography>
                     <Box component="form" noValidate sx={{ mt: 3 }}>
-                        
                         <TextField
                             required
                             fullWidth
@@ -219,6 +160,12 @@ export default function AddTopic() {
                         >
                             Post as a {storedUserObject.name}
                         </Button>
+                        <IconButton
+                            sx={{ position: 'absolute', top: 0, right: 0 }}
+                            onClick={() => setDialogOpen(false).navigate('/')}
+                        >
+                            <CloseIcon />
+                        </IconButton>
                     </Box>
                 </Box>
             </Container>

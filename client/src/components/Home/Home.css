@@ -1,0 +1,4 @@
+.blurred {
+    filter: blur(5px)brightness(0.9); /* Adjust the blur amount as needed */
+    pointer-events: none; /* Allow interaction with the modal while blurring the background */
+  }

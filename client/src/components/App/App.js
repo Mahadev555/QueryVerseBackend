@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -28,19 +28,17 @@ const customTheme = createTheme({
 });
 
 function App() {
+  const [isModalOpen, setModalOpen] = useState(false);
+  console.log("🚀 ~ App ~ isModalOpen:", isModalOpen)
+
+  
   return (
     <ThemeProvider theme={customTheme}>
       <Router>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >     <Navbar   />
-          {/* Define your routes using Switch and Route */}
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Navbar setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
           <Routes>
-       
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home isModalOpen={isModalOpen} />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/addTopic" element={<AddTopic />} />
@@ -52,6 +50,3 @@ function App() {
 }
 
 export default App;
-
-
-

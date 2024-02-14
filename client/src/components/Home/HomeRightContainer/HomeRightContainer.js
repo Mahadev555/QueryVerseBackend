@@ -27,43 +27,53 @@ import { useEffect, useState } from 'react';
 //Defining Styles
 const customStyle = makeStyles({
     root: {
-        width: "17.8vw", 
+        width: "17.8vw",
         height: 320,
         backgroundColor: '#ffffff'
     },
     secondCard: {
-        width: "17.8vw", 
+        width: "17.8vw",
         height: 250,
         backgroundColor: '#ffffff'
-        
+
     },
     list: {
         mr: 2
     }
 })
 
-export default function HomeRightContainer () {
+export default function HomeRightContainer({ isDialogOpen, setDialogOpen }) {
+    console.log("🚀 ~ HomeRightContainer ~ setDialogOpen:", setDialogOpen)
+    console.log("🚀 ~ HomeRightContainer ~ isDialogOpen:", isDialogOpen)
     const navigate = useNavigate();
 
     const classes = customStyle();
 
     const [isLoggedin, setIsLoggedIn] = useState(false)
-    
+
+
+
+    const handleOpenDialog = () => {
+        setDialogOpen(!isDialogOpen);
+    };
+
+
+
     useEffect(() => {
-         
+
         // const jwtToken = getCookie('jwt_cookie');
-        const jwtToken = localStorage.getItem('token') 
+        const jwtToken = localStorage.getItem('token')
 
         if (jwtToken) {
             // Token is present, you can use it in your application
-         
+
             setIsLoggedIn(true);  // Set the state to true if the token is present
-         ;
+            ;
         } else {
             // Token is not present
             console.log('JWT Token not found');
         }
-    }, [ ]);
+    }, []);
 
 
     const alert = () => {
@@ -78,48 +88,48 @@ export default function HomeRightContainer () {
     return (
         <div>
             {isLoggedin ? (
-  <Button 
-    variant="contained" 
-    startIcon={<AddIcon size="large" style={{ fontSize: 40 }} />}
-    sx={{
-      backgroundColor: 'secondary.main',
-      width: "17.4vw",
-      height: 50,
-      borderRadius: 3,
-      fontWeight: 600
-    }}
-    style={{color:"#ffffff"}}
-    onClick={handleAdd}
-  >
-    <Typography
-      variant="h6" 
-      component="h6"
-    >
-      Ask New Topic
-    </Typography>
-  </Button>
-) : (
-    <Button 
-    variant="contained" 
-    startIcon={<LockOutlinedIcon />}
-    sx={{
-      backgroundColor: 'secondary.main',
-      width: "17.4vw",
-      height: 50,
-      borderRadius: 3,
-      fontWeight: 600
-    }}
-    style={{color:"#ffffff"}}
-     onClick={alert}
-  >
-    <Typography
-      variant="h6" 
-      component="h6"
-    >
-     Add New Topic
-    </Typography>
-  </Button>
-)}
+                <Button
+                    variant="contained"
+                    startIcon={<AddIcon size="large" style={{ fontSize: 40 }} />}
+                    sx={{
+                        backgroundColor: 'secondary.main',
+                        width: "17.4vw",
+                        height: 50,
+                        borderRadius: 3,
+                        fontWeight: 600
+                    }}
+                    style={{ color: "#ffffff" }}
+                    onClick={handleOpenDialog}
+                >
+                    <Typography
+                        variant="h6"
+                        component="h6"
+                    >
+                        Ask New Topic
+                    </Typography>
+                </Button>
+            ) : (
+                <Button
+                    variant="contained"
+                    startIcon={<LockOutlinedIcon />}
+                    sx={{
+                        backgroundColor: 'secondary.main',
+                        width: "17.4vw",
+                        height: 50,
+                        borderRadius: 3,
+                        fontWeight: 600
+                    }}
+                    style={{ color: "#ffffff" }}
+                    onClick={alert}
+                >
+                    <Typography
+                        variant="h6"
+                        component="h6"
+                    >
+                        Add New Topic
+                    </Typography>
+                </Button>
+            )}
 
 
             <Box
@@ -131,8 +141,8 @@ export default function HomeRightContainer () {
                 className={classes.root}
             >
 
-                <Stack 
-                    direction="row" 
+                <Stack
+                    direction="row"
                     spacing={2}
                     sx={{
                         backgroundColor: "secondary.main",
@@ -144,37 +154,37 @@ export default function HomeRightContainer () {
                         borderRadius: 5
                     }}
                 >
-                    
+
                     <OutlinedFlagIcon />
-                
+
                     <Typography>
                         Topics
                     </Typography>
-                    
+
                 </Stack>
-                
-                <List sx={{ width: '93%', maxWidth: 350, bgcolor: 'background.paper', borderRadius: 5, color: "secondary.main", pl:2,fontWeight: 600 }}>
+
+                <List sx={{ width: '93%', maxWidth: 350, bgcolor: 'background.paper', borderRadius: 5, color: "secondary.main", pl: 2, fontWeight: 600 }}>
                     <ListItem>
-                        <MenuBookOutlinedIcon sx={{mr: 2}} />
-                        <ListItemText primary="E-Books"/>
+                        <MenuBookOutlinedIcon sx={{ mr: 2 }} />
+                        <ListItemText primary="E-Books" />
                     </ListItem>
                     <ListItem>
-                        <BusinessCenterOutlinedIcon sx={{mr: 2}} />
+                        <BusinessCenterOutlinedIcon sx={{ mr: 2 }} />
                         <ListItemText primary="Jobs & Placements" />
                     </ListItem>
                     <ListItem>
-                        <SportsBasketballOutlinedIcon sx={{mr: 2}} />
+                        <SportsBasketballOutlinedIcon sx={{ mr: 2 }} />
                         <ListItemText primary="Sports" />
                     </ListItem>
                     <ListItem>
-                        <PeopleAltOutlinedIcon sx={{mr: 2}} />
-                        <ListItemText primary="Events"/>
+                        <PeopleAltOutlinedIcon sx={{ mr: 2 }} />
+                        <ListItemText primary="Events" />
                     </ListItem>
                     <ListItem>
-                        <ArchiveOutlinedIcon sx={{mr: 2}} />
-                        <ListItemText primary="Documentation Guidance"/>
+                        <ArchiveOutlinedIcon sx={{ mr: 2 }} />
+                        <ListItemText primary="Documentation Guidance" />
                     </ListItem>
-                    
+
                 </List>
             </Box>
             <Box
@@ -185,8 +195,8 @@ export default function HomeRightContainer () {
                 }}
                 className={classes.secondCard}
             >
-                <Grid 
-                    container 
+                <Grid
+                    container
                     sx={{
                         mr: 2,
                         alignItems: "center",
@@ -199,8 +209,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Help
@@ -212,8 +222,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         About
@@ -225,8 +235,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Contact
@@ -238,8 +248,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Terms
@@ -255,8 +265,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Careers
@@ -268,8 +278,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Updates
@@ -281,8 +291,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Advertise
@@ -294,8 +304,8 @@ export default function HomeRightContainer () {
                             <ListItemText
                                 disableTypography
                                 primary={
-                                    <Typography 
-                                        type="body2" 
+                                    <Typography
+                                        type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Sponsor
@@ -305,8 +315,8 @@ export default function HomeRightContainer () {
                         </ListItem>
                     </List>
                 </Grid>
-                <Stack 
-                    direction="row" 
+                <Stack
+                    direction="row"
                     spacing={2}
                     sx={{
                         alignItems: "center",
@@ -314,10 +324,10 @@ export default function HomeRightContainer () {
                         justifyContent: "center"
                     }}
                 >
-                    <GitHubIcon style={{ color: '#9e9e9e' }}/>
-                    <InstagramIcon style={{ color: '#9e9e9e' }}/>
-                    <LinkedInIcon style={{ color: '#9e9e9e' }}/>
-                    <TwitterIcon style={{ color: '#9e9e9e' }}/>
+                    <GitHubIcon style={{ color: '#9e9e9e' }} />
+                    <InstagramIcon style={{ color: '#9e9e9e' }} />
+                    <LinkedInIcon style={{ color: '#9e9e9e' }} />
+                    <TwitterIcon style={{ color: '#9e9e9e' }} />
                 </Stack>
             </Box>
         </div>

@@ -1,20 +1,14 @@
-//Importing external files/modules
-import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
-import { useLocation } from 'react-router-dom';
-//Importing Internal 
-
-import Navbar from "../Navbar/Navbar";
 import LeftHome from './HomeLeftContainer/HomeLeftContainer';
 import CenterHome from './HomeCenterContainer/HomeCenterContainer';
 import RightHome from './HomeRightContainer/HomeRightContainer';
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom'; // Import Outlet
+import './Home.css';
+import AddTopic from '../AddTopic/AddTopic';
 
-import React from 'react';;
-
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 const customStyle = makeStyles({
   section: {
     textAlign: 'center',
@@ -22,38 +16,46 @@ const customStyle = makeStyles({
   fixedLeft: {
     position: 'fixed',
     left: 0,
-    zIndex: 1,  // Set a higher z-index for the fixed element
+    zIndex: 1,
   },
   fixedRight: {
     position: 'fixed',
-    right: 0,
-    zIndex: 1,  // Set a higher z-index for the fixed element
+    right: 20,
+    zIndex: 1,
+
   },
   moveableCenter: {
-    marginLeft: '330px',  // Adjust the width of the left column
-    marginRight: '170px', // Adjust the width of the right column
+    marginLeft: '330px',
+    marginRight: '170px',
   },
 });
 
-export default function Body() {
+const Body = ({ isModalOpen }) => {
+  console.log("🚀 ~ Body ~ isModalOpen:", isModalOpen)
   const classes = customStyle();
-
+  const [isDialogOpen, setDialogOpen] = useState(false);
   return (
-    <div>
-      <Grid container spacing={5}>
-        {/* Fixed Left Column */}
-        <Grid item className={`${classes.section} ${classes.fixedLeft}`}>
+    <><div>
+
+      <Grid container spacing={5} >
+        <Grid item className={`${classes.section} ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.fixedLeft}`}>
           <LeftHome />
         </Grid>
-        {/* Moveable Center Column */}
-        <Grid item xs={7}  className={`${classes.section} ${classes.moveableCenter}`}>
-          <CenterHome  />
+        <Grid item xs={7} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.moveableCenter}`}>
+          <CenterHome isDialogOpen={isDialogOpen} />
         </Grid>
-        {/* Fixed Right Column */}
-        <Grid item xs={2.5} className={`${classes.section} ${classes.fixedRight}`}>
-          <RightHome />
+        <Grid item xs={2.5} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.fixedRight}`}>
+          <RightHome isDialogOpen={isDialogOpen} setDialogOpen={setDialogOpen} />
         </Grid>
       </Grid>
+
     </div>
+      <Dialog open={isDialogOpen}  >
+        <DialogContent>
+          <AddTopic setDialogOpen={setDialogOpen} isDialogOpen={isDialogOpen} />
+        </DialogContent>
+      </Dialog></>
   );
-}
+};
+
+export default Body;
