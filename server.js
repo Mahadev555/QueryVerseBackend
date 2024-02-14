@@ -12,8 +12,13 @@ const app = require('./app.js');
 const PORT = process.env.PORT || 8080;
 const DOMAIN = process.env.DOMAIN || 'http://localhost';
 const log = console.log;
-const DB = 'mongodb+srv://mahadev555:mahadev555@cluster0.rtew6mz.mongodb.net/'
 
+
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_CLUSTER_NAME = process.env.DB_CLUSTER_NAME;
+
+const DB = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER_NAME}.mongodb.net/`
 //--------- Functional code for this file ---------
 log(chalk.cyan('✨ App Started'));
 
