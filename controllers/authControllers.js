@@ -83,6 +83,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 	//========== JWT signing & sending response (Iteration 3)
 	createAndSendToken(newUser, 201, res);
 });
+
 exports.login = catchAsync(async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;

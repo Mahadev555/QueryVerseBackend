@@ -62,6 +62,8 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
     window.location.reload();
   };
 
+  const profile = localStorage.getItem('profile')
+
   return (
     <div>
       <AppBar position="fixed" style={{ marginTop: '0px', borderRadius: '0px' }} color="primary" className={classes.navbar}>
@@ -160,7 +162,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                     <div style={{display:'flex',cursor:'pointer'}} onClick={handleProfileClick}>
                       <Avatar
                         alt="Default User"
-                        src={user_image}
+                        src={profile}
                         sx={{
                           mt: 1,
                           ml: 0.5,

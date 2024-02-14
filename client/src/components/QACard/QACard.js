@@ -192,7 +192,8 @@ export default function QACard(props) {
                                         direction="row"
                                         alignItems="center"
                                     >
-                                        <Avatar />
+                                        <Avatar alt="User Profile" src={props.prof}   />
+                                     
                                         <Typography
                                             sx={{
                                                 ml: 2,

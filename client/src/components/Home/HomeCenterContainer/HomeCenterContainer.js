@@ -37,6 +37,8 @@ export default function HomeCenterContainer(isDialogOpen) {
                         downv={ele.downvotes}
                         ans={ele.answers}
                         usr={ele.userQuestioner}
+                        prof={ele.profileImage}
+                        
                     />
                 ))}
             </Stack>

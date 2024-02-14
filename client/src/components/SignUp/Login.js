@@ -53,6 +53,7 @@ function Login() {
                         var userObject = response.data.data.user;
                         console.log("🚀 ~ handleSubmit ~ userObject:", userObject)
                         localStorage.setItem("name", response.data.data.user.name);
+                        localStorage.setItem("profile",  response.data.data.user.profileImage);
                         // Convert the user object to a JSON string
                         var userObjectString = JSON.stringify(userObject);
                         console.log("🚀 ~ handleSubmit ~ userObjectString:", userObjectString)

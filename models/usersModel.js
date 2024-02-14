@@ -67,7 +67,10 @@ const usersSchema = new mongoose.Schema({
 	otpVerifly:{
 		default: false
 	},
-	profileImage: String
+	profileImage: {
+		type: String,
+		default: 'http://res.cloudinary.com/detjwtn7c/image/upload/v1707908266/ywewprj4bxbi6jfsepmu.png'
+	  }
 });
 
 //We will encrypt the password before storing into database

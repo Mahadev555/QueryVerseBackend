@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 //--------- Functional code for this file ---------
 const questionsSchema = new mongoose.Schema({
-	userQuestioner : {
+	userQuestioner: {
 		type: String,
 		required: [true, 'The user should have a name']
 	},
@@ -14,7 +14,7 @@ const questionsSchema = new mongoose.Schema({
 	questionDescription: String,
 	questionTag: {
 		type: String,
-		enum : ['Courses','Jobs', 'Events', 'Sports', 'Other'],
+		enum: ['Courses', 'Jobs', 'Events', 'Sports', 'Other'],
 		default: 'Courses',
 		required: [true, 'The question should have a tag']
 	},
@@ -22,16 +22,20 @@ const questionsSchema = new mongoose.Schema({
 		type: Number,
 		default: 0
 	},
+	profileImage: {
+		type: String,
+
+	},
 	downvotes: {
 		type: Number,
 		default: 0
 	},
 	answers: [String]
 },
-{
-  toJSON: {virtuals: true},
-  toObject: {virtuals: true}
-});
+	{
+		toJSON: { virtuals: true },
+		toObject: { virtuals: true }
+	});
 
 const Questions = mongoose.model('Questions', questionsSchema);
 

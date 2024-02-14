@@ -68,10 +68,12 @@ export default function AddTopic({ isDialogOpen, setDialogOpen }) {
         event.preventDefault();
 
         axios.post('/api/v1/questions/', {
+          
             userQuestioner: storedUserObject.name,
             questionTitle: userQuestioner.questionTitle,
             questionDescription: userQuestioner.questionDescription,
-            questionTag: userQuestioner.questionTag
+            questionTag: userQuestioner.questionTag,
+            profileImage: storedUserObject.profileImage
         }, {
             headers: {
                 Authorization: `Bearer ${token}`
