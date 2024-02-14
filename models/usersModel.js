@@ -66,7 +66,8 @@ const usersSchema = new mongoose.Schema({
 	},
 	otpVerifly:{
 		default: false
-	}
+	},
+	profileImage: String
 });
 
 //We will encrypt the password before storing into database

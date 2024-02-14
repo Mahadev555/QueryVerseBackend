@@ -12,7 +12,7 @@ const app = require('./app.js');
 const PORT = process.env.PORT || 8080;
 const DOMAIN = process.env.DOMAIN || 'http://localhost';
 const log = console.log;
-const DB = 'mongodb://localhost:27017/QueryVerse'
+const DB = 'mongodb+srv://mahadev555:mahadev555@cluster0.rtew6mz.mongodb.net/'
 
 //--------- Functional code for this file ---------
 log(chalk.cyan('✨ App Started'));

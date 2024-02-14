@@ -72,18 +72,18 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                 <Box
                   sx={{
                     width: 120,
-                    height: 50,
+                    height: 40,
                     mr: 1.5,
-                    mt: 0.3,
+                    mt: 1.1,
                     backgroundColor: 'secondary.main',
-                    borderRadius: 10,
+                    borderRadius: 4,
                   }}
                 >
                   <Typography
                     variant="h6"
                     component="h6"
                     sx={{
-                      mt: 1.17,
+                        mt: 0.6,
                       mr: 5,
                       ml: 3,
                     }}
@@ -239,10 +239,10 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                     </IconButton>
                     <Box
                       sx={{
-                        width: 100,
-                        height: 50,
+                        width: 120,
+                        height: 40,
                         mr: 1.5,
-                        mt: 0.3,
+                        mt: 1.1,
                         backgroundColor: 'secondary.main',
                         borderRadius: 10,
                       }}
@@ -251,7 +251,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                         variant="h6"
                         component="h6"
                         sx={{
-                          mt: 1.17,
+                            mt: 0.6,
                           mr: 5,
                           ml: 3,
                           cursor: 'pointer',
@@ -265,9 +265,9 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                     <Box
                       sx={{
                         width: 120,
-                        height: 50,
+                        height: 40,
                         mr: 1.5,
-                        mt: 0.3,
+                        mt: 1.1,
                         backgroundColor: 'secondary.main',
                         borderRadius: 10,
                       }}
@@ -276,7 +276,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                         variant="h6"
                         component="h6"
                         sx={{
-                          mt: 1.17,
+                            mt: 0.6,
                           mr: 5,
                           ml: 3,
                           cursor: 'pointer',
