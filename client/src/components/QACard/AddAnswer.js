@@ -77,7 +77,7 @@ export default function AddAnswer(id) {
 
         event.preventDefault();
 
-        axios.post(`/api/v1/answers/${id.id}`, {
+        axios.post(`https://query-z4fe.onrender.com/api/v1/answers/${id.id}`, {
             profileImage: storedUserObject.profileImage,
             userAnswerer: storedUserObject.name,
             answer:answerText

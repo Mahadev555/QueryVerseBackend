@@ -79,7 +79,7 @@ const UpdateProfile = () => {
     
     const submit = async () => {
         try {
-            const response = await axios.patch(`api/v1/users/updateMe`, {
+            const response = await axios.patch(`https://query-z4fe.onrender.com/api/v1/users/updateMe`, {
                 name: fullName,
                 email: email,
                 about: about,

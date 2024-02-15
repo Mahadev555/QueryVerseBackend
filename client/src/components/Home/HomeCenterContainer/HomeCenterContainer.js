@@ -11,7 +11,7 @@ export default function HomeCenterContainer(isDialogOpen) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('api/v1/questions/');
+                const response = await axios.get('https://query-z4fe.onrender.com/api/v1/questions/');
                 setQuestions(response.data.data.questions.reverse());
                 setLoading(false); // Set loading to false once data is fetched
             } catch (error) {

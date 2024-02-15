@@ -93,7 +93,7 @@ export default function SignUp() {
         }
         else {
             try {
-                const response = await axios.post('api/otp/sendOtp', {
+                const response = await axios.post('https://query-z4fe.onrender.com/api/otp/sendOtp', {
 
                     email: email,
 
@@ -125,7 +125,7 @@ export default function SignUp() {
         event.preventDefault();
 
         try {
-            await axios.post('api/otp/verifyOtp', {
+            await axios.post('https://query-z4fe.onrender.com/api/otp/verifyOtp', {
                 email: email,
                 EnteredOtp: otp
             }, {
@@ -158,7 +158,7 @@ export default function SignUp() {
 
     const submit = async () => {
         try {
-            const response = await axios.post('api/v1/users/signup', {
+            const response = await axios.post('https://query-z4fe.onrender.com/api/v1/users/signup', {
                 name: name,
                 email: email,
                 password: password,

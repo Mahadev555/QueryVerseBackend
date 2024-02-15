@@ -32,7 +32,7 @@ function Login() {
 
         event.preventDefault();
 
-        axios.post('/api/v1/users/login', { email, password })
+        axios.post('https://query-z4fe.onrender.com/api/v1/users/login', { email, password })
 
             .then(response => {
                 console.log("🚀 ~ handleSubmit ~ email:", email)

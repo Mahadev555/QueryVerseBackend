@@ -60,7 +60,7 @@ export default function AddTopic({ isDialogOpen, setDialogOpen }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post('/api/v1/questions/', {
+        axios.post('https://query-z4fe.onrender.com/api/v1/questions/', {
           
             userQuestioner: storedUserObject.name,
             questionTitle: userQuestioner.questionTitle,
