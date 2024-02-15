@@ -12,9 +12,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import user_image from '../../data/images/default_user.png';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 import ProfileModal from '../Profile/ProfileModal'; 
 
 const customStyle = makeStyles({

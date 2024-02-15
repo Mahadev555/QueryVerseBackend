@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';  // Import axios
 
 import AnswerCard from './AnswerCard';
 
 export default function AnsContainer(id) {
-    console.log("🚀 ~ AnsContainer ~ id:", id)
     const [Answers, setAnswers] = useState([]);
     useEffect(() => {
         // Fetch data when the component mounts
@@ -33,6 +30,7 @@ export default function AnsContainer(id) {
                         upv={ele.upvotes}
                         downv={ele.downvotes}
                         ans={ele.answer}
+                        prof={ele.profileImage}     
                         usr={ele.userAnswerer} />
          
             ))}

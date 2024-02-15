@@ -160,7 +160,7 @@ exports.updateQuestion = catchAsync ( async (req, res, next) => {
 });
 
 
-
+//mahadev
 //get all answer for given question 
 exports.getAllAnswersForQuestion = catchAsync(async (req, res, next) => {
 	const questionId = req.params.id;

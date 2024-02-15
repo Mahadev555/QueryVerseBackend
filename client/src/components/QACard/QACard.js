@@ -10,7 +10,6 @@ import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
-import AnswerCard from './AnswerCard';
 import AnsContainer from './AnsContainer';
 import AddIcon from '@mui/icons-material/Add';
 import AddAnswer from './AddAnswer';

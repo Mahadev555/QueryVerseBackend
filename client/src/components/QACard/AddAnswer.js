@@ -1,13 +1,9 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // Creating custom styles
@@ -52,14 +48,7 @@ const customStyle = makeStyles({
 export default function AddAnswer(id) {
     console.log("🚀 ~ AddAnswer ~ id:", id.id)
     const classes = customStyle();
-    const [isClick, setIsClick] = useState(false);
     const [answerText, setAnswerText] = useState('');
-
-    const [name, setName] = useState('');
-
-
-    const navigate = useNavigate();
-
     const [token, setToken] = useState(null);
     // Retrieve the JSON string from local storage
     var storedUserObjectString = localStorage.getItem("user");
@@ -89,6 +78,7 @@ export default function AddAnswer(id) {
         event.preventDefault();
 
         axios.post(`/api/v1/answers/${id.id}`, {
+            profileImage: storedUserObject.profileImage,
             userAnswerer: storedUserObject.name,
             answer:answerText
         }, {

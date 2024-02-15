@@ -15,4 +15,4 @@
       "eqeqeq": ["error", "always"],
       "curly": ["error"]
     }
-}
+  }

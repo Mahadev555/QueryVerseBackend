@@ -17,7 +17,8 @@ const usersSchema = new mongoose.Schema({
 		lowercase: true,
 		validate: [validator.isEmail, 'Please provide a valid email']
 	},
-	about:{type:String},
+	about:{type:String,
+		default: 'Student in Zeal College of Engineering and REsearch, Pune'},
 	yearOfAdmission: {
 		type: Number,
 		required: [true, 'Please provide your year of Admission']

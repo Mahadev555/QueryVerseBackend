@@ -7,6 +7,7 @@ import SignUp from '../SignUp/SignUp';
 import Login from '../SignUp/Login';
 import AddTopic from '../AddTopic/AddTopic';
 import Navbar from '../Navbar/Navbar';
+import UpdateProfile from '../Update/UpdateProfile';
 
 const customTheme = createTheme({
   palette: {
@@ -42,6 +43,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/addTopic" element={<AddTopic />} />
+            <Route path="/update" element={<UpdateProfile />} />
           </Routes>
         </Box>
       </Router>

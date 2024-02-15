@@ -2,12 +2,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
-import { Button } from '@mui/material';
 import { useState } from 'react';
 
 // Creating custom styles
@@ -34,9 +32,7 @@ export default function AnswerCard(props) {
     const classes = customStyle();
     const [isClick, setIsClick] = useState(false);
 
-    const handleClick = () => {
-        setIsClick(!isClick);
-    };
+    
 
     return (
         <div>
@@ -141,7 +137,7 @@ export default function AnswerCard(props) {
                                         direction="row"
                                         alignItems="center"
                                     >
-                                        <Avatar />
+                                        <Avatar alt='user' src={props.prof} />
                                         <Typography
                                             sx={{
                                                 ml: 2,
