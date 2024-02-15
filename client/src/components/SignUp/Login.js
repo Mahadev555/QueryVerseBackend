@@ -26,7 +26,6 @@ function Login() {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
-    const [logged, setlogged] = useState(false);
 
     const navigate = useNavigate();
     const handleSubmit = (event) => {

@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -17,7 +15,6 @@ import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const defaultTheme = createTheme();
@@ -29,9 +26,8 @@ export default function AddTopic({ isDialogOpen, setDialogOpen }) {
         questionDescription: '',
         questionTag: 'Courses',
     });
-    const [name, setName] = useState('');
 
-    const navigate = useNavigate();
+
     const [token, setToken] = useState(null);
     var storedUserObjectString = localStorage.getItem("user");
     var storedUserObject = JSON.parse(storedUserObjectString);
