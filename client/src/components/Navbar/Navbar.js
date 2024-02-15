@@ -13,7 +13,7 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useNavigate } from 'react-router-dom';
-import ProfileModal from '../Profile/ProfileModal'; 
+import ProfileModal from '../Profile/ProfileModal';
 
 const customStyle = makeStyles({
   navbar: {
@@ -30,15 +30,16 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
   const classes = customStyle();
   const navigate = useNavigate();
 
-  var name = localStorage.getItem('name').split(' ');
-  var Fname = name[0];
+
 
   const [isLoggedin, setIsLoggedIn] = useState(false);
-
+  const [Fname, setFname] = useState('');
   useEffect(() => {
     const jwtToken = localStorage.getItem('token');
 
     if (jwtToken) {
+      var name = localStorage.getItem('name').split(' ');
+      setFname(name[0]);
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
@@ -83,7 +84,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                     variant="h6"
                     component="h6"
                     sx={{
-                        mt: 0.6,
+                      mt: 0.6,
                       mr: 5,
                       ml: 3,
                     }}
@@ -157,7 +158,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                         <NotificationsNoneOutlinedIcon />
                       </Badge>
                     </IconButton>
-                    <div style={{display:'flex',cursor:'pointer'}} onClick={handleProfileClick}>
+                    <div style={{ display: 'flex', cursor: 'pointer' }} onClick={handleProfileClick}>
                       <Avatar
                         alt="Default User"
                         src={profile}
@@ -251,7 +252,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                         variant="h6"
                         component="h6"
                         sx={{
-                            mt: 0.6,
+                          mt: 0.6,
                           mr: 5,
                           ml: 3,
                           cursor: 'pointer',
@@ -276,7 +277,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                         variant="h6"
                         component="h6"
                         sx={{
-                            mt: 0.6,
+                          mt: 0.6,
                           mr: 5,
                           ml: 3,
                           cursor: 'pointer',
