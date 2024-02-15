@@ -20,9 +20,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { jwtDecode } from "jwt-decode";
-import { atom, useRecoilValue } from 'jotai';
-
 const defaultTheme = createTheme();
 
 export default function AddTopic({ isDialogOpen, setDialogOpen }) {
