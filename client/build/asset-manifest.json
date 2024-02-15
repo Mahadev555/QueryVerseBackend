@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.01943088.css",
+    "main.js": "/static/js/main.2b4f413f.js",
+    "static/media/Kishor.jpg": "/static/media/Kishor.430b4c9f795ca4a3fe89.jpg",
+    "static/media/Mahadev.jpg": "/static/media/Mahadev.96b7f728f5879a390fcb.jpg",
+    "static/media/Omkar.jpeg": "/static/media/Omkar.4414e9db90070a0bfcba.jpeg",
+    "static/media/Yash.jpeg": "/static/media/Yash.c8386ff6c7b25a7103dd.jpeg",
+    "static/media/default_user.png": "/static/media/default_user.c3f945216dc12c9498dc.png",
+    "static/media/merch.svg": "/static/media/merch.a78918a970c192adbefdcbc1044bc829.svg",
+    "index.html": "/index.html",
+    "main.01943088.css.map": "/static/css/main.01943088.css.map",
+    "main.2b4f413f.js.map": "/static/js/main.2b4f413f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.01943088.css",
+    "static/js/main.2b4f413f.js"
+  ]
+}
