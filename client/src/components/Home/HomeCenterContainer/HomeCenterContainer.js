@@ -29,7 +29,7 @@ export default function HomeCenterContainer(isDialogOpen) {
                 {questions.map((ele) => (
                     
                     <QACard
-                        key={ele._id} // Make sure to use a unique key for each item in the list
+                        key={ele._id} 
                         id={ele._id}
                         title={ele.questionTitle}
                         desc={ele.questionDescription}
@@ -37,8 +37,7 @@ export default function HomeCenterContainer(isDialogOpen) {
                         downv={ele.downvotes}
                         ans={ele.answers}
                         usr={ele.userQuestioner}
-                        prof={ele.profileImage}
-                        
+                        prof={ele.profileImage}                      
                     />
                 ))}
             </Stack>

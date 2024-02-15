@@ -9,8 +9,8 @@ const app = require('./app.js');
 
 
 //--------- Variable assignment ------------------
-const PORT = process.env.PORT || 8080;
-const DOMAIN = process.env.DOMAIN || 'http://localhost';
+const PORT = 8080;
+const DOMAIN = 'http://localhost';
 const log = console.log;
 
 
