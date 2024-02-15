@@ -10,9 +10,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const compression = require('compression');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const axios = require('axios');
+const cors = require('cors'); 
 
 //--------- Importing internal modules and files ----------
 const questionsRoutes = require('./routes/questionsRoutes.js');
