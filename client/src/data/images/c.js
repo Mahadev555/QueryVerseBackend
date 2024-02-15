@@ -1,4 +1,3 @@
-// Example using Cloudinary JavaScript SDK
 const cloudinary = require('cloudinary').v2;
 
       

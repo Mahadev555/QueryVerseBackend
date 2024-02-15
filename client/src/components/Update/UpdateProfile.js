@@ -14,10 +14,10 @@ import MenuItem from '@mui/material/MenuItem';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios'; 
 
 const defaultTheme = createTheme();
-
+ 
 const UpdateProfile = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -27,6 +27,8 @@ const UpdateProfile = () => {
     const [currentStatus, setCurrentStatus] = useState('');
     const [role, setRole] = useState('');
     const navigate = useNavigate();
+    const [profileImage, setProfileImage] = useState('');
+    console.log("🚀 ~ UpdateProfile ~ profileImage:", profileImage)
     // Function to render course years
     function renderCourseYears() {
         const courseYears = ['FE', 'SE', 'TE', 'BE', 'Prof'];
@@ -38,9 +40,9 @@ const UpdateProfile = () => {
     }
 
     //stored object
+    var token = localStorage.getItem("token");
     var storedUserObjectString = localStorage.getItem("user");
     var storedUserObject = JSON.parse(storedUserObjectString);
-
     useEffect(() => {
         // Set initial state values based on storedUserObject
         setFullName(storedUserObject.name || '');
@@ -50,11 +52,64 @@ const UpdateProfile = () => {
         setCourseYear(storedUserObject.courseYear || '');
         setCurrentStatus(storedUserObject.currentStatus || '');
         setRole(storedUserObject.role || '');
+        setProfileImage(storedUserObject.profileImage);
     }, []);
+
+
+   // Frontend (React)
+   const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'kfvd0fey'); // Replace with your actual unsigned upload preset
+
+            const response = await axios.post('https://api.cloudinary.com/v1_1/detjwtn7c/image/upload', formData);
+
+            // Assuming Cloudinary returns the image URL in the 'secure_url' field
+            setProfileImage(response.data.secure_url);
+        } catch (error) {
+            console.error('Error uploading image to Cloudinary:', error);
+        }
+    }
+};
+
+    
+    const submit = async () => {
+        try {
+            const response = await axios.patch(`api/v1/users/updateMe`, {
+                name: fullName,
+                email: email,
+                about: about,
+                courseYear: courseYear,
+                currentStatus: currentStatus,
+                profileImage:profileImage
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.status === 200) {
+                window.alert("Profile Updated Successfully");
+
+            } else {
+                window.alert("Failed to update profile");
+            }
+        } catch (error) {
+            window.alert(error.response.data.message);
+            console.error('Error updating profile:', error);
+        }
+    }
+
+
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container sx={{ backgroundColor: '#ffffff', borderRadius:'10px',margin: '80px', marginLeft: '160px', padding: '80px', paddingTop: '10px' }}>
+            <Container sx={{ backgroundColor: '#ffffff', borderRadius: '10px', margin: '80px', marginLeft: '160px', padding: '80px', paddingTop: '10px' }}>
                 <Box sx={{ marginTop: 8 }}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={4}>
@@ -74,11 +129,12 @@ const UpdateProfile = () => {
                                         id="profileImage"
                                         accept="image/*"
                                         style={{ display: 'none' }}
+                                        onChange={handleFileChange}
                                     />
                                     <Avatar
-                                        src={storedUserObject.profileImage}
+                                        src={profileImage}
                                         alt="Profile Image"
-                                        sx={{ width: 160, height: 160, border: '1px', borderRadius: '50%' }}
+                                        sx={{ width: 160, height: 160, borderRadius: '50%' }}
                                     />
                                     <Box
                                         sx={{
@@ -118,7 +174,7 @@ const UpdateProfile = () => {
                                             onChange={(e) => setFullName(e.target.value)}
                                             InputProps={{
                                                 endAdornment: (
-                                                    <Button sx={{marginRight:'-15px'}} onClick={() => setFullName('')}>
+                                                    <Button sx={{ marginRight: '-15px' }} onClick={() => setFullName('')}>
                                                         <EditIcon color="primary" />
                                                     </Button>
                                                 ),
@@ -132,7 +188,7 @@ const UpdateProfile = () => {
                                             variant="outlined"
                                             fullWidth
                                             value={email}
-                                            
+
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={12}>
@@ -144,7 +200,7 @@ const UpdateProfile = () => {
                                             onChange={(e) => setAbout(e.target.value)}
                                             InputProps={{
                                                 endAdornment: (
-                                                    <Button sx={{marginRight:'-15px'}} onClick={() => setAbout('')}>
+                                                    <Button sx={{ marginRight: '-15px' }} onClick={() => setAbout('')}>
                                                         <EditIcon color="primary" />
                                                     </Button>
                                                 ),
@@ -161,7 +217,7 @@ const UpdateProfile = () => {
                                             onChange={(e) => setYearOfAdmission(e.target.value)}
                                             InputProps={{
                                                 endAdornment: (
-                                                    <Button sx={{marginRight:'-15px'}} onClick={() => setYearOfAdmission('')}>
+                                                    <Button sx={{ marginRight: '-15px' }} onClick={() => setYearOfAdmission('')}>
                                                         <EditIcon color="primary" />
                                                     </Button>
                                                 ),
@@ -220,8 +276,8 @@ const UpdateProfile = () => {
                                     </Grid>
                                 </Grid>
                                 <Box sx={{ marginTop: 3, display: 'flex', justifyContent: 'flex-end' }}>
-                                    <Button variant="outlined" sx={{ marginRight: 2 }}  onClick={() => { navigate('/'); }}>Cancel</Button>
-                                    <Button variant="contained" color="primary">Update</Button>
+                                    <Button variant="outlined" sx={{ marginRight: 2 }} onClick={() => { navigate('/'); }}>Cancel</Button>
+                                    <Button variant="contained" onClick={submit} color="primary">Update</Button>
                                 </Box>
                             </Box>
                         </Grid>

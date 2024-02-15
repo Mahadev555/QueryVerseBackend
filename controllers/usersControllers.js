@@ -67,7 +67,7 @@ exports.updateMe = catchAsync ( async (req, res, next) => {
   };
 
   //3) Filetring out the body in the request with permitted fields
-  const filteredBody = filterObj(req.body, 'name', 'email', 'about', 'courseYear', 'currentStatus', 'questionsAsked', 'questionsAnswered');
+  const filteredBody = filterObj(req.body, 'name', 'email', 'profileImage','about', 'courseYear', 'currentStatus', 'questionsAsked', 'questionsAnswered');
 
   //2) Update user document
   const updatedUser = await Users.findByIdAndUpdate(req.user.id, filteredBody, {
