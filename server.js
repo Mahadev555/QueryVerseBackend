@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = require('./app.js');
 
 const PORT = process.env.PORT || 8080; // Use Render's PORT variable
-const DOMAIN = 'https://query-z4fe.onrender.com/'; // Use Render's domain
+const DOMAIN = process.env.DOMAIN || 'https://query-z4fe.onrender.com/'; // Use Render's domain
 
 const log = console.log;
 
