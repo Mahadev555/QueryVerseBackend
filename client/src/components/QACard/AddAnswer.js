@@ -32,7 +32,7 @@ const customStyle = makeStyles({
         padding: "10px",
         marginTop: "10px",
         fontSize: "14px",
-        marginRight:'20px', 
+        marginRight:'0px', 
         fontFamily: 'Segoe UI', 
     },
     addButton: {
@@ -123,7 +123,7 @@ export default function AddAnswer(id) {
                     mt: -2,
                     p: 2.5,
                     pb: 0,
-                    ml: 28,
+                    ml: 36,
                     mb: 3,
                     borderRadius: 5,
                     width: '600px',
