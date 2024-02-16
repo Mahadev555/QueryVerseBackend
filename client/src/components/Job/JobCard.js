@@ -1,89 +1,110 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const customStyle = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
     root: {
-        width: "100%",
-        backgroundColor: '#ffffff',
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column'
+        backgroundColor: '#FFFFFF',
+        borderRadius: theme.spacing(2),
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+        padding: theme.spacing(2),
+        marginBottom: theme.spacing(3),
     },
-    infoLeft: {
-        display: 'flex',
-        alignItems: 'center'
+    companyLogo: {
+        marginRight: theme.spacing(2),
+        width: theme.spacing(8),
+        height: theme.spacing(8),
     },
-    infoRight: {
+    companyDetails: {
         display: 'flex',
-        alignItems: 'center'
+        flexDirection: 'column',
+        alignItems: 'left',
+        '& > *': {
+            fontWeight: 'bold',
+            marginRight: theme.spacing(1),
+        },
     },
-    skills: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        marginTop: '8px'
+    skillBox: {
+        backgroundColor: '#F0F0F0',
+        padding: theme.spacing(0.5, 1),
+        borderRadius: theme.spacing(1),
+        marginBottom: theme.spacing(1),
     },
     applyButton: {
-        marginLeft: 'auto'
-    }
-});
+        marginLeft: 'auto',
+        
+    },
+    mainGridContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+}));
+
+const defaultTheme = createTheme();
 
 export default function JobCard(props) {
-    const classes = customStyle();
-  
-    
+    const classes = useStyles();
+
     const handleClick = () => {
-        // Replace 'https://example.com' with your desired external link
-        window.location.href = props.applicationLink;
-      };
+        window.open(props.applicationLink, '_blank');
+    };
+
+    const skillsArray = Array.isArray(props.skills) ? props.skills : [props.skills];
 
     return (
-        <Box
-            sx={{
-                p: 2.5,
-                borderRadius: 5,
-                boxShadow: 5,
-                mb: 3
-            }}
-            className={classes.root}
-        >
+        <ThemeProvider theme={defaultTheme} >
+        <Box className={classes.root}>
             <Grid container spacing={2}>
 
-                <Grid item xs={8}>
-                    <Box className={classes.infoLeft}>
-                        <Avatar alt="Company Logo" src={props.logo} />
-                        <div className="OtherJobsCard_companyDetails__3GcwQ">
-                            <Typography variant="subtitle1" className="OtherJobsCard_lightText__12EQI OtherJobsCard_darkText__356ok">{props.company}</Typography>
-                            <Typography variant="body1" className="OtherJobsCard_darkText__356ok">{props.position}</Typography>
-                            <Typography variant="body2" className="OtherJobsCard_lightText__12EQI">{props.location}</Typography>
-                        </div>
-                    </Box>
-                    {/* <div className={classes.skills}>
-                        {props.skills.map((skill, index) => (
-                            <Typography key={index} variant="body2" className="OtherJobsCard_label__26HcA">{skill}</Typography>
-                        ))}
-                    </div> */}
-                </Grid>
-
-                {/* Job Information and Apply Button */}
-                <Grid item xs={4}>
-                    <div className={classes.infoRight}>
-                        <div>
-                            <Typography variant="body2" className="OtherJobsCard_lightText__12EQI OtherJobsCard_blueText__1RSuY">{props.jobType}</Typography>
-                            <Typography variant="body2" className="OtherJobsCard_lightText__12EQI">Salary: {props.salary}</Typography>
-                            <Typography variant="body2" className="OtherJobsCard_lightText__12EQI">Experience: {props.experience}</Typography>
-                        </div>
-                        <Button className={classes.applyButton} variant="contained" onClick={handleClick} color="primary" >Apply</Button>
-                    </div>
+                <Grid item xs={13} >
+                <Grid marginTop={1.5} display={'flex'} item xs={11}>
+                    <Grid marginLeft={2} item xs={1.6}>
+                        <Avatar
+                            className={classes.companyLogo}
+                            alt="Company Logo"
+                            src={props.logo}
+                        />
+                    </Grid>
+                    <Grid item xs={12} display={'flex'} justifyContent={'space-between'}>
+                        <Grid  display={'flex'}  flexDirection={'column'} alignItems={'flex-start'}>
+                            <Typography variant="subtitle1"  style={{ fontSize: '1.2rem' }}>{props.company}</Typography>
+                            <Typography variant="subtitle2" style={{ fontSize: '1rem' }}>{props.position}</Typography>
+                        </Grid>
+                        <Grid display={'flex'}  flexDirection={'column'} alignItems={'flex-end'}>
+                            <Typography style={{margin:"3px 0px"}} variant="body2">Salary: {props.salary}</Typography>
+                            <Typography style={{margin:"3px 0px"}} variant="body2">Type: {props.jobType}</Typography>
+                            <Typography style={{margin:"3px 0px"}} variant="body2">Experience: {props.experience}</Typography>
+                        </Grid>
+                    </Grid>
+                    </Grid>
+                    <Grid xs={11} margin={'20px 0px 10px 0px '} display={'flex'}>
+                        <Grid marginLeft={2} >
+                            {skillsArray.map((skill, index) => (
+                                <Box key={index} className={classes.skillBox}>
+                                    <Typography variant="body2">{skill}</Typography>
+                                </Box>
+                            ))}
+                        </Grid>
+                        <Button 
+                        
+                            className={classes.applyButton}
+                            variant="contained"
+                            color="primary"
+                            onClick={handleClick}
+                        >
+                            Apply
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
-
-            
         </Box>
+        </ThemeProvider>
     );
 }

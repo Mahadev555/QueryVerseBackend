@@ -1,36 +1,86 @@
 import React from 'react';
-import { Box, Grid, Skeleton } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
+import { makeStyles } from '@mui/styles';
 
-export default function JobCardSkeleton() {
-    return (
-        <Box
-            sx={{
-                p: 2.5,
-                borderRadius: 5,
-                boxShadow: 5,
-                mb: 3
-            }}
-        >
-            <Grid container spacing={2}>
-                {/* Company Logo, Details, and Skills Skeleton */}
-                <Grid item xs={8}>
-                    <Skeleton variant="rectangular" width="100%" height={100} animation="wave" />
-                    <Skeleton variant="text" animation="wave" />
-                    <Skeleton variant="text" animation="wave" />
-                    <Skeleton variant="text" animation="wave" />
-                </Grid>
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: theme.spacing(2),
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+  },
+  companyLogo: {
+    marginRight: theme.spacing(2),
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+  },
+  companyDetails: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start', // Align to left
+    '& > *': {
+      fontWeight: 'bold',
+      marginRight: theme.spacing(1),
+    },
+  },
+  skillBox: {
+    backgroundColor: '#F0F0F0',
+    padding: theme.spacing(0.5, 1),
+    borderRadius: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  applyButton: {
+    marginLeft: 'auto',
+  },
+}));
 
-                {/* Job Information and Apply Button Skeleton */}
-                <Grid item xs={4}>
-                    <Skeleton variant="rectangular" width="100%" height={100} animation="wave" />
-                    <Skeleton variant="text" animation="wave" />
-                    <Skeleton variant="text" animation="wave" />
-                    <Skeleton variant="text" animation="wave" />
-                </Grid>
+export default function JobCardSkeleton(props) {
+  const classes = useStyles();
+
+  // Simulating loading state
+  const loading = true;
+
+  return (
+    <Box className={classes.root}>
+      <Grid container spacing={2}>
+        <Grid item xs={2}>
+          <Skeleton variant="circular" width={80} height={80} />
+        </Grid>
+        <Grid item xs={10}>
+          <Skeleton variant="text" width={200} height={30} />
+          <Skeleton variant="text" width={150} height={20} />
+          <Skeleton variant="text" width={100} height={20} />
+          <Skeleton variant="text" width={100} height={20} />
+          <Skeleton variant="text" width={150} height={20} />
+          <Skeleton variant="text" width={100} height={20} />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={11}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Box display="flex">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Box key={index} marginRight={1}>
+                    <Skeleton variant="rectangular" width={100} height={30} />
+                  </Box>
+                ))}
+              </Box>
             </Grid>
-
-            {/* Share and Earn Skeleton */}
-            <Skeleton variant="text" animation="wave" />
-        </Box>
-    );
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="flex-end">
+                <Skeleton variant="rectangular" width={100} height={40} />
+              </Box>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }

@@ -33,7 +33,7 @@ const customStyle = makeStyles({
     },
     secondCard: {
         width: "17.8vw",
-        height: 250,
+        height: 210,
         backgroundColor: '#ffffff'
 
     },
@@ -42,7 +42,7 @@ const customStyle = makeStyles({
     }
 })
 
-export default function HomeRightContainer({ isDialogOpen, setDialogOpen }) {
+export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setDialogOpen,isQue,setIsQue }) {
     console.log("🚀 ~ HomeRightContainer ~ setDialogOpen:", setDialogOpen)
     console.log("🚀 ~ HomeRightContainer ~ isDialogOpen:", isDialogOpen)
     const navigate = useNavigate();
@@ -55,6 +55,17 @@ export default function HomeRightContainer({ isDialogOpen, setDialogOpen }) {
 
     const handleOpenDialog = () => {
         setDialogOpen(!isDialogOpen);
+        
+    };
+
+    const handleJob = () => {
+        setisJob(true);
+        setIsQue(false)
+    };
+
+    const handleQue = () => {
+        setisJob(false);
+        setIsQue(true)
     };
 
 
@@ -164,25 +175,28 @@ export default function HomeRightContainer({ isDialogOpen, setDialogOpen }) {
                 </Stack>
 
                 <List sx={{ width: '93%', maxWidth: 350, bgcolor: 'background.paper', borderRadius: 5, color: "secondary.main", pl: 2, fontWeight: 600 }}>
-                    <ListItem>
-                        <MenuBookOutlinedIcon sx={{ mr: 2 }} />
-                        <ListItemText primary="E-Books" />
+                <ListItem>
+                        <Button sx={{ margin: '-8px 0px', mr: 6 }}><PeopleAltOutlinedIcon sx={{ mr: 2 }} />
+                            <ListItemText primary="Questions" onClick={handleQue} /></Button>
                     </ListItem>
                     <ListItem>
-                        <BusinessCenterOutlinedIcon sx={{ mr: 2 }} />
-                        <ListItemText primary="Jobs & Placements" />
+                        <Button onClick={handleJob} sx={{ margin: '-8px 0px', mr: 6 }}><BusinessCenterOutlinedIcon sx={{ mr: 2 }} />
+                            <ListItemText primary="Jobs & Placements" />
+                        </Button>
                     </ListItem>
                     <ListItem>
-                        <SportsBasketballOutlinedIcon sx={{ mr: 2 }} />
-                        <ListItemText primary="Sports" />
+                        <Button sx={{ mr: 6 }}> <MenuBookOutlinedIcon sx={{ mr: 2 }} />
+                            <ListItemText primary="E-Books" /></Button>
                     </ListItem>
+
                     <ListItem>
-                        <PeopleAltOutlinedIcon sx={{ mr: 2 }} />
-                        <ListItemText primary="Events" />
+                        <Button sx={{ margin: '-8px 0px', mr: 6 }}> <SportsBasketballOutlinedIcon sx={{ mr: 2 }} />
+                            <ListItemText primary="Sports" /></Button>
                     </ListItem>
+                    
                     <ListItem>
-                        <ArchiveOutlinedIcon sx={{ mr: 2 }} />
-                        <ListItemText primary="Documentation Guidance" />
+                        <Button sx={{ margin: '-8px 0px' }}><ArchiveOutlinedIcon sx={{ mr: 2 }} />
+                            <ListItemText primary="Documentation Guidance" /></Button>
                     </ListItem>
 
                 </List>
@@ -191,7 +205,8 @@ export default function HomeRightContainer({ isDialogOpen, setDialogOpen }) {
                 sx={{
                     mt: 3,
                     borderRadius: 5,
-                    boxShadow: 5
+                    boxShadow: 5,
+                    
                 }}
                 className={classes.secondCard}
             >
@@ -244,36 +259,12 @@ export default function HomeRightContainer({ isDialogOpen, setDialogOpen }) {
                                 }
                             />
                         </ListItem>
-                        <ListItem>
-                            <ListItemText
-                                disableTypography
-                                primary={
-                                    <Typography
-                                        type="body2"
-                                        style={{ color: '#9E9E9E' }}
-                                    >
-                                        Terms
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
+                        
 
                     </List>
 
                     <List sx={{ width: '93%', width: "auto" }}>
-                        <ListItem>
-                            <ListItemText
-                                disableTypography
-                                primary={
-                                    <Typography
-                                        type="body2"
-                                        style={{ color: '#9E9E9E' }}
-                                    >
-                                        Careers
-                                    </Typography>
-                                }
-                            />
-                        </ListItem>
+                       
                         <ListItem>
                             <ListItemText
                                 disableTypography
@@ -295,7 +286,7 @@ export default function HomeRightContainer({ isDialogOpen, setDialogOpen }) {
                                         type="body2"
                                         style={{ color: '#9E9E9E' }}
                                     >
-                                        Advertise
+                                        Terms
                                     </Typography>
                                 }
                             />
