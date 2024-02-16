@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';  // Import axios
 
 import AnswerCard from './AnswerCard';
+import instance from '../../axiosInstance';
 
 export default function AnsContainer(id) {
     const [Answers, setAnswers] = useState([]);
@@ -10,7 +11,7 @@ export default function AnsContainer(id) {
         // Fetch data when the component mounts
         const fetchData = async () => {
             try {
-                const response = await axios.get(`/api/v1/questions/ans/${id.id}`);
+                const response = await instance.get(`/api/v1/questions/ans/${id.id}`);
                 setAnswers(response.data.data.answers.reverse()); // Assuming your API response structure has a "data" field with a "questions" array
             } catch (error) {
                 console.error('Error fetching data:', error);

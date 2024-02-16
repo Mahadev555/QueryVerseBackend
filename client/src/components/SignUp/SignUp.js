@@ -20,6 +20,7 @@ import FormControl from '@mui/material/FormControl';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import instance from '../../axiosInstance';
 
 function renderCourseYears() {
     const courseYears = ['FE', 'SE', 'TE', 'BE', 'Prof'];
@@ -93,7 +94,7 @@ export default function SignUp() {
         }
         else {
             try {
-                const response = await axios.post('/api/otp/sendOtp', {
+                const response = await instance.post('/api/otp/sendOtp', {
 
                     email: email,
 
@@ -125,7 +126,7 @@ export default function SignUp() {
         event.preventDefault();
 
         try {
-            await axios.post('/api/otp/verifyOtp', {
+            await instance.post('/api/otp/verifyOtp', {
                 email: email,
                 EnteredOtp: otp
             }, {
@@ -158,7 +159,7 @@ export default function SignUp() {
 
     const submit = async () => {
         try {
-            const response = await axios.post('/api/v1/users/signup', {
+            const response = await instance.post('/api/v1/users/signup', {
                 name: name,
                 email: email,
                 password: password,

@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import axios from 'axios';
+import instance from '../../axiosInstance';
 
 // Creating custom styles
 const customStyle = makeStyles({
@@ -77,7 +78,7 @@ export default function AddAnswer(id) {
 
         event.preventDefault();
 
-        axios.post(`/api/v1/answers/${id.id}`, {
+        instance.post(`/api/v1/answers/${id.id}`, {
             profileImage: storedUserObject.profileImage,
             userAnswerer: storedUserObject.name,
             answer:answerText
