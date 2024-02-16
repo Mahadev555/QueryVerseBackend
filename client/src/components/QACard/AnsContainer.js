@@ -10,7 +10,7 @@ export default function AnsContainer(id) {
         // Fetch data when the component mounts
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://query-z4fe.onrender.com/api/v1/questions/ans/${id.id}`);
+                const response = await axios.get(`/api/v1/questions/ans/${id.id}`);
                 setAnswers(response.data.data.answers.reverse()); // Assuming your API response structure has a "data" field with a "questions" array
             } catch (error) {
                 console.error('Error fetching data:', error);
