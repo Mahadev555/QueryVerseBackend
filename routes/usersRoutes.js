@@ -19,6 +19,7 @@ route.get('/logout', authControllers.logout);
 
 
 route.route('/').get(authControllers.protect, authControllers.restrictTo('Admin'), usersControllers.getAllUsers);
+route.route('/getAll').get(usersControllers.getAllUsers);
 route.route('/me').get(authControllers.protect, usersControllers.getMe, usersControllers.getSingleUser);
 route.route('/updateMe').patch(authControllers.protect, usersControllers.updateMe);
 route.route('/deleteMe').delete(authControllers.protect, usersControllers.deleteMe);

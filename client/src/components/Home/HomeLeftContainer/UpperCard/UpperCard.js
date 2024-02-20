@@ -1,4 +1,3 @@
-//Importing external modules/files
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Paper from '@mui/material/Paper';
@@ -10,104 +9,135 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+import Skeleton from 'react-loading-skeleton'; // Import the shimmer component
+import React, { useState, useEffect } from 'react';
+import instance from '../../../../axiosInstance';
+import { Typography } from '@mui/material';
 
-//Importing internal files
-import user_1 from '../../../../data/images/Mahadev.jpg'
-import user_2 from '../../../../data/images/Kishor.jpg'
-import user_3 from '../../../../data/images/Yash.jpeg'
-import user_4 from '../../../../data/images/Omkar.jpeg'
-
-//Defining Styles
 const customStyle = makeStyles({
-    root: {
-        width: 270,
-        height: 300,
-        backgroundColor: '#ffffff',
+  root: {
+    width: 270,
+    height: 'auto',
+    backgroundColor: '#ffffff',
+  },
+  icons: {
+    '& svg': {
+      fontSize: 32,
     },
-    icons: {
-        '& svg': {
-            fontSize: 32
-        }
-    }
-})
+  },
+});
 
-export default function UpperCard () {
+export default function UpperCard() {
+  const classes = customStyle();
 
-    const classes = customStyle();
+  const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
-    return (
-        <Box
-            sx={{
-                borderRadius: 5,
-                boxShadow: 5
-            }}
-            className={classes.root}
+  useEffect(() => {
+    const fetchTopUsers = async () => {
+      try {
+        const response = await instance.get('/api/v1/users/getall');
+        setAllUsers(response.data.data.users);
+      } catch (error) {
+        console.error('Error fetching top users:', error);
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched (success or failure)
+      }
+    };
+
+    fetchTopUsers();
+  }, []);
+
+  const displayedUsers = showAll ? allUsers : allUsers.slice(0, 4);
+
+  return (
+    <Box
+      sx={{
+        borderRadius: 5,
+        boxShadow: 5,
+      }}
+      className={classes.root}
+    >
+      <Box sx={{ mb: 1 }}>
+        <Paper
+          component="form"
+          sx={{
+            p: '2px 4px',
+            display: 'flex',
+            alignItems: 'center',
+            borderRadius: 5,
+            color: 'secondary',
+          }}
         >
-            <Box sx={{mb: 1}}>
-                <Paper
-                    component="form"
-                    sx={{ 
-                        p: '2px 4px', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        borderRadius: 5, 
-                        color: 'secondary'
-                    }}
-                    >
-                    
-                    <InputBase
-                        sx={{ ml: 1, flex: 1 }}
-                        placeholder="Search Top Student"
-                        textColor="secondary"
-                        inputProps={{ 'aria-label': 'search top students' }}
-                        />
-                    <IconButton 
-                        color="secondary" 
-                        type="submit" 
-                        sx={{ p: '10px' }} 
-                        aria-label="search"
-                        className={classes.icons}
-                    >
-                        <SearchIcon />
-                    </IconButton>
-                </Paper>
-            </Box>
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search Top Student"
+            textColor="secondary"
+            inputProps={{ 'aria-label': 'search top students' }}
+          />
+          <IconButton
+            color="secondary"
+            type="submit"
+            sx={{ p: '10px' }}
+            aria-label="search"
+            className={classes.icons}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Paper>
+      </Box>
 
-            <Box>
-                <div>
-                    
-                <List sx={{ width: '100%', maxWidth: 350, bgcolor: '', borderRadius: 5 }}>
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar alt="Mahadev Manerikar" src={user_1} />
-                        </ListItemAvatar>
-                        <ListItemText primary="Mahadev Manerikar"/>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar alt="Kishor Maski" src={user_2} />
-                        </ListItemAvatar>
-                        <ListItemText primary="Kishor Maski" />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar alt="Yash Sasane" src={user_3} />
-                        </ListItemAvatar>
-                        <ListItemText primary="Yash Sasane" />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemAvatar>
-                            <Avatar alt="Omkar Pawar" src={user_4} />
-                        </ListItemAvatar>
-                        <ListItemText primary="Omkar Pawar"/>
-                    </ListItem>
-                </List>
+      <Box>
+        <div>
+          <List sx={{ width: '100%', maxWidth: 350, bgcolor: '', borderRadius: 5 }}>
+            {loading ? (
+              // Show skeleton placeholders while data is loading
+              Array.from({ length: 4 }).map((_, index) => (
+                <ListItem key={index}>
+                  <ListItemAvatar>
+                    <Skeleton circle={true} width={40} height={40} />
+                  </ListItemAvatar>
+                  <ListItemText primary={<Skeleton width={100} />} />
+                </ListItem>
+              ))
+            ) : (
+              // Show user data
+              displayedUsers.map((user, index) => (
+                <ListItem key={index}>
+                  <ListItemAvatar>
+                    <Avatar alt={user.name} src={user.profileImage} />
+                  </ListItemAvatar>
+                  <ListItemText primary={user.name} />
+                </ListItem>
+              ))
+            )}
+          </List>
+        </div>
+        {!showAll && allUsers.length > 3 && !loading && (
+          <Typography
+            variant="body2"
+            color="secondary"
+            paddingBottom={'8px'}
+            onClick={() => setShowAll(true)}
+            style={{ cursor: 'pointer', textAlign: 'center' }}
+          >
+            Show more
+          </Typography>
+        )}
 
-                </div>
-            </Box>
-
-        </Box>
-    )
+        {showAll && allUsers.length > 4 && (
+          <Typography
+            variant="body2"
+            color="secondary"
+            paddingBottom={'8px'}
+            onClick={() => setShowAll(false)}
+            style={{ cursor: 'pointer', textAlign: 'center' }}
+          >
+            Show less
+          </Typography>
+        )}
+      </Box>
+    </Box>
+  );
 }
-
-//  npm install material-ui-search-bar --force
