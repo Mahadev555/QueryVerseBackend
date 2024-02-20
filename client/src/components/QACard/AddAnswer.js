@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import axios from 'axios';
+import instance from '../../axiosInstance';
 
 // Creating custom styles
 const customStyle = makeStyles({
@@ -32,7 +33,7 @@ const customStyle = makeStyles({
         padding: "10px",
         marginTop: "10px",
         fontSize: "14px",
-        marginRight:'20px', 
+        marginRight:'0px', 
         fontFamily: 'Segoe UI', 
     },
     addButton: {
@@ -77,7 +78,7 @@ export default function AddAnswer(id) {
 
         event.preventDefault();
 
-        axios.post(`/api/v1/answers/${id.id}`, {
+        instance.post(`/api/v1/answers/${id.id}`, {
             profileImage: storedUserObject.profileImage,
             userAnswerer: storedUserObject.name,
             answer:answerText
@@ -123,7 +124,7 @@ export default function AddAnswer(id) {
                     mt: -2,
                     p: 2.5,
                     pb: 0,
-                    ml: 28,
+                    ml: 36,
                     mb: 3,
                     borderRadius: 5,
                     width: '600px',

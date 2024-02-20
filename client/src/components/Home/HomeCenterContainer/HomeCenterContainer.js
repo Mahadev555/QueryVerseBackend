@@ -4,6 +4,10 @@ import axios from 'axios';
 import QACard from '../../QACard/QACard';
 import SkeletonQACard from '../../QACard/SkeletonQACard';
 
+import instance from '../../../axiosInstance';
+
+
+
 export default function HomeCenterContainer(isDialogOpen) {
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -11,12 +15,12 @@ export default function HomeCenterContainer(isDialogOpen) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('api/v1/questions/');
+                const response = await instance.get('/api/v1/questions/');
                 setQuestions(response.data.data.questions.reverse());
-                setLoading(false); // Set loading to false once data is fetched
-            } catch (error) {
+                setLoading(false);
+              } catch (error) {
                 console.error('Error fetching data:', error);
-            }
+              }
         };
 
         fetchData();

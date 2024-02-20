@@ -9,6 +9,7 @@ import AddTopic from '../AddTopic/AddTopic';
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
+import JobCenter from '../Job/JobCenter';
 const customStyle = makeStyles({
   section: {
     textAlign: 'center',
@@ -34,6 +35,8 @@ const Body = ({ isModalOpen }) => {
   console.log("🚀 ~ Body ~ isModalOpen:", isModalOpen)
   const classes = customStyle();
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isJob, setisJob] = useState(false);
+  const [isQue, setIsQue] = useState(true);
   return (
     <><div>
 
@@ -42,10 +45,17 @@ const Body = ({ isModalOpen }) => {
           <LeftHome />
         </Grid>
         <Grid item xs={7} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.moveableCenter}`}>
-          <CenterHome isDialogOpen={isDialogOpen} />
+          {isQue && <CenterHome isDialogOpen={isDialogOpen} />}
+          {isJob && <JobCenter/>}
         </Grid>
         <Grid item xs={2.5} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.fixedRight}`}>
-          <RightHome isDialogOpen={isDialogOpen} setDialogOpen={setDialogOpen} />
+          <RightHome 
+          setIsQue={setIsQue} 
+          isQue={isQue} 
+          isJob={isJob} 
+          setisJob={setisJob} 
+          isDialogOpen={isDialogOpen} 
+          setDialogOpen={setDialogOpen} />
         </Grid>
       </Grid>
 

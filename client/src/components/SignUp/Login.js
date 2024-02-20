@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
+import instance from '../../axiosInstance';
  
 
 const defaultTheme = createTheme();
@@ -32,7 +33,7 @@ function Login() {
 
         event.preventDefault();
 
-        axios.post('/api/v1/users/login', { email, password })
+        instance.post('/api/v1/users/login', { email, password })
 
             .then(response => {
                 console.log("🚀 ~ handleSubmit ~ email:", email)

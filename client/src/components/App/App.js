@@ -8,6 +8,7 @@ import Login from '../SignUp/Login';
 import AddTopic from '../AddTopic/AddTopic';
 import Navbar from '../Navbar/Navbar';
 import UpdateProfile from '../Update/UpdateProfile';
+import JobCenter from '../Job/JobCenter';
 
 const customTheme = createTheme({
   palette: {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/addTopic" element={<AddTopic />} />
             <Route path="/update" element={<UpdateProfile />} />
+            <Route path="/job" element={<JobCenter />} />
           </Routes>
         </Box>
       </Router>

@@ -41,7 +41,7 @@ export default function AnswerCard(props) {
                     mt: -2,
                     p: 2.5,
                     pb: 0,
-                    ml: 28,
+                    ml: 36,
                     mb: 3,
                     borderRadius: 5,
                     width: '600px',

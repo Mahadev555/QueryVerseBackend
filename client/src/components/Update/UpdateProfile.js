@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
+import instance from '../../axiosInstance';
 
 const defaultTheme = createTheme();
  
@@ -79,7 +80,7 @@ const UpdateProfile = () => {
     
     const submit = async () => {
         try {
-            const response = await axios.patch(`api/v1/users/updateMe`, {
+            const response = await instance.patch(`/api/v1/users/updateMe`, {
                 name: fullName,
                 email: email,
                 about: about,

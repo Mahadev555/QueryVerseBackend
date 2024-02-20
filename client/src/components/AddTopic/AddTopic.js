@@ -17,6 +17,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import instance from '../../axiosInstance';
 const defaultTheme = createTheme();
 
 export default function AddTopic({ isDialogOpen, setDialogOpen }) {
@@ -60,7 +61,7 @@ export default function AddTopic({ isDialogOpen, setDialogOpen }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post('/api/v1/questions/', {
+        instance.post('/api/v1/questions/', {
           
             userQuestioner: storedUserObject.name,
             questionTitle: userQuestioner.questionTitle,

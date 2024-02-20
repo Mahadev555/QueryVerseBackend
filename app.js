@@ -10,9 +10,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const compression = require('compression');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const axios = require('axios');
+const cors = require('cors'); 
 
 //--------- Importing internal modules and files ----------
 const questionsRoutes = require('./routes/questionsRoutes.js');
@@ -37,27 +35,6 @@ app.use((req, res, next) => {
 
 app.use(helmet());
 
-app.post('/upload', async (req, res) => {
-  try {
-      const file = req.body.file; // assuming the file is sent in the request body
-
-      const cloudinaryResponse = await axios.post(
-          `https://api.cloudinary.com/v1_1/detjwtn7c/image/upload`, // Replace 'detjwtn7c' with your cloud_name
-          file,
-          {
-              headers: {
-                  'Content-Type': 'multipart/form-data',
-                  'Authorization': `Basic ${Buffer.from('383326321776236' + ':' + 'JyEerDTSNT3fFEjPsbo0C32H57o').toString('base64')}`,
-              },
-          }
-      );
-
-      res.json(cloudinaryResponse.data);
-  } catch (error) {
-      console.error('Error uploading image to Cloudinary:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
 if(process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
 }
