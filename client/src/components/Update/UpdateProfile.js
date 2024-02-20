@@ -14,11 +14,14 @@ import MenuItem from '@mui/material/MenuItem';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; 
+import axios from 'axios';
 import instance from '../../axiosInstance';
+import GetAllQuestions from './GetAllQuestions';
+import SkeletonQACard from '../QACard/SkeletonQACard';
+import { Stack } from '@mui/material';
 
 const defaultTheme = createTheme();
- 
+
 const UpdateProfile = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -29,7 +32,11 @@ const UpdateProfile = () => {
     const [role, setRole] = useState('');
     const navigate = useNavigate();
     const [profileImage, setProfileImage] = useState('');
-    console.log("🚀 ~ UpdateProfile ~ profileImage:", profileImage)
+
+    const [isAllQues, setisAllQues] = useState(false);
+    const [questionss, setQuestions] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     // Function to render course years
     function renderCourseYears() {
         const courseYears = ['FE', 'SE', 'TE', 'BE', 'Prof'];
@@ -57,27 +64,27 @@ const UpdateProfile = () => {
     }, []);
 
 
-   // Frontend (React)
-   const handleFileChange = async (event) => {
-    const file = event.target.files[0];
+    // Frontend (React)
+    const handleFileChange = async (event) => {
+        const file = event.target.files[0];
 
-    if (file) {
-        try {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('upload_preset', 'kfvd0fey'); // Replace with your actual unsigned upload preset
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', 'kfvd0fey'); // Replace with your actual unsigned upload preset
 
-            const response = await axios.post('https://api.cloudinary.com/v1_1/detjwtn7c/image/upload', formData);
+                const response = await axios.post('https://api.cloudinary.com/v1_1/detjwtn7c/image/upload', formData);
 
-            // Assuming Cloudinary returns the image URL in the 'secure_url' field
-            setProfileImage(response.data.secure_url);
-        } catch (error) {
-            console.error('Error uploading image to Cloudinary:', error);
+                // Assuming Cloudinary returns the image URL in the 'secure_url' field
+                setProfileImage(response.data.secure_url);
+            } catch (error) {
+                console.error('Error uploading image to Cloudinary:', error);
+            }
         }
-    }
-};
+    };
 
-    
+
     const submit = async () => {
         try {
             const response = await instance.patch(`/api/v1/users/updateMe`, {
@@ -86,7 +93,7 @@ const UpdateProfile = () => {
                 about: about,
                 courseYear: courseYear,
                 currentStatus: currentStatus,
-                profileImage:profileImage
+                profileImage: profileImage
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -106,184 +113,246 @@ const UpdateProfile = () => {
     }
 
 
+    const questions = async () => {
+        const idd = storedUserObject._id
+        try {
+            const response = await instance.get(`/api/v1/questions/ques/${storedUserObject._id}`, {
+                headers: {
+
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.status === 200) {
+                console.log("got result")
+                setQuestions(response.data.data.questions);
+
+                console.log("🚀 ~ UpdateProfile ~ questionss:", questionss)
+                setLoading(false);
+                setisAllQues(true)
+
+                console.log("🚀 ~ UpdateProfile ~ isAllQues:", isAllQues)
+
+            } else {
+                console.log("Failed to get questions");
+            }
+        } catch (error) {
+            window.alert(error.response.data.message);
+            console.error('Error updating questions:', error);
+        }
+    }
 
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Container sx={{ backgroundColor: '#ffffff', borderRadius: '10px', margin: '80px', marginLeft: '160px', padding: '80px', paddingTop: '10px' }}>
-                <Box sx={{ marginTop: 8 }}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} md={4}>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
-                                    padding: 2,
-                                    marginBottom: 2,
-                                    position: 'relative',
-                                }}
-                            >
-                                <label htmlFor="profileImage">
-                                    <input
-                                        type="file"
-                                        id="profileImage"
-                                        accept="image/*"
-                                        style={{ display: 'none' }}
-                                        onChange={handleFileChange}
-                                    />
-                                    <Avatar
-                                        src={profileImage}
-                                        alt="Profile Image"
-                                        sx={{ width: 160, height: 160, borderRadius: '50%' }}
-                                    />
-                                    <Box
-                                        sx={{
-                                            position: 'absolute',
-                                            bottom: 108,
-                                            right: 102,
-                                            cursor: 'pointer',
-                                            borderRadius: '50%',
-                                            backgroundColor: '#f5f6fa',
-                                            padding: '8px',
-                                        }}
-                                    >
-                                        <AddAPhotoIcon color="primary" />
-                                    </Box>
-                                </label>
-                                <Typography color="primary" variant="h5" sx={{ marginTop: 4 }}>{storedUserObject.name}</Typography>
-                                <Typography variant="subtitle1" sx={{ color: '#757575' }}>{storedUserObject.email}</Typography>
-                            </Box>
-                            <Box md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                <Typography color="primary" variant="h5">About</Typography>
-                                <Typography variant="body1" sx={{ color: '#656566', fontSize: '0.825rem', padding: '0 50px ', marginTop: 1 }}>
-                                    {storedUserObject?.about}
-                                </Typography>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={12} md={8}>
-                            <Box sx={{ padding: 2 }}>
-                                <Typography variant="h6" color="primary" sx={{ marginBottom: 2 }}>Personal Details</Typography>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                            label="Full Name"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={fullName}
-
-                                            onChange={(e) => setFullName(e.target.value)}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <Button sx={{ marginRight: '-15px' }} onClick={() => setFullName('')}>
-                                                        <EditIcon color="primary" />
-                                                    </Button>
-                                                ),
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                            label="Email"
-                                            type="email"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={email}
-
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={12}>
-                                        <TextField
-                                            label="About"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={about}
-                                            onChange={(e) => setAbout(e.target.value)}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <Button sx={{ marginRight: '-15px' }} onClick={() => setAbout('')}>
-                                                        <EditIcon color="primary" />
-                                                    </Button>
-                                                ),
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                            label="Year of Admission"
-                                            type="number"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={yearOfAdmission}
-                                            onChange={(e) => setYearOfAdmission(e.target.value)}
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <Button sx={{ marginRight: '-15px' }} onClick={() => setYearOfAdmission('')}>
-                                                        <EditIcon color="primary" />
-                                                    </Button>
-                                                ),
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="courseYearLabel">Course Year</InputLabel>
-                                            <Select
-                                                labelId="courseYearLabel"
-                                                id="courseYear"
-                                                name="courseYear"
-                                                label="Course Year"
-                                                value={courseYear}
-                                                onChange={(e) => setCourseYear(e.target.value)}
-                                            >
-                                                {renderCourseYears()}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="currentStatusLabel">Current Status</InputLabel>
-                                            <Select
-                                                labelId="currentStatusLabel"
-                                                id="currentStatus"
-                                                name="currentStatus"
-                                                label="Current Status"
-                                                value={currentStatus}
-                                                onChange={(e) => setCurrentStatus(e.target.value)}
-                                            >
-                                                <MenuItem value="Student">Student</MenuItem>
-                                                <MenuItem value="Passout">Passout</MenuItem>
-                                                <MenuItem value="Dropout">Dropout</MenuItem>
-                                                <MenuItem value="Professor">Professor</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="roleLabel">Role</InputLabel>
-                                            <Select
-                                                labelId="roleLabel"
-                                                id="role"
-                                                name="role"
-                                                label="Role"
-                                                value={role}
-                                                onChange={(e) => setRole(e.target.value)}
-                                            >
-                                                <MenuItem value="Student">Student</MenuItem>
-                                                <MenuItem value="Professor">Professor</MenuItem>
-                                                <MenuItem value="Admin">Admin</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                </Grid>
-                                <Box sx={{ marginTop: 3, display: 'flex', justifyContent: 'flex-end' }}>
-                                    <Button variant="outlined" sx={{ marginRight: 2 }} onClick={() => { navigate('/'); }}>Cancel</Button>
-                                    <Button variant="contained" onClick={submit} color="primary">Update</Button>
-                                </Box>
-                            </Box>
-                        </Grid>
+            <Container sx={{ backgroundColor: '#ffffff',borderRadius: '10px', margin: '80px', marginLeft: '160px', padding: '80px',paddingBottom: '50px', paddingTop: '10px' }}>
+                {isAllQues ? (<Stack sx={{ height: '550px', overflowY: 'auto' }}   >
+                    <Grid xs={12} sx={{      marginTop: "10px", display: 'flex', flexDirection: 'column', alignItems: 'center' }}  >
+                        {loading ? (
+                            // Render the QASkeleton while data is being fetched
+                            Array.from({ length: 3 }).map((_, index) => (
+                                <SkeletonQACard  key={index} />
+                            )
+                            )
+                        ) : (
+                            // Render QACard components once data is fetched
+                            questionss.map((ele) => (
+                                <GetAllQuestions
+                                setisAllQues={setisAllQues}
+                                    key={ele._id}
+                                    id={ele._id}
+                                    title={ele.questionTitle}
+                                    desc={ele.questionDescription}
+                                    upv={ele.upvotes}
+                                    downv={ele.downvotes}
+                                    ans={ele.answers}
+                                    usr={ele.userQuestioner}
+                                    prof={ele.profileImage}
+                                />
+                            ))
+                        )}
                     </Grid>
-                </Box>
+
+
+                </Stack>
+
+                ) : (
+                    <Box sx={{ marginTop: 8 }}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} md={4}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        padding: 2,
+                                        marginBottom: 2,
+                                        position: 'relative',
+                                    }}
+                                >
+                                    <label htmlFor="profileImage">
+                                        <input
+                                            type="file"
+                                            id="profileImage"
+                                            accept="image/*"
+                                            style={{ display: 'none' }}
+                                            onChange={handleFileChange}
+                                        />
+                                        <Avatar
+                                            src={profileImage}
+                                            alt="Profile Image"
+                                            sx={{ width: 160, height: 160, borderRadius: '50%' }}
+                                        />
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                bottom: 108,
+                                                right: 102,
+                                                cursor: 'pointer',
+                                                borderRadius: '50%',
+                                                backgroundColor: '#f5f6fa',
+                                                padding: '8px',
+                                            }}
+                                        >
+                                            <AddAPhotoIcon color="primary" />
+                                        </Box>
+                                    </label>
+                                    <Typography color="primary" variant="h5" sx={{ marginTop: 4 }}>{storedUserObject.name}</Typography>
+                                    <Typography variant="subtitle1" sx={{ color: '#757575' }}>{storedUserObject.email}</Typography>
+                                </Box>
+                                <Box md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <Typography color="primary" variant="h5">About</Typography>
+                                    <Typography variant="body1" sx={{ color: '#656566', fontSize: '0.825rem', padding: '0 50px ', marginTop: 1 }}>
+                                        {storedUserObject?.about}
+                                    </Typography>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} md={8}>
+                                <Box sx={{ padding: 2 }}>
+                                    <Typography variant="h6" color="primary" sx={{ marginBottom: 2 }}>Personal Details</Typography>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                label="Full Name"
+                                                variant="outlined"
+                                                fullWidth
+                                                value={fullName}
+
+                                                onChange={(e) => setFullName(e.target.value)}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <Button sx={{ marginRight: '-15px' }} onClick={() => setFullName('')}>
+                                                            <EditIcon color="primary" />
+                                                        </Button>
+                                                    ),
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                label="Email"
+                                                type="email"
+                                                variant="outlined"
+                                                fullWidth
+                                                value={email}
+
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={12}>
+                                            <TextField
+                                                label="About"
+                                                variant="outlined"
+                                                fullWidth
+                                                value={about}
+                                                onChange={(e) => setAbout(e.target.value)}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <Button sx={{ marginRight: '-15px' }} onClick={() => setAbout('')}>
+                                                            <EditIcon color="primary" />
+                                                        </Button>
+                                                    ),
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                label="Year of Admission"
+                                                type="number"
+                                                variant="outlined"
+                                                fullWidth
+                                                value={yearOfAdmission}
+                                                onChange={(e) => setYearOfAdmission(e.target.value)}
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <Button sx={{ marginRight: '-15px' }} onClick={() => setYearOfAdmission('')}>
+                                                            <EditIcon color="primary" />
+                                                        </Button>
+                                                    ),
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="courseYearLabel">Course Year</InputLabel>
+                                                <Select
+                                                    labelId="courseYearLabel"
+                                                    id="courseYear"
+                                                    name="courseYear"
+                                                    label="Course Year"
+                                                    value={courseYear}
+                                                    onChange={(e) => setCourseYear(e.target.value)}
+                                                >
+                                                    {renderCourseYears()}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="currentStatusLabel">Current Status</InputLabel>
+                                                <Select
+                                                    labelId="currentStatusLabel"
+                                                    id="currentStatus"
+                                                    name="currentStatus"
+                                                    label="Current Status"
+                                                    value={currentStatus}
+                                                    onChange={(e) => setCurrentStatus(e.target.value)}
+                                                >
+                                                    <MenuItem value="Student">Student</MenuItem>
+                                                    <MenuItem value="Passout">Passout</MenuItem>
+                                                    <MenuItem value="Dropout">Dropout</MenuItem>
+                                                    <MenuItem value="Professor">Professor</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="roleLabel">Role</InputLabel>
+                                                <Select
+                                                    labelId="roleLabel"
+                                                    id="role"
+                                                    name="role"
+                                                    label="Role"
+                                                    value={role}
+                                                    onChange={(e) => setRole(e.target.value)}
+                                                >
+                                                    <MenuItem value="Student">Student</MenuItem>
+                                                    <MenuItem value="Professor">Professor</MenuItem>
+                                                    <MenuItem value="Admin">Admin</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                    <Box sx={{ marginTop: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                                        <Button variant="contained" sx={{ marginRight: 49.5 }} onClick={questions} color="primary">All Questions</Button>
+
+                                        <Button variant="outlined" sx={{ marginRight: 2 }} onClick={() => { navigate('/'); }}>Cancel</Button>
+                                        <Button variant="contained" onClick={submit} color="primary">Update</Button>
+                                    </Box>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                )}
             </Container>
         </ThemeProvider>
     );

@@ -78,7 +78,7 @@ export default function JobCard(props) {
                             <Typography variant="subtitle2" style={{ fontSize: '1rem' }}>{props.position}</Typography>
                         </Grid>
                         <Grid display={'flex'}  flexDirection={'column'} alignItems={'flex-end'}>
-                            <Typography style={{margin:"3px 0px"}} variant="body2">Salary: {props.salary}</Typography>
+                            <Typography style={{margin:"3px 0px"}} variant="body2">{props.salary}</Typography>
                             <Typography style={{margin:"3px 0px"}} variant="body2">Type: {props.jobType}</Typography>
                             <Typography style={{margin:"3px 0px"}} variant="body2">Experience: {props.experience}</Typography>
                         </Grid>
