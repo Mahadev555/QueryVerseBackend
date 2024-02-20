@@ -188,6 +188,7 @@ exports.getAllAnswersForQuestion = catchAsync(async (req, res, next) => {
 		result: answers.length,
 		data: {
 		  answers,
+		  
 		},
 	  });
 	} catch (error) {
