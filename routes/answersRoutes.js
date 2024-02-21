@@ -20,7 +20,7 @@ routes.route('/:id')
 	.get(answersControllers.getAllAnswersForQuestion)
 	.patch(authControllers.protect, answersControllers.updateAnswer)
 	.delete(authControllers.protect, answersControllers.deleteAnswer)
-	.post(authControllers.protect, answersControllers.postNewAnswer);
+	.post(authControllers.protect, answersControllers.postNewAnswer)
 
 
 	

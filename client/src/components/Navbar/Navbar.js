@@ -243,10 +243,11 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                         width: 120,
                         height: 40,
                         mr: 1.5,
-                        mt: 1.1,
+                        mt: 1.1,cursor: 'pointer',
                         backgroundColor: 'secondary.main',
                         borderRadius: 10,
                       }}
+                      onClick={() => navigate('/login')}
                     >
                       <Typography
                         variant="h6"
@@ -258,7 +259,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                           cursor: 'pointer',
                         }}
                         color="#ffffff"
-                        onClick={() => navigate('/login')}
+                       
                       >
                         Login
                       </Typography>

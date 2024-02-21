@@ -1,5 +1,8 @@
+// Inside the UpperCard component
+import React, { useState, useEffect } from 'react';
+import instance from '../../../../axiosInstance';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
@@ -9,10 +12,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import Skeleton from 'react-loading-skeleton'; // Import the shimmer component
-import React, { useState, useEffect } from 'react';
-import instance from '../../../../axiosInstance';
-import { Typography } from '@mui/material';
+import Skeleton from 'react-loading-skeleton';
+import { makeStyles } from '@mui/styles';
 
 const customStyle = makeStyles({
   root: {
@@ -27,29 +28,39 @@ const customStyle = makeStyles({
   },
 });
 
-export default function UpperCard() {
+const UpperCard = () => {
   const classes = customStyle();
 
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
     const fetchTopUsers = async () => {
       try {
         const response = await instance.get('/api/v1/users/getall');
         setAllUsers(response.data.data.users);
+        setFilteredUsers(response.data.data.users);
       } catch (error) {
         console.error('Error fetching top users:', error);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched (success or failure)
+        setLoading(false);
       }
     };
 
     fetchTopUsers();
   }, []);
 
-  const displayedUsers = showAll ? allUsers : allUsers.slice(0, 4);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const query = searchQuery.toLowerCase();
+    const filtered = allUsers.filter(user => user.name.toLowerCase().includes(query));
+    setFilteredUsers(filtered);
+  };
+
+  const displayedUsers = showAll ? filteredUsers : filteredUsers;
 
   return (
     <Box
@@ -75,6 +86,8 @@ export default function UpperCard() {
             placeholder="Search Top Student"
             textColor="secondary"
             inputProps={{ 'aria-label': 'search top students' }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
           <IconButton
             color="secondary"
@@ -82,6 +95,7 @@ export default function UpperCard() {
             sx={{ p: '10px' }}
             aria-label="search"
             className={classes.icons}
+            onClick={(e) => handleSearch(e)} 
           >
             <SearchIcon />
           </IconButton>
@@ -90,9 +104,8 @@ export default function UpperCard() {
 
       <Box>
         <div>
-          <List sx={{ width: '100%', maxWidth: 350, bgcolor: '', borderRadius: 5 }}>
+          <List sx={{ width: '100%',overflowY:'auto', maxWidth: 350, height:'230px', bgcolor: '', borderRadius: 5 }}>
             {loading ? (
-              // Show skeleton placeholders while data is loading
               Array.from({ length: 4 }).map((_, index) => (
                 <ListItem key={index}>
                   <ListItemAvatar>
@@ -102,7 +115,6 @@ export default function UpperCard() {
                 </ListItem>
               ))
             ) : (
-              // Show user data
               displayedUsers.map((user, index) => (
                 <ListItem key={index}>
                   <ListItemAvatar>
@@ -114,30 +126,11 @@ export default function UpperCard() {
             )}
           </List>
         </div>
-        {!showAll && allUsers.length > 3 && !loading && (
-          <Typography
-            variant="body2"
-            color="secondary"
-            paddingBottom={'8px'}
-            onClick={() => setShowAll(true)}
-            style={{ cursor: 'pointer', textAlign: 'center' }}
-          >
-            Show more
-          </Typography>
-        )}
-
-        {showAll && allUsers.length > 4 && (
-          <Typography
-            variant="body2"
-            color="secondary"
-            paddingBottom={'8px'}
-            onClick={() => setShowAll(false)}
-            style={{ cursor: 'pointer', textAlign: 'center' }}
-          >
-            Show less
-          </Typography>
-        )}
+        
+       
       </Box>
     </Box>
   );
-}
+};
+
+export default UpperCard;

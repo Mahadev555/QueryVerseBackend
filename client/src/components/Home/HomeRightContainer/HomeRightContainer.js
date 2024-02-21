@@ -181,7 +181,7 @@ export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setD
                     </ListItem>
                     <ListItem>
                         <Button onClick={handleJob} sx={{ margin: '-8px 0px', mr: 6 }}><BusinessCenterOutlinedIcon sx={{ mr: 2 }} />
-                            <ListItemText primary="Jobs & Placements" />
+                            <ListItemText primary="Jobs" />
                         </Button>
                     </ListItem>
                     <ListItem>
@@ -196,7 +196,7 @@ export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setD
                     
                     <ListItem>
                         <Button sx={{ margin: '-8px 0px' }}><ArchiveOutlinedIcon sx={{ mr: 2 }} />
-                            <ListItemText primary="Documentation Guidance" /></Button>
+                            <ListItemText primary="Documentation" /></Button>
                     </ListItem>
 
                 </List>
