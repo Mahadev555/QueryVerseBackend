@@ -12,7 +12,7 @@ console.log(jobs)
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://api.cuvette.tech/api/v1/externaljobs?search=');
-                setJobs(response.data.data);
+                setJobs(response.data.data.slice(0, 50));
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
