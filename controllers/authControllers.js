@@ -195,6 +195,8 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 // send OTP 
 
 
+//MAHADEV
+
 //send email
 const generateOTP = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();

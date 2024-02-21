@@ -21,6 +21,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import instance from '../../axiosInstance';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 function renderCourseYears() {
     const courseYears = ['FE', 'SE', 'TE', 'BE', 'Prof'];
@@ -33,7 +35,7 @@ function renderCourseYears() {
 
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function SignUp({isSignUpopen,setisSignUpopen}) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -177,6 +179,7 @@ export default function SignUp() {
                 setCourseYear('');
                 window.alert("Submitted");
                 navigate('/')
+                setisSignUpopen(false)
 
             } else {
                 window.alert("exists");
@@ -193,7 +196,8 @@ export default function SignUp() {
                 <CssBaseline />
                 <Box
                     sx={{
-                        marginTop: 8,
+                        my:4,
+
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -297,6 +301,12 @@ export default function SignUp() {
                         >
                             Sign Up
                         </Button>
+                        <IconButton
+                            sx={{ position: 'absolute', top: 30, right: 30 }}
+                            onClick={() => setisSignUpopen(false).navigate('/')}
+                        >
+                            <CloseIcon />
+                        </IconButton>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link href="/login" variant="body2">

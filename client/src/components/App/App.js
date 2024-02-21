@@ -31,16 +31,31 @@ const customTheme = createTheme({
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const [isLoginOpen, setisLoginOpen] = useState(false);
+  const [isSignUpopen, setisSignUpopen] = useState(false);
   console.log("🚀 ~ App ~ isModalOpen:", isModalOpen)
 
-  
+
   return (
     <ThemeProvider theme={customTheme}>
       <Router>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Navbar setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
+          <Navbar
+            isLoginOpen={isLoginOpen}
+            setisLoginOpen={setisLoginOpen}
+            isSignUpopen={isSignUpopen}
+            setisSignUpopen={setisSignUpopen}
+            setModalOpen={setModalOpen} 
+            isModalOpen={isModalOpen} />
           <Routes>
-            <Route path="/" element={<Home isModalOpen={isModalOpen} />} />
+            <Route path="/" element={<Home
+              isModalOpen={isModalOpen}
+              isLoginOpen={isLoginOpen}
+              setisLoginOpen={setisLoginOpen}
+              isSignUpopen={isSignUpopen}
+              setisSignUpopen={setisSignUpopen}
+            />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/addTopic" element={<AddTopic />} />

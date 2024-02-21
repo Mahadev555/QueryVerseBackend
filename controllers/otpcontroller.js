@@ -27,9 +27,9 @@ exports.sendEmail = async (req, res) => {
 
         // Email options
         const mailOptions = {
-            from: 'queryverse',
+            from: 'queryverse-MH.com',
             to: email,
-            subject: 'OTP Verification ',
+            subject: ' QueryVerse OTP Verification  ',
             text: `Your OTP is: ${otp}. Please use it to verify your account.`,
         };
 

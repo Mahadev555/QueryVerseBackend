@@ -26,7 +26,7 @@ const customStyle = makeStyles({
   },
 });
 
-const Navbar = ({ setModalOpen, isModalOpen }) => {
+const Navbar = ({ setModalOpen,setisLoginOpen,setisSignUpopen, isModalOpen }) => {
   const classes = customStyle();
   const navigate = useNavigate();
 
@@ -247,7 +247,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                         backgroundColor: 'secondary.main',
                         borderRadius: 10,
                       }}
-                      onClick={() => navigate('/login')}
+                      onClick={() =>setisLoginOpen(true)}
                     >
                       <Typography
                         variant="h6"
@@ -284,7 +284,7 @@ const Navbar = ({ setModalOpen, isModalOpen }) => {
                           cursor: 'pointer',
                         }}
                         color="#ffffff"
-                        onClick={() => navigate('/signup')}
+                        onClick={() => setisSignUpopen(true)}
                       >
                         Register
                       </Typography>

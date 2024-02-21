@@ -17,12 +17,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import instance from '../../axiosInstance';
- 
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const defaultTheme = createTheme();
 
 
-function Login() {
+function Login({ isLoginOpen, setisLoginOpen }) {
 
 
     const [email, setEmail] = useState('')
@@ -52,7 +54,7 @@ function Login() {
                         var userObject = response.data.data.user;
                         console.log("🚀 ~ handleSubmit ~ userObject:", userObject)
                         localStorage.setItem("name", response.data.data.user.name);
-                        localStorage.setItem("profile",  response.data.data.user.profileImage);
+                        localStorage.setItem("profile", response.data.data.user.profileImage);
                         // Convert the user object to a JSON string
                         var userObjectString = JSON.stringify(userObject);
                         console.log("🚀 ~ handleSubmit ~ userObjectString:", userObjectString)
@@ -96,30 +98,18 @@ function Login() {
     return (
         <div>
             <ThemeProvider theme={defaultTheme} >
-                <Grid container component="main" sx={{ height: '100vh' }}>
-                    <CssBaseline />
-                    <Grid
-                        item
-                        xs={false}
-                        sm={4}
-                        md={7}
-                        sx={{
-                            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundColor: (t) =>
-                                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                        }}
-                    />
-                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+               
+
+          
+
                         <Box
                             sx={{
-                                my: 8,
+                                my: 2,
                                 mx: 4,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
+                                justifyContent: 'center'
                             }}
                         >
                             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -165,6 +155,12 @@ function Login() {
                                 >
                                     Sign In
                                 </Button>
+                                <IconButton
+                                    sx={{ position: 'relative', top: -380, left: 460 }}
+                                    onClick={() => setisLoginOpen(false).navigate('/')}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
                                 <Grid container>
                                     <Grid item xs>
                                         <Link href="#" variant="body2">
@@ -180,8 +176,8 @@ function Login() {
 
                             </Box>
                         </Box>
-                    </Grid>
-                </Grid>
+                    
+    
             </ThemeProvider>
         </div>
     )
