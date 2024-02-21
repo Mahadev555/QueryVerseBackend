@@ -128,7 +128,9 @@ const UpperCard = () => {
               ))
             ) : (
               displayedUsers.map((user, index) => (
-                <ListItem sx={{ cursor: 'pointer' }} onClick={() => handleUserClick(user._id)} key={index}>
+                <ListItem sx={{ cursor: 'pointer', '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.07)', // Grey background with opacity 0.7
+                }, }} onClick={() => handleUserClick(user._id)} key={index}>
                   <ListItemAvatar>
                     <Avatar alt={user.name} src={user.profileImage} />
                   </ListItemAvatar>

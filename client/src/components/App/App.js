@@ -10,6 +10,7 @@ import Navbar from '../Navbar/Navbar';
 import UpdateProfile from '../Update/UpdateProfile';
 import JobCenter from '../Job/JobCenter';
 import AllUserProfile from '../Profile/AllUserProfile';
+import ComingSoonComponent from '../CommingSoon/ComingSoonComponent';
 
 const customTheme = createTheme({
   palette: {
@@ -63,6 +64,7 @@ function App() {
             <Route path="/update" element={<UpdateProfile />} />
             <Route path="/job" element={<JobCenter />} />
             <Route path="/s/:userId" element={<AllUserProfile />} />
+            <Route path="/cs" element={<ComingSoonComponent />} />
           </Routes>
         </Box>
       </Router>

@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { useNavigate } from 'react-router-dom';
 
 //Importing internal packages
 import shop_image from '../../../../data/images/merch.svg'
@@ -38,7 +39,7 @@ const customStyle = makeStyles({
 export default function MerchCard () {
 
     const classes = customStyle();
-
+    const navigate = useNavigate();
     return (
         <Box
             sx={{
@@ -75,6 +76,7 @@ export default function MerchCard () {
                 > 
                     <Button 
                         variant="contain"
+                        onClick={() => { navigate('/cs'); }}
                         startIcon={<ShoppingCartOutlinedIcon style={{color:"#ffffff"}}/>}
                         sx={{
                             backgroundColor:'success.main',
