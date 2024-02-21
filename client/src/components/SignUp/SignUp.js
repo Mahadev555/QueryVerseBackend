@@ -23,7 +23,8 @@ import axios from 'axios';
 import instance from '../../axiosInstance';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import GoogleIcon from '@mui/icons-material/Google'
+import google from './google.png'
 function renderCourseYears() {
     const courseYears = ['FE', 'SE', 'TE', 'BE', 'Prof'];
     return courseYears.map((year) => (
@@ -35,7 +36,7 @@ function renderCourseYears() {
 
 const defaultTheme = createTheme();
 
-export default function SignUp({isSignUpopen,setisSignUpopen}) {
+export default function SignUp({setisLoginOpen,setisSignUpopen}) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -196,8 +197,7 @@ export default function SignUp({isSignUpopen,setisSignUpopen}) {
                 <CssBaseline />
                 <Box
                     sx={{
-                        my:4,
-
+                        my:2,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -301,6 +301,17 @@ export default function SignUp({isSignUpopen,setisSignUpopen}) {
                         >
                             Sign Up
                         </Button>
+                        <Typography variant="body2" color="textSecondary" align="center" sx={{ mb: 1 }}>
+                                   OR
+                                </Typography>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    sx={{ mb: 2, bgcolor: 'white' }}
+                                >
+                                    {/* <GoogleIcon sx={{ mx:2}} /> */}
+                                  <img style={{width:'25px',margin:'2px 10px'}} src={google} />   Sign in with Google
+                                </Button>
                         <IconButton
                             sx={{ position: 'absolute', top: 30, right: 30 }}
                             onClick={() => setisSignUpopen(false).navigate('/')}
@@ -309,7 +320,7 @@ export default function SignUp({isSignUpopen,setisSignUpopen}) {
                         </IconButton>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/login" variant="body2">
+                                <Link href='/login' variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

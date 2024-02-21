@@ -9,6 +9,7 @@ import AddTopic from '../AddTopic/AddTopic';
 import Navbar from '../Navbar/Navbar';
 import UpdateProfile from '../Update/UpdateProfile';
 import JobCenter from '../Job/JobCenter';
+import AllUserProfile from '../Profile/AllUserProfile';
 
 const customTheme = createTheme({
   palette: {
@@ -61,6 +62,7 @@ function App() {
             <Route path="/addTopic" element={<AddTopic />} />
             <Route path="/update" element={<UpdateProfile />} />
             <Route path="/job" element={<JobCenter />} />
+            <Route path="/s" element={<AllUserProfile />} />
           </Routes>
         </Box>
       </Router>

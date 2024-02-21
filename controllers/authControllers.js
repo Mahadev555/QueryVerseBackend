@@ -196,51 +196,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
 
 //MAHADEV
+//forgot password
 
-//send email
-const generateOTP = () => {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-};
-
-exports.sendOTP = async (req, res) => {
-    const { email } = req.body;
-    
-    const otp = generateOTP();
- 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'atharvx555@gmail.com',
-            pass: 'ftzw vbgk qgnv vmsy'
-        },
-    });
-
-    // Email options
-    const mailOptions = {
-        from: 'telegram-clone-MH.com',
-        to: email,
-        subject: 'OTP Verification for QueryVerse ',
-        text: `Your OTP is: ${otp}. Please use it to verify your account.`,
-    };
-
-    try {
-        // Send email
-        const info = await transporter.sendMail(mailOptions);
-
-        console.log('Email sent: ', info.response);
-
-        await UserModel.findOneAndUpdate(
-            { _id: id },
-            { $set: { otp: otp } },
-            
-        );
-
-        
-        return res.json({send:true}); 
-        
-    } catch (error) {
-        console.error('Error sending email:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
-    }
-     
-};

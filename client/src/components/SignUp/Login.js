@@ -19,8 +19,8 @@ import axios from 'axios';
 import instance from '../../axiosInstance';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
-
+import GoogleIcon from '@mui/icons-material/Google'
+import google from './google.png'
 const defaultTheme = createTheme();
 
 
@@ -155,8 +155,19 @@ function Login({ isLoginOpen, setisLoginOpen }) {
                                 >
                                     Sign In
                                 </Button>
+                                <Typography variant="body2" color="textSecondary" align="center" sx={{ mb: 1 }}>
+                                   OR
+                                </Typography>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    sx={{ mb: 1, bgcolor: 'white' }}
+                                >
+                                    {/* <GoogleIcon sx={{ mx:2}} /> */}
+                                  <img style={{width:'25px',margin:'2px 10px'}} src={google} />   Sign in with Google
+                                </Button>
                                 <IconButton
-                                    sx={{ position: 'relative', top: -380, left: 460 }}
+                                    sx={{ position: 'relative', top: -450, left: 460 }}
                                     onClick={() => setisLoginOpen(false).navigate('/')}
                                 >
                                     <CloseIcon />

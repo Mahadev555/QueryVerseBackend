@@ -71,14 +71,14 @@ const Body = ({ isModalOpen,isSignUpopen,setisSignUpopen,isLoginOpen,setisLoginO
       </Dialog>
       <Dialog open={isLoginOpen}  >
         <DialogContent>
-          <Login setisLoginOpen={setisLoginOpen} isLoginOpen={isLoginOpen} />
+          <Login setisLoginOpen={setisLoginOpen}  setisSignUpopen={setisSignUpopen} isLoginOpen={isLoginOpen} />
 
 
         </DialogContent>
       </Dialog>
       <Dialog open={isSignUpopen}  >
         <DialogContent>
-          <SignUp setisSignUpopen={setisSignUpopen} isLoginOpen={isLoginOpen} />
+          <SignUp setisSignUpopen={setisSignUpopen} setisLoginOpen={setisLoginOpen} isLoginOpen={isLoginOpen} />
 
 
         </DialogContent>
