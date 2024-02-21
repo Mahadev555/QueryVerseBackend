@@ -62,7 +62,7 @@ function App() {
             <Route path="/addTopic" element={<AddTopic />} />
             <Route path="/update" element={<UpdateProfile />} />
             <Route path="/job" element={<JobCenter />} />
-            <Route path="/s" element={<AllUserProfile />} />
+            <Route path="/s/:userId" element={<AllUserProfile />} />
           </Routes>
         </Box>
       </Router>

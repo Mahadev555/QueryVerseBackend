@@ -15,34 +15,43 @@ import { Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import SkeletonQACard from '../QACard/SkeletonQACard';
 import { Stack } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import instance from '../../axiosInstance';
 
 const defaultTheme = createTheme();
 
 const AllUserProfile = (props) => {
-    const [fullName, setFullName] = useState('');
-    const [about, setAbout] = useState('');
-    const [yearOfAdmission, setYearOfAdmission] = useState(2020);
-    const [courseYear, setCourseYear] = useState('');
-    const [currentStatus, setCurrentStatus] = useState('');
-    const [role, setRole] = useState('');
+   
     const navigate = useNavigate();
-    const [profileImage, setProfileImage] = useState('');
+    const [userProfile, setUserProfile] = useState({});
+    console.log("🚀 ~ AllUserProfile ~ userProfile:", userProfile)
+    //get userID from that url
+    const { userId } = useParams();
 
-    //stored object
-    var storedUserObjectString = localStorage.getItem("user");
-    var storedUserObject = JSON.parse(storedUserObjectString);
+    
 
     useEffect(() => {
-        // Set initial state values based on storedUserObject
-        setFullName(props.name || '');
-        setAbout(props.about || '');
-        setYearOfAdmission(props.yearOfAdmission || '');
-        setCourseYear(props.courseYear || '');
-        setCurrentStatus(props.currentStatus || '');
-        setRole(props.role || '');
-        setProfileImage(props.profileImage);
-    }, []);
+        const fetchUserProfile = async () => {
+          try {
+            const token = localStorage.getItem('token');
+            const response = await instance.get(`/api/v1/users/getuser/${userId}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            setUserProfile(response.data.data.user);
+          } catch (error) {
+            console.error('Error fetching user profile:', error);
+          } 
+        //   finally {
+        //     setLoading(false);
+        //   }
+        };
+    
+        fetchUserProfile();
+      }, [userId]);
 
+      
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container sx={{ backgroundColor: '#ffffff', borderRadius: '10px', margin: '80px', marginLeft: '160px', padding: '80px', paddingBottom: '50px', paddingTop: '10px' }}>
@@ -60,13 +69,13 @@ const AllUserProfile = (props) => {
                                 }}
                             >
                                 <Avatar
-                                    src={profileImage}
+                                    src={userProfile.profileImage}
                                     alt="Profile Image"
                                     sx={{ width: 160, height: 160, borderRadius: '50%' }}
                                 />
                                  
-                                <Typography color="primary" variant="h5" sx={{ marginTop: 4 }}>{storedUserObject.name}</Typography>
-                                <Typography variant="subtitle1" sx={{ color: '#757575' }}>{storedUserObject.email}</Typography>
+                                <Typography color="primary" variant="h5" sx={{ marginTop: 4 }}>{userProfile.name}</Typography>
+                                <Typography variant="subtitle1" sx={{ color: '#757575' }}>{userProfile.email}</Typography>
                              
                                         <Typography color="primary" variant="subtitle1" sx={{  marginTop: 4,  fontWeight: 'bold' }}>About</Typography>
                                         <Typography
@@ -74,7 +83,7 @@ const AllUserProfile = (props) => {
                                             color="textSecondary"
                                             
                                         >
-                                            {about}
+                                            {userProfile.about}
                                         </Typography>
                                    
                             </Box>
@@ -90,7 +99,7 @@ const AllUserProfile = (props) => {
                                             color="textSecondary"
                                             sx={{  borderRadius: '5px',  display: 'block', width: '100%' }}
                                         >
-                                            {fullName}
+                                            {userProfile.name}
                                         </Typography>
                                     </Grid>
                                    
@@ -101,7 +110,7 @@ const AllUserProfile = (props) => {
                                             color="textSecondary"
                                             sx={{  borderRadius: '5px',  display: 'block', width: '100%' }}
                                         >
-                                            {yearOfAdmission}
+                                            {userProfile.yearOfAdmission}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -111,7 +120,7 @@ const AllUserProfile = (props) => {
                                             color="textSecondary"
                                             sx={{   borderRadius: '5px',   display: 'block', width: '100%' }}
                                         >
-                                            {courseYear}
+                                            {userProfile.courseYear}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -121,7 +130,7 @@ const AllUserProfile = (props) => {
                                             color="textSecondary"
                                             sx={{   borderRadius: '5px',  display: 'block', width: '100%' }}
                                         >
-                                            {currentStatus}
+                                            {userProfile.currentStatus}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
@@ -131,7 +140,7 @@ const AllUserProfile = (props) => {
                                             color="textSecondary"
                                             sx={{   borderRadius: '5px',   display: 'block', width: '100%' }}
                                         >
-                                            {role}
+                                            {userProfile.role}
                                         </Typography>
                                     </Grid>
                                 </Grid>

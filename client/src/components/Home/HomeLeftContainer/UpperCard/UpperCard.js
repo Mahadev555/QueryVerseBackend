@@ -14,6 +14,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Skeleton from 'react-loading-skeleton';
 import { makeStyles } from '@mui/styles';
+import { useNavigate } from 'react-router-dom';
 
 const customStyle = makeStyles({
   root: {
@@ -37,6 +38,8 @@ const UpperCard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
 
+  const jwtToken = localStorage.getItem('token')
+
   useEffect(() => {
     const fetchTopUsers = async () => {
       try {
@@ -53,6 +56,14 @@ const UpperCard = () => {
     fetchTopUsers();
   }, []);
 
+  const handleUserClick = (userId) => {
+    if (!jwtToken) {
+      window.alert("please Login to see other users information")
+    }
+    else { navigate(`/s/${userId}`); }
+  };
+
+
   const handleSearch = (e) => {
     e.preventDefault();
     const query = searchQuery.toLowerCase();
@@ -61,6 +72,7 @@ const UpperCard = () => {
   };
 
   const displayedUsers = showAll ? filteredUsers : filteredUsers;
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -95,7 +107,7 @@ const UpperCard = () => {
             sx={{ p: '10px' }}
             aria-label="search"
             className={classes.icons}
-            onClick={(e) => handleSearch(e)} 
+            onClick={(e) => handleSearch(e)}
           >
             <SearchIcon />
           </IconButton>
@@ -104,7 +116,7 @@ const UpperCard = () => {
 
       <Box>
         <div>
-          <List sx={{ width: '100%',overflowY:'auto', maxWidth: 350, height:'230px', bgcolor: '', borderRadius: 5 }}>
+          <List sx={{ width: '100%', overflowY: 'auto', maxWidth: 350, height: '230px', bgcolor: '', borderRadius: 5 }}>
             {loading ? (
               Array.from({ length: 4 }).map((_, index) => (
                 <ListItem key={index}>
@@ -116,7 +128,7 @@ const UpperCard = () => {
               ))
             ) : (
               displayedUsers.map((user, index) => (
-                <ListItem key={index}>
+                <ListItem sx={{ cursor: 'pointer' }} onClick={() => handleUserClick(user._id)} key={index}>
                   <ListItemAvatar>
                     <Avatar alt={user.name} src={user.profileImage} />
                   </ListItemAvatar>
@@ -126,8 +138,8 @@ const UpperCard = () => {
             )}
           </List>
         </div>
-        
-       
+
+
       </Box>
     </Box>
   );
