@@ -8,6 +8,8 @@ import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import { useEffect, useState } from 'react';
 
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { Button } from '@mui/material';
 import instance from '../../axiosInstance';
@@ -35,18 +37,31 @@ export default function AnswerCard(props) {
     const classes = customStyle();
     const [userVote, setUserVote] = useState(null);
     const [upvotes, setUpvotes] = useState(props.upv);
+    const [alertOpen, setAlertOpen] = useState(false);
+
     const token = localStorage.getItem('token');
+
+
     useEffect(() => {
 
     }, [upvotes]);
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAlertOpen(false);
+    };
 
     const handleVoteClick = async () => {
 
 
         try {
             if (!token) {
-
-                window.alert(" please login for giving likes")
+                // Show the MUI alert
+                setAlertOpen(true);
+                return;
             }
             else {
                 let newVote = null;
@@ -76,11 +91,11 @@ export default function AnswerCard(props) {
                     console.error('Failed to update answer');
                 }
             }
-            } catch (error) {
-                // Handle errors
-                console.error('Error updating answer:', error);
-            }
-        
+        } catch (error) {
+            // Handle errors
+            console.error('Error updating answer:', error);
+        }
+
     };
 
 
@@ -224,6 +239,33 @@ export default function AnswerCard(props) {
                     </Grid>
                 </Grid>
             </Box>
+           <Snackbar
+    open={alertOpen}
+    autoHideDuration={2000}
+    onClose={handleCloseAlert}
+    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+>
+    <Alert
+        onClose={handleCloseAlert}
+        severity="error"  // Change severity to "error" for red color
+        sx={{
+            width: '500px', // Change width as needed
+            height: '80px', // Change height as needed
+            borderRadius: ' 0px 10px', // Add borderRadius for rounded corners
+           backgroundColor:'#fcdcdc',
+           border:'0.1vh solid #ff5454',
+            fontSize: '16px', // Change font size as needed
+            fontWeight: 'bold', // Set font weight to bold
+            textAlign: 'center', // Center-align text
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}
+    >
+        Please login to give likes.
+    </Alert>
+</Snackbar>
+
         </div>
     );
 }
