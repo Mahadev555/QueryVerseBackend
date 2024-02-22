@@ -6,23 +6,26 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import { Button } from '@mui/material';
+import instance from '../../axiosInstance';
 // Creating custom styles
 const customStyle = makeStyles({
     root: {
         width: "fillParent",
-        height: 200,
+        height: 'auto',
         backgroundColor: '#ffffff',
     },
     internalCardLayout: {
         width: "fillParent",
-        height: 150,
+        height: 'auto',
         backgroundColor: '#ffffff',
     },
     bottomCardLayout: {
         width: "fillParent",
-        height: 40,
+        height: 'auto',
         backgroundColor: '#ffffff',
     }
 })
@@ -30,9 +33,56 @@ const customStyle = makeStyles({
 // Main QACard function
 export default function AnswerCard(props) {
     const classes = customStyle();
-    const [isClick, setIsClick] = useState(false);
+    const [userVote, setUserVote] = useState(null);
+    const [upvotes, setUpvotes] = useState(props.upv);
+    const token = localStorage.getItem('token');
+    useEffect(() => {
 
-    
+    }, [upvotes]);
+
+    const handleVoteClick = async () => {
+
+
+        try {
+            if (!token) {
+
+                window.alert(" please login for giving likes")
+            }
+            else {
+                let newVote = null;
+
+                if (userVote === 'upvote') {
+                    // User already upvoted, toggle to downvote
+                    newVote = 'downvote';
+                    setUpvotes(upvotes - 1);
+                } else {
+                    // User either downvoted or never voted, toggle to upvote
+                    newVote = 'upvote';
+                    setUpvotes(upvotes + 1);
+                }
+
+                setUserVote(newVote);
+
+                // Send the request to update the answer
+                const response = await instance.patch(`/api/v1/answers/${props.answerId}`, {
+                    upvotes: newVote === 'upvote' ? true : false,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                if (response.status !== 203) {
+                    console.error('Failed to update answer');
+                }
+            }
+            } catch (error) {
+                // Handle errors
+                console.error('Error updating answer:', error);
+            }
+        
+    };
+
 
     return (
         <div>
@@ -70,7 +120,7 @@ export default function AnswerCard(props) {
                                     item
                                     xs={1.5}
                                     sx={{
-                                        mr: 2
+
                                     }}
                                 >
                                     <Stack
@@ -78,21 +128,11 @@ export default function AnswerCard(props) {
                                         alignItems="center"
                                         spacing={2}
                                         sx={{
-                                            m: 2
+                                            mx: 1
                                         }}
                                     >
-                                        <ArrowUpwardIcon size="large" sx={{
-                                            color: "#6563ff"
-                                        }} />
-                                        <Typography
-                                            style={{ fontWeight: 600 }}
-                                            sx={{
-                                                color: "#6563ff"
-                                            }}
-                                        >
-                                            {props.upv}
-                                        </Typography>
-                                        <ArrowDownwardIcon size="large" />
+
+
                                     </Stack>
                                 </Grid>
 
@@ -101,6 +141,7 @@ export default function AnswerCard(props) {
                                     xs
                                     textAlign="left"
                                     pt={2}
+                                    sx={{ mb: 1.2 }}
 
                                 >
                                     <Stack spacing={3}>
@@ -121,7 +162,8 @@ export default function AnswerCard(props) {
                         <Box
                             sx={{
                                 pl: 4.5,
-                                mt: -5
+                                mt: -2,
+                                mb: 2
                             }}
                             className={classes.bottomCardLayout}
                         >
@@ -133,26 +175,48 @@ export default function AnswerCard(props) {
                                         ml: -2
                                     }}
                                 >
-                                    <Stack
-                                        direction="row"
-                                        alignItems="center"
-                                    >
-                                        <Avatar alt='user' src={props.prof} />
-                                        <Typography
-                                            sx={{
-                                                ml: 2,
-                                                mr: 1,
-                                                color: "#9e9e9e"
-                                            }}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <Stack
+                                            direction="row"
+                                            alignItems="center"
                                         >
-                                            Answered by
-                                        </Typography>
-                                        <Typography sx={{
-                                            color: "#6563ff"
-                                        }}>
-                                            {props.usr}
-                                        </Typography>
-                                    </Stack>
+                                            <Avatar alt='user' src={props.prof} />
+                                            <Typography
+                                                sx={{
+                                                    ml: 2,
+                                                    mr: 1,
+                                                    color: "#9e9e9e"
+                                                }}
+                                            >
+                                                Answered by
+                                            </Typography>
+                                            <Typography sx={{
+                                                color: "#6563ff"
+                                            }}>
+                                                {props.usr}
+                                            </Typography>
+                                        </Stack>
+                                        <Stack>
+                                            <Button
+                                                direction="row"
+                                                alignItems="center"
+                                                onClick={handleVoteClick}
+                                                sx={{ marginRight: '4vh' }}
+                                                spacing={2}
+                                                p={1}
+                                            >
+                                                <ThumbUpAltIcon sx={{ color: userVote === 'upvote' ? "#1565c0" : "#9e9e9e", marginRight: "5px" }} />
+                                                <Typography
+                                                    sx={{
+                                                        color: userVote === 'upvote' ? "#1565c0" : "#9e9e9e",
+                                                    }}
+                                                >
+                                                    {upvotes}
+                                                </Typography>
+                                            </Button>
+                                        </Stack>
+                                    </div>
+
                                 </Grid>
 
                             </Grid>

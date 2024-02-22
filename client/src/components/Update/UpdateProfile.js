@@ -114,7 +114,6 @@ const UpdateProfile = () => {
 
 
     const questions = async () => {
-        const idd = storedUserObject._id
         try {
             const response = await instance.get(`/api/v1/questions/ques/${storedUserObject._id}`, {
                 headers: {

@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -15,16 +14,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
 import instance from '../../axiosInstance';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import GoogleIcon from '@mui/icons-material/Google'
 import google from './google.png'
 const defaultTheme = createTheme();
 
 
-function Login({ isLoginOpen, setisLoginOpen }) {
+function Login({ setisLoginOpen }) {
 
 
     const [email, setEmail] = useState('')

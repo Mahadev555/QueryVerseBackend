@@ -15,7 +15,6 @@ import AddIcon from '@mui/icons-material/Add';
 import AddAnswer from './AddAnswer';
 import LockOutlined from '@mui/icons-material/LockOutlined';
 
-
 //Creating custom styles
 const customStyle = makeStyles({
     root: {

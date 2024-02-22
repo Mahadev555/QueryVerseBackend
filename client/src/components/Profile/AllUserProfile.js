@@ -5,16 +5,8 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Edit as EditIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import SkeletonQACard from '../QACard/SkeletonQACard';
-import { Stack } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import instance from '../../axiosInstance';
 
