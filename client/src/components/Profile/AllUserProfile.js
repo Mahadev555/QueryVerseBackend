@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import instance from '../../axiosInstance';
+import LogoutMessage from '../LoggedOff/LogoutMessage';
 
 const defaultTheme = createTheme();
 
@@ -16,7 +17,8 @@ const AllUserProfile = (props) => {
    
     const navigate = useNavigate();
     const [userProfile, setUserProfile] = useState({});
-    console.log("🚀 ~ AllUserProfile ~ userProfile:", userProfile)
+
+    const token = localStorage.getItem('token');
     //get userID from that url
     const { userId } = useParams();
 
@@ -41,10 +43,12 @@ const AllUserProfile = (props) => {
         };
     
         fetchUserProfile();
-      }, [userId]);
+      }, [userId,token]);
 
-      
-    return (
+      if (!token) {
+        return <LogoutMessage />;
+      }
+    return ( 
         <ThemeProvider theme={defaultTheme}>
             <Container sx={{ backgroundColor: '#ffffff', borderRadius: '10px', margin: '80px', marginLeft: '160px', padding: '80px', paddingBottom: '50px', paddingTop: '10px' }}>
                 <Box sx={{ padding: 4 }}>

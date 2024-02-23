@@ -11,6 +11,7 @@ import UpdateProfile from '../Update/UpdateProfile';
 import JobCenter from '../Job/JobCenter';
 import AllUserProfile from '../Profile/AllUserProfile';
 import ComingSoonComponent from '../CommingSoon/ComingSoonComponent';
+import LogoutMessage from '../LoggedOff/LogoutMessage';
 
 const customTheme = createTheme({
   palette: {
@@ -64,7 +65,9 @@ function App() {
             <Route path="/update" element={<UpdateProfile />} />
             <Route path="/job" element={<JobCenter />} />
             <Route path="/s/:userId" element={<AllUserProfile />} />
-            <Route path="/cs" element={<ComingSoonComponent />} />
+            <Route path="/cs" element={<ComingSoonComponent />} />            
+            <Route path="/logout" element={<LogoutMessage />} />
+
           </Routes>
         </Box>
       </Router>
