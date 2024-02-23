@@ -55,7 +55,6 @@ exports.postNewQuestion = catchAsync(async (req, res, next) => {
 	//User Part
 	//Finding the user info of the logged in user
 	const user = await Users.findById(req.user.id);
-	console.log("🚀 ~ exports.postNewQuestion=catchAsync ~ user:", user)
 
 	const updatedUserObj = { questionsAsked: question.id };
 
@@ -209,7 +208,6 @@ exports.getAllQuestionsByUserId = catchAsync(async (req, res, next) => {
 
 
 	const userId = req.params.userID;
-	console.log("🚀 ~ exports.getAllQuestionsByUserId=catchAsync ~ userId:", userId)
 	const questions = await Questions.find({ userID: ObjectId(userId) });
 	// Fetching all questions with the provided userID 
  
