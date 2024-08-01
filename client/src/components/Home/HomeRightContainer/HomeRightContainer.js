@@ -1,6 +1,6 @@
 //Importing external files/modules
 
-import toast, {   Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';

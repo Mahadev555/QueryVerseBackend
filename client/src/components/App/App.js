@@ -12,7 +12,6 @@ import JobCenter from '../Job/JobCenter';
 import AllUserProfile from '../Profile/AllUserProfile';
 import ComingSoonComponent from '../CommingSoon/ComingSoonComponent';
 import LogoutMessage from '../LoggedOff/LogoutMessage';
-import { Toaster } from 'react-hot-toast';
 import Gpt from '../Gpt/Gpt';
 
 const customTheme = createTheme({
