@@ -72,12 +72,13 @@ const Navbar = ({ setModalOpen,setisLoginOpen,setisSignUpopen, isModalOpen }) =>
               <Box sx={{ display: 'flex', flexDirection: 'row', mr: 2 }}>
                 <Box
                   sx={{
-                    width: 120,
+                    width: 175,
                     height: 40,
                     mr: 1.5,
                     mt: 1.1,
                     backgroundColor: 'secondary.main',
-                    borderRadius: 4,
+                    borderRadius: 2,
+                    ml:3
                   }}
                 >
                   <Typography
@@ -90,7 +91,7 @@ const Navbar = ({ setModalOpen,setisLoginOpen,setisSignUpopen, isModalOpen }) =>
                     }}
                     color="#ffffff"
                   >
-                    QVerse
+                    Query Verse
                   </Typography>
                 </Box>
                 <IconButton
@@ -107,7 +108,7 @@ const Navbar = ({ setModalOpen,setisLoginOpen,setisSignUpopen, isModalOpen }) =>
                 >
                   <HomeOutlinedIcon />
                 </IconButton>
-                <IconButton
+                {/* <IconButton
                   color="secondary"
                   size="large"
                   edge="start"
@@ -119,8 +120,8 @@ const Navbar = ({ setModalOpen,setisLoginOpen,setisSignUpopen, isModalOpen }) =>
                   className={classes.icons}
                 >
                   <FormatListBulletedOutlinedIcon />
-                </IconButton>
-                <IconButton
+                </IconButton> */}
+                {/* <IconButton
                   color="secondary"
                   size="large"
                   edge="start"
@@ -132,7 +133,7 @@ const Navbar = ({ setModalOpen,setisLoginOpen,setisSignUpopen, isModalOpen }) =>
                   className={classes.icons}
                 >
                   <ChatBubbleOutlineIcon />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </Grid>
             {/* Empty space */}

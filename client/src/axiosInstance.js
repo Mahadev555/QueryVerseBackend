@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL || 'http://localhost:8080' // You can use environment variables to override this
+  baseURL: process.env.REACT_APP_BASE_URL || 'https://query-z4fe.onrender.com/' // You can use environment variables to override this
 });
 
 export default instance;

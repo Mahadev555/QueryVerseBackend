@@ -12,6 +12,8 @@ import JobCenter from '../Job/JobCenter';
 import AllUserProfile from '../Profile/AllUserProfile';
 import ComingSoonComponent from '../CommingSoon/ComingSoonComponent';
 import LogoutMessage from '../LoggedOff/LogoutMessage';
+import { Toaster } from 'react-hot-toast';
+import Gpt from '../Gpt/Gpt';
 
 const customTheme = createTheme({
   palette: {
@@ -37,11 +39,11 @@ function App() {
 
   const [isLoginOpen, setisLoginOpen] = useState(false);
   const [isSignUpopen, setisSignUpopen] = useState(false);
-  console.log("🚀 ~ App ~ isModalOpen:", isModalOpen)
 
 
   return (
     <ThemeProvider theme={customTheme}>
+      
       <Router>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Navbar
@@ -49,7 +51,7 @@ function App() {
             setisLoginOpen={setisLoginOpen}
             isSignUpopen={isSignUpopen}
             setisSignUpopen={setisSignUpopen}
-            setModalOpen={setModalOpen} 
+            setModalOpen={setModalOpen}
             isModalOpen={isModalOpen} />
           <Routes>
             <Route path="/" element={<Home
@@ -64,8 +66,9 @@ function App() {
             <Route path="/addTopic" element={<AddTopic />} />
             <Route path="/update" element={<UpdateProfile />} />
             <Route path="/job" element={<JobCenter />} />
+            <Route path="/Gpt" element={<Gpt />} />
             <Route path="/s/:userId" element={<AllUserProfile />} />
-            <Route path="/cs" element={<ComingSoonComponent />} />            
+            <Route path="/cs" element={<ComingSoonComponent />} />
             <Route path="/logout" element={<LogoutMessage />} />
 
           </Routes>
