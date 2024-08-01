@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import { useEffect, useState } from 'react';
 
-import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
