@@ -12,6 +12,8 @@ import DialogContent from '@mui/material/DialogContent';
 import JobCenter from '../Job/JobCenter';
 import Login from '../SignUp/Login';
 import SignUp from '../SignUp/SignUp';
+import Gpt from '../Gpt/Gpt';
+import Ebook from '../EBook/Ebook';
 const customStyle = makeStyles({
   section: {
     textAlign: 'center',
@@ -39,6 +41,8 @@ const Body = ({ isModalOpen,isSignUpopen,setisSignUpopen,isLoginOpen,setisLoginO
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isJob, setisJob] = useState(false);
   const [isQue, setIsQue] = useState(true);
+  const [isGpt, setIsGpt] = useState(false);
+  const [isEbook, setIsEbook] = useState(false);
   return (
     <><div>
 
@@ -49,6 +53,8 @@ const Body = ({ isModalOpen,isSignUpopen,setisSignUpopen,isLoginOpen,setisLoginO
         <Grid item xs={7} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.moveableCenter}`}>
           {isQue && <CenterHome isDialogOpen={isDialogOpen} />}
           {isJob && <JobCenter />}
+          {isGpt && <Gpt />}
+          {isEbook && <Ebook />}
         </Grid>
         <Grid item xs={2.5} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.fixedRight}`}>
           <RightHome
@@ -57,7 +63,11 @@ const Body = ({ isModalOpen,isSignUpopen,setisSignUpopen,isLoginOpen,setisLoginO
             isJob={isJob}
             setisJob={setisJob}
             isDialogOpen={isDialogOpen}
-            setDialogOpen={setDialogOpen} />
+            setDialogOpen={setDialogOpen}
+            setIsGpt={setIsGpt}
+            setIsEbook={setIsEbook}
+             />
+            
         </Grid>
       </Grid>
 
