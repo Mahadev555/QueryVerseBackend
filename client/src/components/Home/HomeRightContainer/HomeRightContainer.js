@@ -1,6 +1,5 @@
 //Importing external files/modules
 
-import toast from 'react-hot-toast';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -52,7 +51,6 @@ export default function HomeRightContainer({ isDialogOpen  , setisJob, setDialog
 
 
     const [isLoggedin, setIsLoggedIn] = useState(false)
-    const notify = () => toast('Here is your toast.');
 
 
     const handleOpenDialog = () => {
