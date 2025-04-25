@@ -19,17 +19,17 @@ import LockOutlined from '@mui/icons-material/LockOutlined';
 const customStyle = makeStyles({
     root: {
         width: "fillParent",
-        height: 200,
+        height: 'auto',
         backgroundColor: '#ffffff',
     },
     internalCardLayout: {
         width: "fillParent",
-        height: 150,
+        height: 'auto',
         backgroundColor: '#ffffff',
     },
     bottomCardLayout: {
         width: "fillParent",
-        height: 40,
+        height: 'auto',
         backgroundColor: '#ffffff',
     }
 })
@@ -84,7 +84,8 @@ export default function QACard(props) {
                     p: 2.5,
                     borderRadius: 5,
                     boxShadow: 5,
-                    mb: 3
+                    mb: 3,
+                    height:'auto'
                 }}
                 className={classes.root}
             >
@@ -101,7 +102,8 @@ export default function QACard(props) {
                     >
                         <Box
                             sx={{
-                                borderRadius: 5
+                                borderRadius: 5,
+                                height:'auto'
                             }}
                             className={classes.internalCardLayout}
                         >
@@ -155,7 +157,8 @@ export default function QACard(props) {
                                         </Typography>
                                         <Typography
                                             sx={{
-                                                color: "#9e9e9e"
+                                                color: "#9e9e9e",
+                                                height:'auto'
                                             }}
                                         >
                                             {props.desc}

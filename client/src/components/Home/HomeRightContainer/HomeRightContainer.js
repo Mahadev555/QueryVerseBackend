@@ -1,4 +1,6 @@
 //Importing external files/modules
+
+import toast from 'react-hot-toast';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -42,15 +44,15 @@ const customStyle = makeStyles({
     }
 })
 
-export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setDialogOpen,isQue,setIsQue }) {
-    console.log("🚀 ~ HomeRightContainer ~ setDialogOpen:", setDialogOpen)
-    console.log("🚀 ~ HomeRightContainer ~ isDialogOpen:", isDialogOpen)
+export default function HomeRightContainer({ isDialogOpen  , setisJob, setDialogOpen ,setIsQue,setIsGpt,setIsEbook }) {
+ 
+   
+    const classes = customStyle();
     const navigate = useNavigate();
 
-    const classes = customStyle();
 
     const [isLoggedin, setIsLoggedIn] = useState(false)
-
+    const notify = () => toast('Here is your toast.');
 
 
     const handleOpenDialog = () => {
@@ -60,12 +62,30 @@ export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setD
 
     const handleJob = () => {
         setisJob(true);
-        setIsQue(false)
+        setIsQue(false);
+        setIsGpt(false)
+        setIsEbook(false)
     };
 
     const handleQue = () => {
         setisJob(false);
-        setIsQue(true)
+        setIsQue(true);
+        setIsGpt(false);
+        setIsEbook(false)
+    };
+
+    const handleGpt = () => {
+        setisJob(false);
+        setIsQue(false)
+        setIsGpt(true);
+        setIsEbook(false)
+    };
+
+    const handleEbook = () => {
+        setisJob(false);
+        setIsQue(false)
+        setIsGpt(false);
+        setIsEbook(true)
     };
 
 
@@ -91,10 +111,7 @@ export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setD
         window.alert(" Please Login")
     }
 
-    const handleAdd = () => {
-        // Use the 'navigate' function to navigate to '/addTopic'
-        navigate('/addTopic');
-    };
+ 
 
     return (
         <div>
@@ -168,9 +185,7 @@ export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setD
 
                     <OutlinedFlagIcon />
 
-                    <Typography>
-                        Topics
-                    </Typography>
+                    <Typography>Sections                    </Typography>
 
                 </Stack>
 
@@ -185,17 +200,18 @@ export default function HomeRightContainer({ isDialogOpen, isjob, setisJob, setD
                         </Button>
                     </ListItem>
                     <ListItem>
-                        <Button sx={{ mr: 6 }}> <MenuBookOutlinedIcon sx={{ mr: 2 }} />
+                        <Button onClick={handleEbook} sx={{ mr: 6 }}> <MenuBookOutlinedIcon sx={{ mr: 2 }} />
                             <ListItemText primary="E-Books" /></Button>
                     </ListItem>
 
                     <ListItem>
-                        <Button sx={{ margin: '-8px 0px', mr: 6 }}> <SportsBasketballOutlinedIcon sx={{ mr: 2 }} />
-                            <ListItemText primary="Sports" /></Button>
+                        <Button onClick={handleGpt} sx={{ margin: '-8px 0px', mr: 6 }}> <SportsBasketballOutlinedIcon sx={{ mr: 2 }} />
+                            <ListItemText primary="QueryVerse GPT" /></Button>
                     </ListItem>
                     
                     <ListItem>
-                        <Button sx={{ margin: '-8px 0px' }}><ArchiveOutlinedIcon sx={{ mr: 2 }} />
+                        
+                        <Button sx={{ margin: '-8px 0px' }} onClick={() => { navigate('/cs'); }} ><ArchiveOutlinedIcon sx={{ mr: 2 }} />
                             <ListItemText primary="Documentation" /></Button>
                     </ListItem>
 

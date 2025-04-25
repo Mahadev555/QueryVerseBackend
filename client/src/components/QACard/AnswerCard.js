@@ -8,6 +8,8 @@ import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
 import { useEffect, useState } from 'react';
 
+import toast from 'react-hot-toast';
+
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -40,7 +42,7 @@ export default function AnswerCard(props) {
     const [alertOpen, setAlertOpen] = useState(false);
 
     const token = localStorage.getItem('token');
-
+    const notify = () => toast('Here is your toast.');
 
     useEffect(() => {
 
@@ -265,6 +267,7 @@ export default function AnswerCard(props) {
         Please login to give likes.
     </Alert>
 </Snackbar>
+
 
         </div>
     );

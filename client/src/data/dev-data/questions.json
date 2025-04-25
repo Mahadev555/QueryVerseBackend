@@ -1,40 +1,40 @@
 [
 	{
-		"userQuestioner": "Mahadev Manerikar",
-		"questionTitle": "Which courses this college offers?",
-		"questionDescription": "This is the description of the question",
-		"questionTag": "Courses",
-		"upvotes":10,
-		"downvotes":3,
-		"answers": ["61dd46f03cecd228e9df643a", "123"]
+	  "_id": "65d47d7b748c0e9f2c376d7a",
+	  "userQuestioner": "Prathmesh Auti",
+	  "questionTitle": "Games",
+	  "questionDescription": "When clg is going to conduct Ranangan event?",
+	  "questionTag": "Courses",
+	  "upvotes": 0,
+	  "profileImage": "https://res.cloudinary.com/detjwtn7c/image/upload/v1708424518/fdr2troe…",
+	  "userID": "65d47d1a748c0e9f2c376d60",
+	  "downvotes": 0,
+	  "answers": ["65d47e31748c0e9f2c376d9f"]
 	},
 	{
-		"userQuestioner": "Pragati More",
-		"questionTitle": "This is a question 2",
-		"questionDescription": "This is the description of the question",
-		"questionTag": "Events",
-		"upvotes": 20,
-		"downvotes": 5,
-		"answers": ["61dd46f03cecd228e9df643a", "61dd46f03cecd228e9df6439"]
-
+	  "_id": "65d47e51748c0e9f2c376db2",
+	  "userQuestioner": "Rahul Shinde",
+	  "questionTitle": "Placements",
+	  "questionDescription": "What about 90% placements???",
+	  "questionTag": "Jobs",
+	  "upvotes": 0,
+	  "profileImage": "https://res.cloudinary.com/detjwtn7c/image/upload/v1707909372/r3b0nw99…",
+	  "userID": "65cc88d88964fb2ad4ac735d",
+	  "downvotes": 0,
+	  "answers": ["65d47ec5748c0e9f2c376dc9"]
 	},
 	{
-		"userQuestioner": "Kaiwalya Koparkar",
-		"questionTitle": "This is a question 3",
-		"questionDescription": "This is the description of the question",
-		"questionTag": "Courses",
-		"upvotes":15,
-		"downvotes":0,
-		"answers": ["61dd46f03cecd228e9df643a", "61dd46f03cecd228e9df6439"]
-	},
-	{
-		"userQuestioner": "Mrunaal Chincholikar",
-		"questionTitle": "This is a question 4",
-		"questionDescription": "This is the description of the question",
-		"questionTag": "Jobs",
-		"upvotes":13,
-		"downvotes":2,
-		"answers": ["61dd46f03cecd228e9df643a", "61dd46f03cecd228e9df6439"]
+	  "_id": "65d47f59748c0e9f2c376de4",
+	  "userQuestioner": "Prathmesh Auti",
+	  "questionTitle": "FE Syllabus",
+	  "questionDescription": "Can someone provide me Ebooks link",
+	  "questionTag": "Courses",
+	  "upvotes": 0,
+	  "profileImage": "https://res.cloudinary.com/detjwtn7c/image/upload/v1708424518/fdr2troe…",
+	  "userID": "65d47d1a748c0e9f2c376d60",
+	  "downvotes": 0,
+	  "answers": ["65d58a7041fb628fda65609a"]
 	}
  
-]
+  ]
+  
