@@ -21,20 +21,21 @@ export default function AnsContainer(id) {
         fetchData();
     }, []); // Empty dependency array means this effect runs once when the component mounts
 
-    
+
 
     return (
         <div >
             <Stack >
-            {Answers.map((ele) => (
-                <AnswerCard key={ele._id} // Make sure to use a unique key for each item in the list
+                {Answers.map((ele) => (
+                    <AnswerCard key={ele._id}
+                        answerId={ele._id}// Make sure to use a unique key for each item in the list
                         upv={ele.upvotes}
                         downv={ele.downvotes}
                         ans={ele.answer}
-                        prof={ele.profileImage}     
+                        prof={ele.profileImage}
                         usr={ele.userAnswerer} />
-         
-            ))}
+
+                ))}
 
 
             </Stack>

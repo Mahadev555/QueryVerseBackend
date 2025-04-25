@@ -6,23 +6,28 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Avatar from '@mui/material/Avatar';
 import { makeStyles } from '@mui/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import { Button } from '@mui/material';
+import instance from '../../axiosInstance';
 // Creating custom styles
 const customStyle = makeStyles({
     root: {
         width: "fillParent",
-        height: 200,
+        height: 'auto',
         backgroundColor: '#ffffff',
     },
     internalCardLayout: {
         width: "fillParent",
-        height: 150,
+        height: 'auto',
         backgroundColor: '#ffffff',
     },
     bottomCardLayout: {
         width: "fillParent",
-        height: 40,
+        height: 'auto',
         backgroundColor: '#ffffff',
     }
 })
@@ -30,9 +35,69 @@ const customStyle = makeStyles({
 // Main QACard function
 export default function AnswerCard(props) {
     const classes = customStyle();
-    const [isClick, setIsClick] = useState(false);
+    const [userVote, setUserVote] = useState(null);
+    const [upvotes, setUpvotes] = useState(props.upv);
+    const [alertOpen, setAlertOpen] = useState(false);
 
-    
+    const token = localStorage.getItem('token');
+
+
+    useEffect(() => {
+
+    }, [upvotes]);
+
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAlertOpen(false);
+    };
+
+    const handleVoteClick = async () => {
+
+
+        try {
+            if (!token) {
+                // Show the MUI alert
+                setAlertOpen(true);
+                return;
+            }
+            else {
+                let newVote = null;
+
+                if (userVote === 'upvote') {
+                    // User already upvoted, toggle to downvote
+                    newVote = 'downvote';
+                    setUpvotes(upvotes - 1);
+                } else {
+                    // User either downvoted or never voted, toggle to upvote
+                    newVote = 'upvote';
+                    setUpvotes(upvotes + 1);
+                }
+
+                setUserVote(newVote);
+
+                // Send the request to update the answer
+                const response = await instance.patch(`/api/v1/answers/${props.answerId}`, {
+                    upvotes: newVote === 'upvote' ? true : false,
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                if (response.status !== 203) {
+                    console.error('Failed to update answer');
+                }
+            }
+        } catch (error) {
+            // Handle errors
+            console.error('Error updating answer:', error);
+        }
+
+    };
+
 
     return (
         <div>
@@ -70,7 +135,7 @@ export default function AnswerCard(props) {
                                     item
                                     xs={1.5}
                                     sx={{
-                                        mr: 2
+
                                     }}
                                 >
                                     <Stack
@@ -78,21 +143,11 @@ export default function AnswerCard(props) {
                                         alignItems="center"
                                         spacing={2}
                                         sx={{
-                                            m: 2
+                                            mx: 1
                                         }}
                                     >
-                                        <ArrowUpwardIcon size="large" sx={{
-                                            color: "#6563ff"
-                                        }} />
-                                        <Typography
-                                            style={{ fontWeight: 600 }}
-                                            sx={{
-                                                color: "#6563ff"
-                                            }}
-                                        >
-                                            {props.upv}
-                                        </Typography>
-                                        <ArrowDownwardIcon size="large" />
+
+
                                     </Stack>
                                 </Grid>
 
@@ -101,6 +156,7 @@ export default function AnswerCard(props) {
                                     xs
                                     textAlign="left"
                                     pt={2}
+                                    sx={{ mb: 1.2 }}
 
                                 >
                                     <Stack spacing={3}>
@@ -121,7 +177,8 @@ export default function AnswerCard(props) {
                         <Box
                             sx={{
                                 pl: 4.5,
-                                mt: -5
+                                mt: -2,
+                                mb: 2
                             }}
                             className={classes.bottomCardLayout}
                         >
@@ -133,26 +190,48 @@ export default function AnswerCard(props) {
                                         ml: -2
                                     }}
                                 >
-                                    <Stack
-                                        direction="row"
-                                        alignItems="center"
-                                    >
-                                        <Avatar alt='user' src={props.prof} />
-                                        <Typography
-                                            sx={{
-                                                ml: 2,
-                                                mr: 1,
-                                                color: "#9e9e9e"
-                                            }}
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <Stack
+                                            direction="row"
+                                            alignItems="center"
                                         >
-                                            Answered by
-                                        </Typography>
-                                        <Typography sx={{
-                                            color: "#6563ff"
-                                        }}>
-                                            {props.usr}
-                                        </Typography>
-                                    </Stack>
+                                            <Avatar alt='user' src={props.prof} />
+                                            <Typography
+                                                sx={{
+                                                    ml: 2,
+                                                    mr: 1,
+                                                    color: "#9e9e9e"
+                                                }}
+                                            >
+                                                Answered by
+                                            </Typography>
+                                            <Typography sx={{
+                                                color: "#6563ff"
+                                            }}>
+                                                {props.usr}
+                                            </Typography>
+                                        </Stack>
+                                        <Stack>
+                                            <Button
+                                                direction="row"
+                                                alignItems="center"
+                                                onClick={handleVoteClick}
+                                                sx={{ marginRight: '4vh' }}
+                                                spacing={2}
+                                                p={1}
+                                            >
+                                                <ThumbUpAltIcon sx={{ color: userVote === 'upvote' ? "#1565c0" : "#9e9e9e", marginRight: "5px" }} />
+                                                <Typography
+                                                    sx={{
+                                                        color: userVote === 'upvote' ? "#1565c0" : "#9e9e9e",
+                                                    }}
+                                                >
+                                                    {upvotes}
+                                                </Typography>
+                                            </Button>
+                                        </Stack>
+                                    </div>
+
                                 </Grid>
 
                             </Grid>
@@ -160,6 +239,33 @@ export default function AnswerCard(props) {
                     </Grid>
                 </Grid>
             </Box>
+           <Snackbar
+    open={alertOpen}
+    autoHideDuration={2000}
+    onClose={handleCloseAlert}
+    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+>
+    <Alert
+        onClose={handleCloseAlert}
+        severity="error"  // Change severity to "error" for red color
+        sx={{
+            width: '500px', // Change width as needed
+            height: '80px', // Change height as needed
+            borderRadius: ' 0px 10px', // Add borderRadius for rounded corners
+           backgroundColor:'#fcdcdc',
+           border:'0.1vh solid #ff5454',
+            fontSize: '16px', // Change font size as needed
+            fontWeight: 'bold', // Set font weight to bold
+            textAlign: 'center', // Center-align text
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}
+    >
+        Please login to give likes.
+    </Alert>
+</Snackbar>
+
         </div>
     );
 }

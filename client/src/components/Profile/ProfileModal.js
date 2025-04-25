@@ -112,7 +112,7 @@ const ProfileModal = ({ onClose }) => {
                     color="primary"
                     sx={{ mt: 3, ml:6 }}
                 >
-                    Update
+                    Details
                 </Button>
 
             </CardContent>

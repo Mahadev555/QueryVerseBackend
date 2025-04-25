@@ -10,6 +10,8 @@ import AddTopic from '../AddTopic/AddTopic';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import JobCenter from '../Job/JobCenter';
+import Login from '../SignUp/Login';
+import SignUp from '../SignUp/SignUp';
 const customStyle = makeStyles({
   section: {
     textAlign: 'center',
@@ -31,7 +33,7 @@ const customStyle = makeStyles({
   },
 });
 
-const Body = ({ isModalOpen }) => {
+const Body = ({ isModalOpen,isSignUpopen,setisSignUpopen,isLoginOpen,setisLoginOpen }) => {
   console.log("🚀 ~ Body ~ isModalOpen:", isModalOpen)
   const classes = customStyle();
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -46,16 +48,16 @@ const Body = ({ isModalOpen }) => {
         </Grid>
         <Grid item xs={7} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.moveableCenter}`}>
           {isQue && <CenterHome isDialogOpen={isDialogOpen} />}
-          {isJob && <JobCenter/>}
+          {isJob && <JobCenter />}
         </Grid>
         <Grid item xs={2.5} className={`${classes.section}  ${isDialogOpen ? 'blurred' : ''} ${isModalOpen ? 'blurred' : ''} ${classes.fixedRight}`}>
-          <RightHome 
-          setIsQue={setIsQue} 
-          isQue={isQue} 
-          isJob={isJob} 
-          setisJob={setisJob} 
-          isDialogOpen={isDialogOpen} 
-          setDialogOpen={setDialogOpen} />
+          <RightHome
+            setIsQue={setIsQue}
+            isQue={isQue}
+            isJob={isJob}
+            setisJob={setisJob}
+            isDialogOpen={isDialogOpen}
+            setDialogOpen={setDialogOpen} />
         </Grid>
       </Grid>
 
@@ -63,8 +65,25 @@ const Body = ({ isModalOpen }) => {
       <Dialog open={isDialogOpen}  >
         <DialogContent>
           <AddTopic setDialogOpen={setDialogOpen} isDialogOpen={isDialogOpen} />
+
+
+        </DialogContent>
+      </Dialog>
+      <Dialog open={isLoginOpen}  >
+        <DialogContent>
+          <Login setisLoginOpen={setisLoginOpen}  setisSignUpopen={setisSignUpopen} isLoginOpen={isLoginOpen} />
+
+
+        </DialogContent>
+      </Dialog>
+      <Dialog open={isSignUpopen}  >
+        <DialogContent>
+          <SignUp setisSignUpopen={setisSignUpopen} setisLoginOpen={setisLoginOpen} isLoginOpen={isLoginOpen} />
+
+
         </DialogContent>
       </Dialog></>
+
   );
 };
 

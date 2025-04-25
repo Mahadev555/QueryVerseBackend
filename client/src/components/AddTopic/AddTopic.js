@@ -67,6 +67,7 @@ export default function AddTopic({ isDialogOpen, setDialogOpen }) {
             questionTitle: userQuestioner.questionTitle,
             questionDescription: userQuestioner.questionDescription,
             questionTag: userQuestioner.questionTag,
+            userID :storedUserObject._id,
             profileImage: storedUserObject.profileImage
         }, {
             headers: {

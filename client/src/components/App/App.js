@@ -9,6 +9,9 @@ import AddTopic from '../AddTopic/AddTopic';
 import Navbar from '../Navbar/Navbar';
 import UpdateProfile from '../Update/UpdateProfile';
 import JobCenter from '../Job/JobCenter';
+import AllUserProfile from '../Profile/AllUserProfile';
+import ComingSoonComponent from '../CommingSoon/ComingSoonComponent';
+import LogoutMessage from '../LoggedOff/LogoutMessage';
 
 const customTheme = createTheme({
   palette: {
@@ -31,21 +34,40 @@ const customTheme = createTheme({
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const [isLoginOpen, setisLoginOpen] = useState(false);
+  const [isSignUpopen, setisSignUpopen] = useState(false);
   console.log("🚀 ~ App ~ isModalOpen:", isModalOpen)
 
-  
+
   return (
     <ThemeProvider theme={customTheme}>
       <Router>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Navbar setModalOpen={setModalOpen} isModalOpen={isModalOpen} />
+          <Navbar
+            isLoginOpen={isLoginOpen}
+            setisLoginOpen={setisLoginOpen}
+            isSignUpopen={isSignUpopen}
+            setisSignUpopen={setisSignUpopen}
+            setModalOpen={setModalOpen} 
+            isModalOpen={isModalOpen} />
           <Routes>
-            <Route path="/" element={<Home isModalOpen={isModalOpen} />} />
+            <Route path="/" element={<Home
+              isModalOpen={isModalOpen}
+              isLoginOpen={isLoginOpen}
+              setisLoginOpen={setisLoginOpen}
+              isSignUpopen={isSignUpopen}
+              setisSignUpopen={setisSignUpopen}
+            />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/addTopic" element={<AddTopic />} />
             <Route path="/update" element={<UpdateProfile />} />
             <Route path="/job" element={<JobCenter />} />
+            <Route path="/s/:userId" element={<AllUserProfile />} />
+            <Route path="/cs" element={<ComingSoonComponent />} />            
+            <Route path="/logout" element={<LogoutMessage />} />
+
           </Routes>
         </Box>
       </Router>

@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -15,14 +14,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
 import instance from '../../axiosInstance';
- 
-
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import google from './google.png'
 const defaultTheme = createTheme();
 
 
-function Login() {
+function Login({ setisLoginOpen }) {
 
 
     const [email, setEmail] = useState('')
@@ -52,7 +51,7 @@ function Login() {
                         var userObject = response.data.data.user;
                         console.log("🚀 ~ handleSubmit ~ userObject:", userObject)
                         localStorage.setItem("name", response.data.data.user.name);
-                        localStorage.setItem("profile",  response.data.data.user.profileImage);
+                        localStorage.setItem("profile", response.data.data.user.profileImage);
                         // Convert the user object to a JSON string
                         var userObjectString = JSON.stringify(userObject);
                         console.log("🚀 ~ handleSubmit ~ userObjectString:", userObjectString)
@@ -96,30 +95,18 @@ function Login() {
     return (
         <div>
             <ThemeProvider theme={defaultTheme} >
-                <Grid container component="main" sx={{ height: '100vh' }}>
-                    <CssBaseline />
-                    <Grid
-                        item
-                        xs={false}
-                        sm={4}
-                        md={7}
-                        sx={{
-                            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundColor: (t) =>
-                                t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                        }}
-                    />
-                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+               
+
+          
+
                         <Box
                             sx={{
-                                my: 8,
+                                my: 2,
                                 mx: 4,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
+                                justifyContent: 'center'
                             }}
                         >
                             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -165,6 +152,23 @@ function Login() {
                                 >
                                     Sign In
                                 </Button>
+                                <Typography variant="body2" color="textSecondary" align="center" sx={{ mb: 1 }}>
+                                   OR
+                                </Typography>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    sx={{ mb: 1, bgcolor: 'white' }}
+                                >
+                                    {/* <GoogleIcon sx={{ mx:2}} /> */}
+                                  <img style={{width:'25px',margin:'2px 10px'}} src={google} />   Sign in with Google
+                                </Button>
+                                <IconButton
+                                    sx={{ position: 'relative', top: -450, left: 460 }}
+                                    onClick={() => setisLoginOpen(false).navigate('/')}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
                                 <Grid container>
                                     <Grid item xs>
                                         <Link href="#" variant="body2">
@@ -180,8 +184,8 @@ function Login() {
 
                             </Box>
                         </Box>
-                    </Grid>
-                </Grid>
+                    
+    
             </ThemeProvider>
         </div>
     )

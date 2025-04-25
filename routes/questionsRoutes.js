@@ -23,7 +23,9 @@ routes.route('/:id')
 
 routes.route('/ans/:id')
 	.get(questionsControllers.getAllAnswersForQuestion)
-	
+
+routes.route('/ques/:userID')
+	.get(questionsControllers.getAllQuestionsByUserId)
 
 //--------- Post function Assignment ---------------
 module.exports = routes;

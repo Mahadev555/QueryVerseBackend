@@ -27,9 +27,9 @@ exports.sendEmail = async (req, res) => {
 
         // Email options
         const mailOptions = {
-            from: 'queryverse',
+            from: 'queryverse-MH.com',
             to: email,
-            subject: 'OTP Verification ',
+            subject: ' QueryVerse OTP Verification  ',
             text: `Your OTP is: ${otp}. Please use it to verify your account.`,
         };
 
@@ -38,7 +38,6 @@ exports.sendEmail = async (req, res) => {
             console.log("aaaaa")
             const info = await transporter.sendMail(mailOptions);
 
-            console.log('Email sent: ', info.response);
 
             await otpModel.create({
                 email: email,
@@ -63,7 +62,6 @@ exports.sendEmail = async (req, res) => {
 exports.verifyotp = async (req, res) => {
     try {
         const { email, EnteredOtp } = req.body;
-        console.log("🚀 ~ verifyotp ~ EnteredOtp:", EnteredOtp)
 
         const userExist = await otpModel.findOne({ email: email });
 
@@ -75,7 +73,6 @@ exports.verifyotp = async (req, res) => {
         }
         // Check 
         if (userExist.otp != EnteredOtp) {
-            console.log("🚀 ~ verifyotp ~ userExist.otp:", userExist.otp)
             return res.json({ otpMatch: false });
         }
 

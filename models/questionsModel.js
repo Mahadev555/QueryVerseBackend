@@ -26,6 +26,10 @@ const questionsSchema = new mongoose.Schema({
 		type: String,
 
 	},
+	userID: {
+		type: String,
+
+	},
 	downvotes: {
 		type: Number,
 		default: 0
